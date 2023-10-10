@@ -16,8 +16,8 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Introduction</a></li>
-							<li><a href="#one">Recent Work</a></li>
-							<li><a href="#two">Projects</a></li>
+							<li><a href="#one">Featured Projects</a></li>
+							<li><a href="#two">At a Glance</a></li>
 							<li><a href="#three">Contact</a></li>
 						</ul>
 					</nav>
@@ -33,7 +33,7 @@
 							<img src="images/headshot.png" alt="Profile Headshot" class="round-image">
 							<h1>Hi, I am Hardik Devrangadi, <br /> a Roboticist <br /> from Boston</h1>
 							
-							<p>I am a Graduate Student pursuing MS in Robotics at Northeastern University. Currently, I conduct research at the Complex Dynamic Systems and Control Laboratory, under the guidance of Prof. Rifat Sipahi. In this role, I lead a project focused on constructing an Autonomous UAS for high-altitude atmosphere data collection.</p>
+							<p>I am a Graduate Student pursuing MS in Robotics at Northeastern University. Currently, I conduct research at the <a href="http://www1.coe.neu.edu/~rifat/" target='_blank'> Dynamic Systems and Control Laboratory</a>, under the guidance of <a href="https://coe.northeastern.edu/people/sipahi-rifat/" target='_blank'> Prof. Rifat Sipahi.</a> In this role, I lead a project focused on constructing an Autonomous UAS for high-altitude atmosphere data collection.</p>
 							
 							<ul class="actions">
 								<li><a href="#desc" class="button scrolly">About Me</a></li>
@@ -48,7 +48,7 @@
 
 								Before embarking on my Master's journey, I gained invaluable experience as a Software Developer at PricewaterhouseCoopers, where I honed my skills in software development, CI/CD and agile, particularly in the context of cutting-edge technologies. <br /><br />
 								
-								During my academic pursuits, I had the privilege of interning at Samsung R&D, where I spearheaded a project involving the creation of a comprehensive image dataset comprising over 65,000 images using Generative Adversarial Networks (GANs). This extensive dataset served as the foundation for training a Convolutional Neural Network. <br /><br />
+								During my academic pursuits, I had the privilege of interning at Samsung R&D, where I spearheaded a project involving the creation of a comprehensive image dataset comprising over 65,000 images using Generative Adversarial Networks (GANs). This extensive dataset served as the foundation for training a <a href="https://arxiv.org/abs/1801.04381" target='_blank'> Neural Network.</a> <br /><br />
 								
 								Subsequently, I successfully implemented this trained CNN model on a mobile device using TensorFlow Lite. The model demonstrated exceptional accuracy in classifying images into five distinct categories. This accomplishment earned accolades and recognition from the Samsung team, culminating in prestigious awards for our exceptional work. <br /><br />
 								
@@ -61,11 +61,13 @@
 				<!-- One -->
 					<section id="one" class="wrapper style2 spotlights">
 						<section>
-							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="center center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Sed ipsum dolor</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									<h2>Realtime 2D Object Detection</h2>
+									<p>A Robust Object Classification System that processes video frames to classify 15 different objects from a live webcam video stream. Leverages K-Nearest Neighbor Classification to achieve an impressive 95% accuracy in object classification.
+										</p>
+									<blockquote>C++, OpenCV, XCode</blockquote>
 									<ul class="actions">
 										<li><a href="generic.html" class="button">Learn more</a></li>
 									</ul>
@@ -73,11 +75,12 @@
 							</div>
 						</section>
 						<section>
-							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="top center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Feugiat consequat</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									<h2>Disaster Response Autonomous Hexacopter - "The Eclipse"</h2>
+									<p>An industrial grade autonomous UAV spanning 1000mm capable of producing over 22lbs of thrust equipped with several sensors, capable of surveying, static obstacle avoidance, target classification and air delivery.</p>
+									<blockquote>C++, Python, OpenCV, PX4, MavLink, MavProxy, MavROS, Pixhawk 2.4</blockquote>
 									<ul class="actions">
 										<li><a href="generic.html" class="button">Learn more</a></li>
 									</ul>
@@ -85,11 +88,12 @@
 							</div>
 						</section>
 						<section>
-							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="25% 25%" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Ultricies aliquam</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									<h2>Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</h2>
+									<p>Conducted a comparative analysis of optical flow estimation techniques, evaluating the accuracy of classical approaches such as the FarneBack algorithm, and deep learning-based methods like FlowNet 2.0. Evaluated endpoint error, angular error, flow discontinuity, velocity estimation, object tracking, pixel displacement and performed bounding box analysis.</p>
+									<blockquote>C++, Python, OpenCV, XCode, OpenGL, PyTorch, TensorFlow</blockquote>
 									<ul class="actions">
 										<li><a href="generic.html" class="button">Learn more</a></li>
 									</ul>
@@ -142,7 +146,7 @@
 					</section>
 
 				<!-- Three -->
-					<section id="three" class="wrapper style1 fade-up">
+					<!-- <section id="three" class="wrapper style1 fade-up">
 						<div class="inner">
 							<h2>Get in touch</h2>
 							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
@@ -179,6 +183,37 @@
 										<li>
 											<h3>Email</h3>
 											<a href="#">user@untitled.tld</a>
+										</li>
+										<li>
+											<h3>Phone</h3>
+											<span>(000) 000-0000</span>
+										</li>
+										<li>
+											<h3>Social</h3>
+											<ul class="icons">
+												<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+												<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+												<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+												<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+												<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+											</ul>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+					</section> -->
+
+					<section id="three" class="wrapper style1 fade-up">
+						<div class="inner">
+							<h2>Get in touch</h2>
+							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
+							<div class="style1">
+								<section>
+									<ul class="contact">
+										<li>
+											<h3>Email</h3>
+											<a href="#">hardikdevrangadi@gmail.com</a>
 										</li>
 										<li>
 											<h3>Phone</h3>
