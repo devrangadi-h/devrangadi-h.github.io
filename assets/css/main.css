@@ -3948,3 +3948,14 @@ input, select, textarea {
 			}
 
 		}
+
+		.round-image {
+			border-radius: 50%;
+			height: 200px;
+			width: 200px;
+			display: block;
+			float: right; /* Move the image to the right */
+			margin-left: 10px; /* Add some space between the text and the image */
+			margin-right: 200px;
+		}
+		
