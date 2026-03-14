@@ -75,5 +75,12 @@
     "summary": "Add global header with theme toggle and logo",
     "details": "Introduced a persistent site-header on index.html, polaris.html, and main project pages with a left-aligned light/dark theme toggle and right-aligned logo (images/icon.png), wired to a small script that remembers the chosen theme via localStorage.",
     "files": ["assets/css/main.css", "index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:57",
+    "summary": "Increase visual contrast of global header",
+    "details": "Updated .site-header background to a darker gradient with a stronger bottom border and shadow so the header stands out clearly against the dark page background.",
+    "files": ["assets/css/main.css", "polaris-log.json"]
   }
 ]
