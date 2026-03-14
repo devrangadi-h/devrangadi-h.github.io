@@ -12,5 +12,12 @@
     "summary": "Create Polaris public and private dashboards",
     "details": "Added public Polaris activity dashboard at polaris.html and initial private dashboard shell at /private/index.html for Cloudflare Access gating.",
     "files": ["polaris.html", "private/index.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:20",
+    "summary": "Redesign public Polaris dashboard with grouped, collapsible log",
+    "details": "Updated polaris.html to add overview cards, per-day collapsible panels, and light animations, plus dedicated CSS in assets/css/polaris.css.",
+    "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
   }
 ]

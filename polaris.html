@@ -5,14 +5,38 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/polaris.css" />
     <link rel="icon" href="/images/icon.png" type="image/x-icon">
   </head>
   <body>
     <div id="wrapper">
       <section class="wrapper style1 fade-up">
         <div class="inner">
-          <h1>Polaris Activity Log</h1>
-          <p>This page shows a day-to-day log of changes made to <strong>devrobotics.dev</strong> by the Polaris assistant running on your Raspberry Pi.</p>
+          <h1>Polaris Dashboard</h1>
+          <p>This dashboard shows what Polaris has been doing on <strong>devrobotics.dev</strong> via your Raspberry Pi and OpenClaw.</p>
+
+          <section id="overview" class="features">
+            <section>
+              <span class="icon solid major fa-gauge"></span>
+              <h2>Latest Activity</h2>
+              <p id="latest-summary">Loading latest change…</p>
+              <p id="latest-meta" class="small"></p>
+            </section>
+            <section>
+              <span class="icon solid major fa-code-branch"></span>
+              <h2>Site & Repo</h2>
+              <p>
+                Repo: <a href="https://github.com/devrangadi-h/devrangadi-h.github.io" target="_blank">devrangadi-h/devrangadi-h.github.io</a><br />
+                Hosting: GitHub Pages<br />
+                Assistant: Polaris on Raspberry Pi (OpenClaw)
+              </p>
+            </section>
+          </section>
+
+          <hr />
+
+          <h2>Change Log</h2>
+          <p>Grouped by day. Click a date to expand/collapse its entries.</p>
           <div id="log-container">
             <p>Loading log…</p>
           </div>
@@ -30,52 +54,100 @@
     </footer>
 
     <script>
+      function groupByDate(entries) {
+        const byDate = {};
+        entries.forEach(e => {
+          const d = e.date || 'Unknown date';
+          if (!byDate[d]) byDate[d] = [];
+          byDate[d].push(e);
+        });
+        return byDate;
+      }
+
+      function createDayPanel(date, entries) {
+        const panel = document.createElement('article');
+        panel.className = 'polaris-day-panel';
+
+        const header = document.createElement('header');
+        header.className = 'polaris-day-header';
+        header.innerHTML = `
+          <h3>${date}</h3>
+          <span class="toggle">▼</span>
+        `;
+
+        const body = document.createElement('div');
+        body.className = 'polaris-day-body';
+
+        entries
+          .slice()
+          .reverse()
+          .forEach(entry => {
+            const item = document.createElement('div');
+            item.className = 'polaris-log-entry';
+            item.innerHTML = `
+              <h4>${entry.summary || 'Change'}</h4>
+              <p class="meta">${entry.time ? entry.time + ' · ' : ''}${(entry.files || []).join(', ')}</p>
+              <p>${entry.details || ''}</p>
+            `;
+            body.appendChild(item);
+          });
+
+        header.addEventListener('click', () => {
+          const isOpen = body.classList.toggle('open');
+          const toggle = header.querySelector('.toggle');
+          toggle.textContent = isOpen ? '▲' : '▼';
+        });
+
+        panel.appendChild(header);
+        panel.appendChild(body);
+        return panel;
+      }
+
       async function loadLog() {
         const container = document.getElementById('log-container');
+        const latestSummaryEl = document.getElementById('latest-summary');
+        const latestMetaEl = document.getElementById('latest-meta');
         try {
           const res = await fetch('polaris-log.json?_=' + Date.now());
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const entries = await res.json();
           if (!Array.isArray(entries) || entries.length === 0) {
             container.innerHTML = '<p>No entries yet.</p>';
+            latestSummaryEl.textContent = 'No activity logged yet.';
+            latestMetaEl.textContent = '';
             return;
           }
+
+          // Latest activity
+          const latest = entries[entries.length - 1];
+          latestSummaryEl.textContent = latest.summary || 'Latest change';
+          latestMetaEl.textContent = `${latest.date || ''}${latest.time ? ' at ' + latest.time : ''}`;
+
+          // Group by date and render collapsible panels
+          const byDate = groupByDate(entries);
+          const dates = Object.keys(byDate).sort().reverse();
 
           const list = document.createElement('div');
           list.className = 'polaris-log-list';
 
-          entries
-            .slice()
-            .reverse() // newest first
-            .forEach(entry => {
-              const item = document.createElement('article');
-              item.className = 'polaris-log-entry';
-
-              const header = document.createElement('header');
-              header.innerHTML = `
-                <h2>${entry.summary || 'Change'}</h2>
-                <p><strong>${entry.date || ''}</strong> ${entry.time ? 'at ' + entry.time : ''}</p>
-              `;
-
-              const details = document.createElement('p');
-              details.textContent = entry.details || '';
-
-              const files = document.createElement('p');
-              if (Array.isArray(entry.files) && entry.files.length) {
-                files.innerHTML = '<strong>Files:</strong> ' + entry.files.join(', ');
-              }
-
-              item.appendChild(header);
-              item.appendChild(details);
-              if (files.innerHTML) item.appendChild(files);
-
-              list.appendChild(item);
-            });
+          dates.forEach((date, idx) => {
+            const panel = createDayPanel(date, byDate[date]);
+            // Open the most recent day by default
+            if (idx === 0) {
+              const body = panel.querySelector('.polaris-day-body');
+              const toggle = panel.querySelector('.toggle');
+              body.classList.add('open');
+              toggle.textContent = '▲';
+            }
+            list.appendChild(panel);
+          });
 
           container.innerHTML = '';
           container.appendChild(list);
         } catch (err) {
           container.innerHTML = '<p>Could not load log right now.</p>';
+          latestSummaryEl.textContent = 'Unable to load activity.';
+          latestMetaEl.textContent = '';
           console.error('Failed to load Polaris log', err);
         }
       }
