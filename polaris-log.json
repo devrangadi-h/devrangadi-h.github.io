@@ -68,5 +68,12 @@
     "summary": "Revert main sidebar to original layout",
     "details": "Restored index.html sidebar navigation to the original five-section layout (Introduction, Current Research, Featured Projects, At a Glance, Contact) and removed the Polaris Dashboard link to keep the portfolio section visually unchanged.",
     "files": ["index.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:52",
+    "summary": "Add global header with theme toggle and logo",
+    "details": "Introduced a persistent site-header on index.html, polaris.html, and main project pages with a left-aligned light/dark theme toggle and right-aligned logo (images/icon.png), wired to a small script that remembers the chosen theme via localStorage.",
+    "files": ["assets/css/main.css", "index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
   }
 ]

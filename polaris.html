@@ -8,7 +8,21 @@
     <link rel="stylesheet" href="assets/css/polaris.css" />
     <link rel="icon" href="/images/icon.png" type="image/x-icon">
   </head>
-  <body class="is-preload">
+  <body class="is-preload with-site-header">
+
+    <header id="header" class="site-header">
+      <div class="inner">
+        <div class="site-header-left">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button>
+        </div>
+        <div class="site-header-center">
+          <a href="/index.html" class="title">Hardik Devrangadi</a>
+        </div>
+        <div class="site-header-right">
+          <a href="/index.html"><img src="/images/icon.png" alt="Logo" class="site-logo" /></a>
+        </div>
+      </div>
+    </header>
 
     <!-- Sidebar -->
       <section id="sidebar">
@@ -208,5 +222,26 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      (function() {
+        const body = document.body;
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light') body.classList.add('theme-light');
+        const btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        const icon = btn.querySelector('.theme-icon');
+        function refresh() {
+          const light = body.classList.contains('theme-light');
+          if (icon) icon.textContent = light ? '☀︎' : '☾';
+        }
+        btn.addEventListener('click', function() {
+          body.classList.toggle('theme-light');
+          const light = body.classList.contains('theme-light');
+          localStorage.setItem('theme', light ? 'light' : 'dark');
+          refresh();
+        });
+        refresh();
+      })();
+    </script>
   </body>
 </html>
