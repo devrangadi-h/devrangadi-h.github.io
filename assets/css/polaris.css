@@ -47,8 +47,8 @@
 .polaris-day-body.open {
   padding-top: 0.75rem;
   padding-bottom: 1rem;
-  /* large max-height so long descriptions don't get clipped during animation */
-  max-height: 9999px;
+  max-height: 260px; /* fixed height with scroll for long days */
+  overflow-y: auto;
 }
 
 .polaris-log-entry {
