@@ -1,0 +1,9 @@
+[
+  {
+    "date": "2026-03-14",
+    "time": "14:22",
+    "summary": "Add OpenClaw/Polaris edit marker to footer",
+    "details": "Small HTML comment in index.html footer to verify end-to-end editing and deployment from Raspberry Pi via OpenClaw.",
+    "files": ["index.html"]
+  }
+]

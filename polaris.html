@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Polaris Activity Log</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="icon" href="/images/icon.png" type="image/x-icon">
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <section class="wrapper style1 fade-up">
+        <div class="inner">
+          <h1>Polaris Activity Log</h1>
+          <p>This page shows a day-to-day log of changes made to <strong>devrobotics.dev</strong> by the Polaris assistant running on your Raspberry Pi.</p>
+          <div id="log-container">
+            <p>Loading log…</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer id="footer" class="wrapper style1-alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Hardik Devrangadi. All rights reserved.</li>
+          <li>Polaris dashboard</li>
+        </ul>
+      </div>
+    </footer>
+
+    <script>
+      async function loadLog() {
+        const container = document.getElementById('log-container');
+        try {
+          const res = await fetch('polaris-log.json?_=' + Date.now());
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const entries = await res.json();
+          if (!Array.isArray(entries) || entries.length === 0) {
+            container.innerHTML = '<p>No entries yet.</p>';
+            return;
+          }
+
+          const list = document.createElement('div');
+          list.className = 'polaris-log-list';
+
+          entries
+            .slice()
+            .reverse() // newest first
+            .forEach(entry => {
+              const item = document.createElement('article');
+              item.className = 'polaris-log-entry';
+
+              const header = document.createElement('header');
+              header.innerHTML = `
+                <h2>${entry.summary || 'Change'}</h2>
+                <p><strong>${entry.date || ''}</strong> ${entry.time ? 'at ' + entry.time : ''}</p>
+              `;
+
+              const details = document.createElement('p');
+              details.textContent = entry.details || '';
+
+              const files = document.createElement('p');
+              if (Array.isArray(entry.files) && entry.files.length) {
+                files.innerHTML = '<strong>Files:</strong> ' + entry.files.join(', ');
+              }
+
+              item.appendChild(header);
+              item.appendChild(details);
+              if (files.innerHTML) item.appendChild(files);
+
+              list.appendChild(item);
+            });
+
+          container.innerHTML = '';
+          container.appendChild(list);
+        } catch (err) {
+          container.innerHTML = '<p>Could not load log right now.</p>';
+          console.error('Failed to load Polaris log', err);
+        }
+      }
+
+      loadLog();
+    </script>
+  </body>
+</html>
