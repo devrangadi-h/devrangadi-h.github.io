@@ -61,5 +61,12 @@
     "summary": "Add scrollable bodies to daily Polaris log panels",
     "details": "Changed the open state of polaris-day-body to use a fixed max-height with overflow-y:auto so long day logs can be scrolled inside the card instead of being visually clipped.",
     "files": ["assets/css/polaris.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:45",
+    "summary": "Revert main sidebar to original layout",
+    "details": "Restored index.html sidebar navigation to the original five-section layout (Introduction, Current Research, Featured Projects, At a Glance, Contact) and removed the Polaris Dashboard link to keep the portfolio section visually unchanged.",
+    "files": ["index.html", "polaris-log.json"]
   }
 ]
