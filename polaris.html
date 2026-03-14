@@ -8,10 +8,25 @@
     <link rel="stylesheet" href="assets/css/polaris.css" />
     <link rel="icon" href="/images/icon.png" type="image/x-icon">
   </head>
-  <body>
-    <div id="wrapper">
-      <section class="wrapper style1 fade-up">
+  <body class="is-preload">
+
+    <!-- Sidebar -->
+      <section id="sidebar">
         <div class="inner">
+          <nav>
+            <ul>
+              <li><a href="/index.html">Back to Portfolio</a></li>
+              <li><a href="#top">Polaris Overview</a></li>
+              <li><a href="#log">Change Log</a></li>
+            </ul>
+          </nav>
+        </div>
+      </section>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <section id="top" class="wrapper style1 fade-up">
+        <div class="inner polaris-hero">
           <h1>Polaris Dashboard</h1>
           <p>This dashboard shows what Polaris has been doing on <strong>devrobotics.dev</strong> via your Raspberry Pi and OpenClaw.</p>
 
@@ -41,7 +56,7 @@
 
           <hr />
 
-          <h2>Change Log</h2>
+          <h2 id="log">Change Log</h2>
           <p>Grouped by day. Click a date to expand/collapse its entries.</p>
           <div id="log-container">
             <p>Loading log…</p>
