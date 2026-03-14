@@ -5,5 +5,12 @@
     "summary": "Add OpenClaw/Polaris edit marker to footer",
     "details": "Small HTML comment in index.html footer to verify end-to-end editing and deployment from Raspberry Pi via OpenClaw.",
     "files": ["index.html"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "14:48",
+    "summary": "Create Polaris public and private dashboards",
+    "details": "Added public Polaris activity dashboard at polaris.html and initial private dashboard shell at /private/index.html for Cloudflare Access gating.",
+    "files": ["polaris.html", "private/index.html", "polaris-log.json"]
   }
 ]
