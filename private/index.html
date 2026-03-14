@@ -13,7 +13,41 @@
         <div class="inner">
           <h1>Polaris Private Dashboard</h1>
           <p>If you can see this page, Cloudflare Access is working and you are authenticated as Hardik.</p>
-          <p>We can expand this area with more sensitive controls and data over time.</p>
+
+          <hr />
+
+          <h2>Polaris TODO</h2>
+          <p>High-level tasks and ideas we’re currently tracking for Polaris and your Pi.</p>
+
+          <div class="features">
+            <section>
+              <span class="icon solid major fa-microchip"></span>
+              <h3>Wire live Pi status</h3>
+              <p>
+                - Build a small status server on the Raspberry Pi (Python).<br />
+                - Expose it securely via Cloudflare Tunnel.<br />
+                - Connect the public Pi status widget on <code>polaris.html</code> to this endpoint.
+              </p>
+            </section>
+            <section>
+              <span class="icon solid major fa-lock"></span>
+              <h3>Finish private area access</h3>
+              <p>
+                - Put <code>polaris.devrobotics.dev/private/*</code> behind Cloudflare Access.<br />
+                - Restrict access to your GitHub account.<br />
+                - Use this space for more sensitive logs and controls.
+              </p>
+            </section>
+            <section>
+              <span class="icon solid major fa-chart-line"></span>
+              <h3>Future ideas</h3>
+              <p>
+                - Add graphs for activity over time.<br />
+                - Show deployment history and commit hashes.<br />
+                - Add controls to trigger maintenance tasks on the Pi.
+              </p>
+            </section>
+          </div>
         </div>
       </section>
     </div>
