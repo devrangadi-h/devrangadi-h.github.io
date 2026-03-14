@@ -23,6 +23,12 @@
               <p id="latest-meta" class="small"></p>
             </section>
             <section>
+              <span class="icon solid major fa-microchip"></span>
+              <h2>Pi Status</h2>
+              <p id="pi-status">Checking Raspberry Pi…</p>
+              <p id="pi-status-meta" class="small"></p>
+            </section>
+            <section>
               <span class="icon solid major fa-code-branch"></span>
               <h2>Site & Repo</h2>
               <p>
@@ -103,6 +109,31 @@
         return panel;
       }
 
+      async function loadPiStatus() {
+        const statusEl = document.getElementById('pi-status');
+        const metaEl = document.getElementById('pi-status-meta');
+        try {
+          const res = await fetch('/pi-status');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const s = await res.json();
+          if (!s) throw new Error('Empty status');
+
+          statusEl.textContent = s.piOnline ? 'Online' : 'Offline';
+          const parts = [];
+          if (s.hostname) parts.push('Host: ' + s.hostname);
+          if (s.cpuTempC != null) parts.push('CPU: ' + s.cpuTempC + '°C');
+          if (s.load1 != null) parts.push('Load: ' + s.load1);
+          if (s.diskRoot) parts.push('Disk: ' + s.diskRoot + ' used');
+          if (s.openclawStatus) parts.push('OpenClaw: ' + s.openclawStatus);
+          if (s.lastUpdated) parts.push('Updated: ' + s.lastUpdated);
+          metaEl.textContent = parts.join(' · ');
+        } catch (err) {
+          statusEl.textContent = 'Status currently unavailable';
+          metaEl.textContent = '';
+          console.error('Failed to load Pi status', err);
+        }
+      }
+
       async function loadLog() {
         const container = document.getElementById('log-container');
         const latestSummaryEl = document.getElementById('latest-summary');
@@ -152,6 +183,7 @@
         }
       }
 
+      loadPiStatus();
       loadLog();
     </script>
     <script src="assets/js/jquery.min.js"></script>
