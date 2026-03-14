@@ -33,5 +33,12 @@
     "summary": "Add README documenting portfolio + Polaris architecture",
     "details": "Created README.md explaining that this repo backs devrobotics.dev, is managed by an OpenClaw agent (Polaris) on a Raspberry Pi, and includes a high-level system design + process flow for changes.",
     "files": ["README.md", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:36",
+    "summary": "Add disclaimer noting README is maintained by Polaris",
+    "details": "Appended a disclaimer to README.md with a warning icon explaining that the README was drafted and is maintained by the Polaris agent running on the Raspberry Pi via OpenClaw.",
+    "files": ["README.md", "polaris-log.json"]
   }
 ]

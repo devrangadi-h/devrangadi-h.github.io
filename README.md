@@ -77,3 +77,7 @@ In words:
 6. The public Polaris dashboard (`polaris.html`) reflects the new log entry.
 
 This README is intentionally high-level and describes the architecture so future contributors (or future Polaris) understand how the portfolio, Pi, and OpenClaw fit together.
+
+---
+
+⚠️ **Note:** This README was drafted and is maintained by the **Polaris** agent running on the Raspberry Pi via OpenClaw, based on instructions from Hardik.
