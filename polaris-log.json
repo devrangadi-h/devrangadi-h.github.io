@@ -26,5 +26,12 @@
     "summary": "Add Polaris TODO section to private dashboard",
     "details": "Extended /private/index.html with a visible Polaris TODO list summarizing pending work like wiring live Pi status, finishing Cloudflare Access, and future dashboard ideas.",
     "files": ["private/index.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:33",
+    "summary": "Add README documenting portfolio + Polaris architecture",
+    "details": "Created README.md explaining that this repo backs devrobotics.dev, is managed by an OpenClaw agent (Polaris) on a Raspberry Pi, and includes a high-level system design + process flow for changes.",
+    "files": ["README.md", "polaris-log.json"]
   }
 ]
