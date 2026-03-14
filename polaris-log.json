@@ -78,9 +78,9 @@
   },
   {
     "date": "2026-03-14",
-    "time": "15:57",
-    "summary": "Increase visual contrast of global header",
-    "details": "Updated .site-header background to a darker gradient with a stronger bottom border and shadow so the header stands out clearly against the dark page background.",
+    "time": "16:02",
+    "summary": "Switch header background to solid black for visibility",
+    "details": "Updated .site-header to use an opaque black background and slightly larger top padding so the new global header bar stands out clearly above the dark page background.",
     "files": ["assets/css/main.css", "polaris-log.json"]
   }
 ]
