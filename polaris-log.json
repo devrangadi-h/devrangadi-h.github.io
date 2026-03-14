@@ -47,5 +47,12 @@
     "summary": "Fix clipping on long Polaris log entries",
     "details": "Increased the max-height on open day panels in assets/css/polaris.css so long descriptions are no longer visually cut off at the bottom of the card.",
     "files": ["assets/css/polaris.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:41",
+    "summary": "Add sidebar link from portfolio to Polaris dashboard",
+    "details": "Updated index.html sidebar navigation to include a direct link to /polaris.html so it feels like a first-class part of the site.",
+    "files": ["index.html", "polaris-log.json"]
   }
 ]
