@@ -40,5 +40,12 @@
     "summary": "Add disclaimer noting README is maintained by Polaris",
     "details": "Appended a disclaimer to README.md with a warning icon explaining that the README was drafted and is maintained by the Polaris agent running on the Raspberry Pi via OpenClaw.",
     "files": ["README.md", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "15:37",
+    "summary": "Fix clipping on long Polaris log entries",
+    "details": "Increased the max-height on open day panels in assets/css/polaris.css so long descriptions are no longer visually cut off at the bottom of the card.",
+    "files": ["assets/css/polaris.css", "polaris-log.json"]
   }
 ]
