@@ -157,6 +157,7 @@ input, select, textarea {
 	.spotlights > section {
 		display: flex;
 		align-items: stretch;
+		margin-bottom: 3rem;
 	}
 
 	.spotlights > section .image {
