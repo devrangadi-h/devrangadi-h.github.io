@@ -8,41 +8,47 @@
     <link rel="stylesheet" href="assets/css/polaris.css" />
     <link rel="icon" href="/images/icon.png" type="image/x-icon">
   </head>
-  <body class="is-preload with-site-header">
+  <body class="is-preload">
 
-    <header id="header" class="site-header">
-      <div class="inner">
-        <div class="site-header-left">
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button>
-        </div>
-        <div class="site-header-center">
-          <a href="/index.html" class="title">Hardik Devrangadi</a>
-        </div>
-        <div class="site-header-right">
-          <a href="/index.html"><img src="/images/icon.png" alt="Logo" class="site-logo" /></a>
-        </div>
-      </div>
-    </header>
-
-    <!-- Sidebar -->
-      <section id="sidebar">
-        <div class="inner">
-          <nav>
-            <ul>
-              <li><a href="/index.html">Back to Portfolio</a></li>
-              <li><a href="#top">Polaris Overview</a></li>
-              <li><a href="#log">Change Log</a></li>
-            </ul>
-          </nav>
-        </div>
-      </section>
+    <!-- Header -->
+      <header id="header">
+        <a href="index.html" class="title">
+          <img src="images/icon.png" alt="Logo" class="site-logo" />
+          devrobotics
+        </a>
+        <nav>
+          <ul>
+            <li><a href="/index.html#intro">About</a></li>
+            <li><a href="/index.html#research">Research</a></li>
+            <li><a href="/index.html#one">Projects</a></li>
+            <li><a href="/index.html#three">Contact</a></li>
+            <li><a href="/polaris.html">Polaris</a></li>
+            <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
+          </ul>
+        </nav>
+      </header>
 
     <!-- Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="margin-top: 5.5rem;">
       <section id="top" class="wrapper style1 fade-up">
         <div class="inner polaris-hero">
           <h1>Polaris Dashboard</h1>
           <p>This dashboard shows what Polaris has been doing on <strong>devrobotics.dev</strong> via your Raspberry Pi and OpenClaw.</p>
+
+          <section class="wrapper style2" style="margin-top: 2rem;">
+            <div class="inner">
+              <h2>Powered by Polaris &amp; OpenClaw</h2>
+              <p>
+                Polaris is a local agent running on your Raspberry Pi via <strong>OpenClaw</strong>. It can edit this website, log its own changes,
+                and coordinate with your GitHub Pages deployment. This section – and the change log below – are both maintained by Polaris.
+              </p>
+              <ul>
+                <li>Edits live in <code>devrangadi-h/devrangadi-h.github.io</code> on GitHub.</li>
+                <li>Changes are tracked in <code>polaris-log.json</code> and rendered here.</li>
+                <li>Dark/light theme, header, and layout are shared with the main portfolio site.</li>
+              </ul>
+            </div>
+          </section>
 
           <section id="overview" class="features">
             <section>
@@ -226,18 +232,18 @@
       (function() {
         const body = document.body;
         const stored = localStorage.getItem('theme');
-        if (stored === 'light') body.classList.add('theme-light');
+        if (stored === 'dark') body.classList.add('theme-dark');
         const btn = document.getElementById('theme-toggle');
         if (!btn) return;
         const icon = btn.querySelector('.theme-icon');
         function refresh() {
-          const light = body.classList.contains('theme-light');
-          if (icon) icon.textContent = light ? '☀︎' : '☾';
+          const dark = body.classList.contains('theme-dark');
+          if (icon) icon.textContent = dark ? '☀︎' : '☾';
         }
         btn.addEventListener('click', function() {
-          body.classList.toggle('theme-light');
-          const light = body.classList.contains('theme-light');
-          localStorage.setItem('theme', light ? 'light' : 'dark');
+          body.classList.toggle('theme-dark');
+          const dark = body.classList.contains('theme-dark');
+          localStorage.setItem('theme', dark ? 'dark' : 'light');
           refresh();
         });
         refresh();

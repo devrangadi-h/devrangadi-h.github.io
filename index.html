@@ -9,47 +9,36 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<script src="https://kit.fontawesome.com/8526d2c999.js" crossorigin="anonymous"></script>
 	</head>
-	<body class="is-preload with-site-header">
+	<body class="is-preload">
 
-		<header id="header" class="site-header">
-			<div class="inner">
-				<div class="site-header-left">
-					<button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button>
-				</div>
-				<div class="site-header-center">
-					<a href="/index.html" class="title">Hardik Devrangadi</a>
-				</div>
-				<div class="site-header-right">
-					<a href="/index.html"><img src="/images/icon.png" alt="Logo" class="site-logo" /></a>
-				</div>
-			</div>
-		</header>
-
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Introduction</a></li>
-							<li><a href="#research">Current Research</a></li>
-							<li><a href="#one">Featured Projects</a></li>
-							<li><a href="#two">At a Glance</a></li>
-							<li><a href="#three">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">
+					<img src="images/icon.png" alt="Logo" class="site-logo" />
+					devrobotics
+				</a>
+				<nav>
+					<ul>
+						<li><a href="#intro">About</a></li>
+						<li><a href="#research">Research</a></li>
+						<li><a href="#one">Projects</a></li>
+						<li><a href="#three">Contact</a></li>
+						<li><a href="/polaris.html">Polaris</a></li>
+						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
+					</ul>
+				</nav>
+			</header>
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+			<div id="wrapper" style="margin-top: 5.5rem;">
 
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
 							<img src="images/headshot.png" alt="Profile Headshot" class="round-image">
-							<h1>Hi, I am Hardik Devrangadi, <br /> a Roboticist <br /> from Boston</h1>
+							<h1>Hi, I am Hardik Devrangadi, <br /> a Robotics Engineer <br /> from Seattle</h1>
 							
-							<p>I am a Graduate Student pursuing an MS in Robotics at Northeastern University. Currently, I conduct research at the <i><a href="http://www1.coe.neu.edu/~rifat/" target='_blank'> Dynamic Systems and Control Laboratory</a></i>, under the guidance of <i><a href="https://coe.northeastern.edu/people/sipahi-rifat/" target='_blank'> Prof. Rifat Sipahi.</a></i> In this role, I lead a project focused on constructing an Autonomous UAS for high-altitude atmosphere data collection.</p>
+							<p>I am a Robotics Systems Engineer at <strong>Amazon Robotics</strong>, where I work on deploying large-scale robotic systems that power Amazon’s fulfillment and logistics network.</p>
 							
 							<ul class="actions">
 								<li><a href="#desc" class="button scrolly">About Me</a></li>
@@ -76,21 +65,16 @@
 					<section id="research" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
 							<hr>
-							<h2>Current Research</h2>
-							<p>In my current role, I am spearheading the development of an autonomous Unmanned Aerial Vehicle (UAV) in collaboration with Prof. Rifat Sipahi. Our primary objective is to collect high-altitude atmospheric data to further advance the field of robotics and meteorology. As part of this project, I have meticulously integrated advanced onboard sensors capable of measuring humidity, temperature, pressure, and wind speed. This sensor suite, driven by Python-based drivers, ensures precise and real-time data acquisition, contributing to the accuracy and reliability of our atmospheric measurements.<br/><br/>
-
-								Moreover, my responsibilities encompass the design and development of a robust Guidance, Navigation, and Control (GNC) system. This GNC system plays a pivotal role in ensuring the stable and autonomous flight of our UAV during its missions. I'm proud to say that our GNC system has proven to be highly effective in maintaining the UAV's stability even in challenging conditions.<br/><br/>
-								
-								To complement the data collection aspect of our project, I have engineered a dependable onboard imaging system. This system facilitates the real-time transmission of aerial imagery, which not only enhances the quality of the data collected but also provides valuable visual insights for analysis.<br/><br/>
-								
-								In addition to the technical aspects, I also perform mission planning and execution for our autonomous UAV through flight tests. 
-								
-								<!-- Through meticulous planning and execution, we achieved a significant milestone in our research, successfully able to get the individual subsytems working. This achievement highlights the culmination of our team's dedication and the robustness of our UAV system.  -->
-								
-								We are currently in the process of performing these flight tests to ensure stable flight, before collecting data.<br/><br/>
-								
-								As I continue to work on this groundbreaking project, I remain committed to pushing the boundaries of what autonomous UAVs can achieve, showcasing my passion for robotics and my dedication to contributing to cutting-edge research in the field.<br/><br/>
-								</p>
+							<h2>Graduate Research</h2>
+							<p>During my master’s at Northeastern University, I worked on an autonomous UAV research project in collaboration with Prof. Rifat Sipahi:</p>
+							<ul>
+								<li>Led the development of an autonomous Unmanned Aerial Vehicle (UAV) designed to collect high‑altitude atmospheric data to advance robotics and meteorology.</li>
+								<li>Integrated onboard sensors for humidity, temperature, pressure, and wind speed, along with Python‑based drivers for precise, real‑time data acquisition.</li>
+								<li>Designed and implemented the Guidance, Navigation, and Control (GNC) system to ensure stable and autonomous flight, even in challenging conditions.</li>
+								<li>Engineered a real‑time onboard imaging system to transmit aerial imagery, improving data quality and providing visual context for analysis.</li>
+								<li>Planned and executed flight tests to validate UAV stability, sensor performance, and overall system behavior before large‑scale data collection.</li>
+								<li>Deepened my interest in autonomous systems and reinforced my commitment to building reliable, real‑world robotic platforms.</li>
+							</ul>
 							
 							<!-- <ul class="actions">
 								<li><a href="generic.html" class="button">Learn more</a></li>
@@ -352,6 +336,27 @@ while True:
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				(function() {
+					const body = document.body;
+					const stored = localStorage.getItem('theme');
+					if (stored === 'dark') body.classList.add('theme-dark');
+					const btn = document.getElementById('theme-toggle');
+					if (!btn) return;
+					const icon = btn.querySelector('.theme-icon');
+					function refresh() {
+						const dark = body.classList.contains('theme-dark');
+						if (icon) icon.textContent = dark ? '☀︎' : '☾';
+					}
+					btn.addEventListener('click', function() {
+						body.classList.toggle('theme-dark');
+						const dark = body.classList.contains('theme-dark');
+						localStorage.setItem('theme', dark ? 'dark' : 'light');
+						refresh();
+					});
+					refresh();
+				})();
+			</script>
 
 	</body>
 </html>

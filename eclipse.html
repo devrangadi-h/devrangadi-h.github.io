@@ -12,24 +12,28 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
-	<body class="is-preload with-site-header">
+	<body class="is-preload">
 
-		<header id="header" class="site-header">
-			<div class="inner">
-				<div class="site-header-left">
-					<button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button>
-				</div>
-				<div class="site-header-center">
-					<a href="/index.html" class="title">Hardik Devrangadi</a>
-				</div>
-				<div class="site-header-right">
-					<a href="/index.html"><img src="/images/icon.png" alt="Logo" class="site-logo" /></a>
-				</div>
-			</div>
-		</header>
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">
+					<img src="images/icon.png" alt="Logo" class="site-logo" />
+					devrobotics
+				</a>
+				<nav>
+					<ul>
+						<li><a href="/index.html#intro">About</a></li>
+						<li><a href="/index.html#research">Research</a></li>
+						<li><a href="/index.html#one">Projects</a></li>
+						<li><a href="/index.html#three">Contact</a></li>
+						<li><a href="/polaris.html">Polaris</a></li>
+						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
+					</ul>
+				</nav>
+			</header>
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+			<div id="wrapper" style="margin-top: 5.5rem;">
 
 				<!-- Main -->
 					<section id="main" class="wrapper">
@@ -80,6 +84,27 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				(function() {
+					const body = document.body;
+					const stored = localStorage.getItem('theme');
+					if (stored === 'dark') body.classList.add('theme-dark');
+					const btn = document.getElementById('theme-toggle');
+					if (!btn) return;
+					const icon = btn.querySelector('.theme-icon');
+					function refresh() {
+						const dark = body.classList.contains('theme-dark');
+						if (icon) icon.textContent = dark ? '☀︎' : '☾';
+					}
+					btn.addEventListener('click', function() {
+						body.classList.toggle('theme-dark');
+						const dark = body.classList.contains('theme-dark');
+						localStorage.setItem('theme', dark ? 'dark' : 'light');
+						refresh();
+					});
+					refresh();
+				})();
+			</script>
 
 	</body>
 </html>

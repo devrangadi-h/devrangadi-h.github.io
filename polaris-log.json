@@ -82,5 +82,12 @@
     "summary": "Switch header background to solid black for visibility",
     "details": "Updated .site-header to use an opaque black background and slightly larger top padding so the new global header bar stands out clearly above the dark page background.",
     "files": ["assets/css/main.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "17:35",
+    "summary": "Refine devrobotics site layout, theming, and Polaris integration",
+    "details": "Converted the main site to a light/dark theme with a global top nav, updated the hero to reflect Hardik's role at Amazon Robotics, rewrote the graduate UAV research section into concise bullet points, aligned Polaris with the new layout (including a Powered by Polaris & OpenClaw section), and applied consistent header + theme behavior across project detail pages.",
+    "files": ["index.html", "assets/css/main.css", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
   }
 ]
