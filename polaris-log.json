@@ -89,5 +89,12 @@
     "summary": "Refine devrobotics site layout, theming, and Polaris integration",
     "details": "Converted the main site to a light/dark theme with a global top nav, updated the hero to reflect Hardik's role at Amazon Robotics, rewrote the graduate UAV research section into concise bullet points, aligned Polaris with the new layout (including a Powered by Polaris & OpenClaw section), and applied consistent header + theme behavior across project detail pages.",
     "files": ["index.html", "assets/css/main.css", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "18:16",
+    "summary": "Adjust Polaris change log panel height",
+    "details": "Tuned the CSS for .polaris-day-body.open to use viewport-based min/max heights so each change log day opens to a larger, more readable box (~30–70% of the viewport) while still allowing scrolling for very long days.",
+    "files": ["assets/css/polaris.css", "polaris-log.json"]
   }
 ]
