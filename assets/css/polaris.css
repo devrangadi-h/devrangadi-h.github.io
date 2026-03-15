@@ -48,7 +48,7 @@
   padding-top: 0.75rem;
   padding-bottom: 1rem;
   min-height: 30vh; /* ensure a taller box even with little content */
-  max-height: 50vh; /* half the viewport height, scroll if content exceeds */
+  max-height: 70vh; /* up to ~70% of the viewport height, scroll if content exceeds */
   overflow-y: auto;
 }
 
