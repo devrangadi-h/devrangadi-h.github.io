@@ -232,7 +232,7 @@
       (function() {
         const body = document.body;
         const stored = localStorage.getItem('theme');
-        if (stored === 'dark') body.classList.add('theme-dark');
+        if (!stored || stored === 'dark') body.classList.add('theme-dark');
         const btn = document.getElementById('theme-toggle');
         if (!btn) return;
         const icon = btn.querySelector('.theme-icon');
