@@ -95,6 +95,42 @@
     </footer>
 
     <script>
+      function formatDateTime(dateStr, timeStr) {
+        if (!dateStr) return '';
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        const [year, month, day] = parts.map(Number);
+        let hours = 0, minutes = 0;
+        if (timeStr) {
+          const tParts = timeStr.split(':');
+          hours = parseInt(tParts[0] || '0', 10);
+          minutes = parseInt(tParts[1] || '0', 10);
+        }
+        const dt = new Date(year, month - 1, day, hours, minutes);
+        if (isNaN(dt.getTime())) return dateStr + (timeStr ? ' ' + timeStr : '');
+
+        const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const dayName = weekdays[dt.getDay()];
+        const monthName = months[dt.getMonth()];
+        const dNum = dt.getDate();
+        const yNum = dt.getFullYear();
+        const suffix = (dNum % 10 === 1 && dNum !== 11) ? 'st'
+                    : (dNum % 10 === 2 && dNum !== 12) ? 'nd'
+                    : (dNum % 10 === 3 && dNum !== 13) ? 'rd'
+                    : 'th';
+
+        let formatted = `${dayName}, ${monthName} ${dNum}${suffix} ${yNum}`;
+        if (timeStr) {
+          const h24 = dt.getHours();
+          const h12 = h24 % 12 || 12;
+          const mins = String(dt.getMinutes()).padStart(2, '0');
+          const ampm = h24 >= 12 ? 'PM' : 'AM';
+          formatted += ` | ${h12}:${mins} ${ampm}`;
+        }
+        return formatted;
+      }
+
       function groupByDate(entries) {
         const byDate = {};
         entries.forEach(e => {
@@ -111,8 +147,9 @@
 
         const header = document.createElement('header');
         header.className = 'polaris-day-header';
+        const formattedDay = formatDateTime(date, null);
         header.innerHTML = `
-          <h3>${date}</h3>
+          <h3>${formattedDay}</h3>
           <span class="toggle">▼</span>
         `;
 
@@ -125,9 +162,11 @@
           .forEach(entry => {
             const item = document.createElement('div');
             item.className = 'polaris-log-entry';
+            const when = formatDateTime(entry.date, entry.time);
+            const files = (entry.files || []).join(', ');
             item.innerHTML = `
               <h4>${entry.summary || 'Change'}</h4>
-              <p class="meta">${entry.time ? entry.time + ' · ' : ''}${(entry.files || []).join(', ')}</p>
+              <p class="meta">${when}${files ? ' · ' + files : ''}</p>
               <p>${entry.details || ''}</p>
             `;
             body.appendChild(item);
@@ -187,7 +226,7 @@
           // Latest activity
           const latest = entries[entries.length - 1];
           latestSummaryEl.textContent = latest.summary || 'Latest change';
-          latestMetaEl.textContent = `${latest.date || ''}${latest.time ? ' at ' + latest.time : ''}`;
+          latestMetaEl.textContent = formatDateTime(latest.date, latest.time);
 
           // Group by date and render collapsible panels
           const byDate = groupByDate(entries);

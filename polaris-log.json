@@ -110,5 +110,12 @@
     "summary": "Default site theme to dark mode",
     "details": "Changed the theme initialization logic so that dark mode is the default when no preference is stored, while still respecting light/dark choices via localStorage across the home, Polaris, and project pages.",
     "files": ["index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "18:45",
+    "summary": "Format Polaris change log dates with full day and time",
+    "details": "Updated polaris.html to format change log dates as full strings like 'Saturday, March 14th 2026 | 12:34 PM' both in the Latest Activity panel and in each entry's metadata.",
+    "files": ["polaris.html", "polaris-log.json"]
   }
 ]
