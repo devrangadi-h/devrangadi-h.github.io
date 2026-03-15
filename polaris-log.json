@@ -103,5 +103,12 @@
     "summary": "Highlight Polaris assistant in hero text",
     "details": "Updated the main hero section to mention Polaris as a personal assistant running on a Raspberry Pi using OpenClaw, helping maintain the site and automate workflows.",
     "files": ["index.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "18:42",
+    "summary": "Default site theme to dark mode",
+    "details": "Changed the theme initialization logic so that dark mode is the default when no preference is stored, while still respecting light/dark choices via localStorage across the home, Polaris, and project pages.",
+    "files": ["index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
   }
 ]
