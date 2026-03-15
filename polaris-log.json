@@ -96,5 +96,12 @@
     "summary": "Adjust Polaris change log panel height",
     "details": "Tuned the CSS for .polaris-day-body.open to use viewport-based min/max heights so each change log day opens to a larger, more readable box (~30–70% of the viewport) while still allowing scrolling for very long days.",
     "files": ["assets/css/polaris.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-14",
+    "time": "18:24",
+    "summary": "Highlight Polaris assistant in hero text",
+    "details": "Updated the main hero section to mention Polaris as a personal assistant running on a Raspberry Pi using OpenClaw, helping maintain the site and automate workflows.",
+    "files": ["index.html", "polaris-log.json"]
   }
 ]
