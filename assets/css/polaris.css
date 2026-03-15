@@ -47,7 +47,7 @@
 .polaris-day-body.open {
   padding-top: 0.75rem;
   padding-bottom: 1rem;
-  max-height: 520px; /* doubled height with scroll for long days */
+  max-height: 800px; /* larger height with scroll for long days */
   overflow-y: auto;
 }
 
