@@ -138,5 +138,12 @@
     "summary": "Make Pi status indicator more visible",
     "details": "Increased the size of the Pi status dot, added a white border and stronger glow so the pulsing Online indicator stands out clearly against the dark card background.",
     "files": ["assets/css/polaris.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "15:18",
+    "summary": "Add RAM usage to public Pi status dashboard",
+    "details": "Extended the Pi status JSON and Polaris dashboard to include RAM usage (used/total) alongside CPU temperature, load, and disk usage. The Pi-side script now parses `free -h` into a friendly RAM string and the dashboard renders it on its own line.",
+    "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
   }
 ]

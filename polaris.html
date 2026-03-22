@@ -203,6 +203,7 @@
           if (s.cpuTempC != null) parts.push('CPU: ' + s.cpuTempC + '°C');
           if (s.load1 != null) parts.push('Load: ' + s.load1);
           if (s.diskRoot) parts.push('Disk: ' + s.diskRoot + ' used');
+          if (s.memory) parts.push('RAM: ' + s.memory + ' used');
           if (s.openclawStatus) parts.push('OpenClaw: ' + s.openclawStatus);
           if (s.lastUpdated) {
             const dt = new Date(s.lastUpdated);

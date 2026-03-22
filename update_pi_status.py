@@ -58,6 +58,27 @@ def read_disk_root():
         return None
 
 
+def read_memory():
+    """Return memory usage as a friendly string, or None on failure."""
+    try:
+        out = subprocess.check_output(["free", "-h"], text=True)
+    except (subprocess.SubprocessError, OSError):
+        return None
+
+    lines = out.strip().splitlines()
+    # Look for the line that starts with "Mem:" (standard on Linux)
+    for line in lines:
+        if not line.lower().startswith("mem"):
+            continue
+        parts = line.split()
+        if len(parts) < 4:
+            continue
+        # total, used, free, ...
+        total, used = parts[1], parts[2]
+        return f"{used}/{total}"
+    return None
+
+
 def read_openclaw_status():
     """Return a short OpenClaw status string, or None on failure.
 
@@ -114,6 +135,10 @@ def build_status():
     disk = read_disk_root()
     if disk is not None:
         data["diskRoot"] = disk
+
+    mem = read_memory()
+    if mem is not None:
+        data["memory"] = mem
 
     oc_status = read_openclaw_status()
     if oc_status is not None:
