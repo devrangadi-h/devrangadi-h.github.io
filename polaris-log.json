@@ -145,5 +145,12 @@
     "summary": "Add RAM usage to public Pi status dashboard",
     "details": "Extended the Pi status JSON and Polaris dashboard to include RAM usage (used/total) alongside CPU temperature, load, and disk usage. The Pi-side script now parses `free -h` into a friendly RAM string and the dashboard renders it on its own line.",
     "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "15:19",
+    "summary": "Force visible dot glyph in Pi status indicator",
+    "details": "Updated the Pi status Online/Offline indicator to include a literal bullet character inside the dot span and explicitly set the span to display:inline-block, making the green dot reliably visible even if some CSS or icon assumptions change.",
+    "files": ["assets/css/polaris.css", "polaris.html", "polaris-log.json"]
   }
 ]
