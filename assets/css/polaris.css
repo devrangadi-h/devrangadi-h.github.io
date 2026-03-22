@@ -83,6 +83,40 @@
   margin-top: 2rem;
 }
 
+.pi-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pi-status-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: #2ecc71;
+  box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  animation: pi-dot-pulse 1.6s ease-out infinite;
+}
+
+.pi-status-label {
+  font-weight: 600;
+}
+
+@keyframes pi-dot-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.8);
+  }
+  70% {
+    transform: scale(1.4);
+    box-shadow: 0 0 0 0.7rem rgba(46, 204, 113, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+  }
+}
+
 #overview > section {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

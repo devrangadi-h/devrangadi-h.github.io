@@ -193,7 +193,11 @@
           const s = await res.json();
           if (!s) throw new Error('Empty status');
 
-          statusEl.textContent = s.piOnline ? 'Online' : 'Offline';
+          const online = !!s.piOnline;
+          statusEl.innerHTML = online
+            ? '<span class="pi-status-indicator"><span class="pi-status-dot"></span><span class="pi-status-label">Online</span></span>'
+            : '<span class="pi-status-indicator"><span class="pi-status-dot" style="background:#e74c3c; box-shadow:0 0 0 0 rgba(231,76,60,0.7);"></span><span class="pi-status-label">Offline</span></span>';
+
           const parts = [];
           if (s.hostname) parts.push('Host: ' + s.hostname);
           if (s.cpuTempC != null) parts.push('CPU: ' + s.cpuTempC + '°C');

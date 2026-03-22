@@ -68,22 +68,32 @@ def read_openclaw_status():
     except (subprocess.SubprocessError, OSError):
         return None
 
-    # Very rough parsing for a human-friendly summary
-    status = []
-    if "Runtime:" in out:
-        for line in out.splitlines():
-            if line.strip().startswith("Runtime:"):
-                status.append(line.strip().replace("Runtime:", "").strip())
-                break
-    if "Gateway:" in out:
-        for line in out.splitlines():
-            if line.strip().startswith("Gateway:"):
-                status.append(line.strip().replace("Gateway:", "").strip())
-                break
+    # Very rough parsing for a short, non-sensitive summary.
+    # We intentionally avoid exposing IP addresses or full command lines.
+    runtime = None
+    gateway = None
+    for line in out.splitlines():
+        t = line.strip()
+        if t.startswith("Runtime:"):
+            runtime = t.replace("Runtime:", "").strip()
+        if t.startswith("Gateway:"):
+            gateway = t.replace("Gateway:", "").strip()
 
-    if not status:
+    if not runtime and not gateway:
         return None
-    return " | ".join(status)
+
+    # Collapse details to a simple health string.
+    pieces = []
+    if runtime:
+        pieces.append(runtime.split(",")[0])  # e.g., "running (pid ...)" → "running (pid ...)" then trimmed below
+    if gateway:
+        pieces.append(gateway.split(",")[0])  # e.g., "bind=tailnet (...)" → "bind=tailnet (...)" then trimmed below
+
+    summary = " | ".join(pieces)
+    # Strip anything in parentheses to avoid leaking IPs/PIDs.
+    import re
+    summary = re.sub(r"\s*\([^)]*\)", "", summary).strip()
+    return summary or None
 
 
 def build_status():
