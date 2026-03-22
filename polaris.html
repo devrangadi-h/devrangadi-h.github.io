@@ -187,7 +187,8 @@
         const statusEl = document.getElementById('pi-status');
         const metaEl = document.getElementById('pi-status-meta');
         try {
-          const res = await fetch('/pi-status');
+          // Static JSON generated on the Raspberry Pi and pushed to GitHub Pages
+          const res = await fetch('polaris-pi-status.json?_=' + Date.now());
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const s = await res.json();
           if (!s) throw new Error('Empty status');

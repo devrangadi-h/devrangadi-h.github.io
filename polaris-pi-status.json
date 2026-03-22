@@ -1,0 +1,11 @@
+{
+  "piOnline": true,
+  "hostname": "polaris",
+  "lastUpdated": "2026-03-22T15:04:06-07:00",
+  "cpuTempC": 44.1,
+  "load1": 0.02,
+  "load5": 0.03,
+  "load15": 0.03,
+  "diskRoot": "13G/115G (12%)",
+  "openclawStatus": "running (pid 121740, state active, sub running, last exit 0, reason 0) | bind=tailnet (100.121.9.82), port=18789 (service args)"
+}

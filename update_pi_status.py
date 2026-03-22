@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+import json
+import os
+import socket
+import subprocess
+from datetime import datetime, timezone
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+STATUS_PATH = os.path.join(ROOT, "polaris-pi-status.json")
+
+
+def read_cpu_temp_c():
+    """Return CPU temperature in °C as float, or None if unavailable."""
+    # Common Raspberry Pi path
+    candidates = [
+        "/sys/class/thermal/thermal_zone0/temp",
+        "/sys/class/hwmon/hwmon0/temp1_input",
+    ]
+    for path in candidates:
+        try:
+            with open(path, "r") as f:
+                raw = f.read().strip()
+            # Most Pi kernels expose temp in millidegrees C
+            value = float(raw)
+            if value > 1000:
+                return round(value / 1000.0, 1)
+            return round(value, 1)
+        except (FileNotFoundError, ValueError, OSError):
+            continue
+    return None
+
+
+def read_load():
+    try:
+        load1, load5, load15 = os.getloadavg()
+        return {
+            "load1": round(load1, 2),
+            "load5": round(load5, 2),
+            "load15": round(load15, 2),
+        }
+    except (OSError, ValueError):
+        return {}
+
+
+def read_disk_root():
+    try:
+        # Use `df -h /` and parse the second line
+        out = subprocess.check_output(["df", "-h", "/"], text=True)
+        lines = out.strip().splitlines()
+        if len(lines) < 2:
+            return None
+        parts = lines[1].split()
+        if len(parts) < 5:
+            return None
+        size, used, avail, percent = parts[1:5]
+        return f"{used}/{size} ({percent})"
+    except (subprocess.SubprocessError, OSError):
+        return None
+
+
+def read_openclaw_status():
+    """Return a short OpenClaw status string, or None on failure.
+
+    We keep this intentionally simple to avoid depending on specific output formats.
+    """
+    try:
+        out = subprocess.check_output(["openclaw", "gateway", "status"], text=True, stderr=subprocess.STDOUT)
+    except (subprocess.SubprocessError, OSError):
+        return None
+
+    # Very rough parsing for a human-friendly summary
+    status = []
+    if "Runtime:" in out:
+        for line in out.splitlines():
+            if line.strip().startswith("Runtime:"):
+                status.append(line.strip().replace("Runtime:", "").strip())
+                break
+    if "Gateway:" in out:
+        for line in out.splitlines():
+            if line.strip().startswith("Gateway:"):
+                status.append(line.strip().replace("Gateway:", "").strip())
+                break
+
+    if not status:
+        return None
+    return " | ".join(status)
+
+
+def build_status():
+    now = datetime.now(timezone.utc).astimezone()  # local time with tz
+    data = {
+        "piOnline": True,
+        "hostname": socket.gethostname(),
+        "lastUpdated": now.isoformat(timespec="seconds"),
+    }
+
+    temp = read_cpu_temp_c()
+    if temp is not None:
+        data["cpuTempC"] = temp
+
+    load = read_load()
+    data.update(load)
+
+    disk = read_disk_root()
+    if disk is not None:
+        data["diskRoot"] = disk
+
+    oc_status = read_openclaw_status()
+    if oc_status is not None:
+        data["openclawStatus"] = oc_status
+
+    return data
+
+
+def write_status_file(status):
+    tmp_path = STATUS_PATH + ".tmp"
+    with open(tmp_path, "w") as f:
+        json.dump(status, f, indent=2)
+    os.replace(tmp_path, STATUS_PATH)
+
+
+def git_has_changes():
+    try:
+        subprocess.check_call(["git", "diff", "--quiet"], cwd=ROOT)
+        return False
+    except subprocess.CalledProcessError:
+        return True
+
+
+def git_commit_and_push():
+    if not git_has_changes():
+        return
+    msg = "Update Polaris Pi status (auto)"
+    subprocess.check_call(["git", "add", "polaris-pi-status.json"], cwd=ROOT)
+    subprocess.check_call(["git", "commit", "-m", msg], cwd=ROOT)
+    subprocess.check_call(["git", "push", "origin", "main"], cwd=ROOT)
+
+
+def main():
+    status = build_status()
+    write_status_file(status)
+    try:
+        git_commit_and_push()
+    except subprocess.SubprocessError as e:
+        # For safety, don't crash if git/SSH is misconfigured.
+        print(f"Warning: git commit/push failed: {e}")
+
+
+if __name__ == "__main__":
+    main()
