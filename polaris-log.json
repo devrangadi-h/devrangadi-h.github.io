@@ -123,6 +123,13 @@
     "time": "15:05",
     "summary": "Wire Raspberry Pi status into Polaris dashboard",
     "details": "Added an auto-generated JSON snapshot (polaris-pi-status.json) with Pi metrics like CPU temperature, load, disk usage, and OpenClaw gateway status, plus a Python script (update_pi_status.py) that refreshes the JSON and pushes changes to GitHub. Updated polaris.html to read this static JSON so the public Polaris dashboard shows live-ish Pi status.",
-    "files": ["polaris.html", "polaris-pi-status.json", "update_pi_status.py", "polaris-log.json"]
+    "files": ["polaris.html", "polaris-pi-status.json", "update_pi-status.py", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "15:12",
+    "summary": "Tidy Pi status display and add pulsing online indicator",
+    "details": "Refined the public Polaris dashboard Pi status card to use a pulsing green dot next to the Online label, separate lines for host/CPU/load/disk/OpenClaw/updated fields, and a human-friendly formatted timestamp instead of the raw ISO string. Also tightened the OpenClaw status summary in the JSON to avoid exposing IPs or other sensitive details.",
+    "files": ["polaris.html", "assets/css/polaris.css", "update_pi_status.py", "polaris-log.json"]
   }
 ]
