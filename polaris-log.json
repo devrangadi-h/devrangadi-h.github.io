@@ -148,9 +148,9 @@
   },
   {
     "date": "2026-03-22",
-    "time": "15:19",
-    "summary": "Force visible dot glyph in Pi status indicator",
-    "details": "Updated the Pi status Online/Offline indicator to include a literal bullet character inside the dot span and explicitly set the span to display:inline-block, making the green dot reliably visible even if some CSS or icon assumptions change.",
+    "time": "15:20",
+    "summary": "Simplify Pi status dot styling for remote site",
+    "details": "Removed the inline bullet character and white border from the Pi status dot, leaving a single glowing green circle rendered via CSS so that both localhost and the deployed GitHub Pages site use the same simple, cache-friendly styling.",
     "files": ["assets/css/polaris.css", "polaris.html", "polaris-log.json"]
   }
 ]
