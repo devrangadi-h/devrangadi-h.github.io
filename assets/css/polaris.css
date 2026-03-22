@@ -90,11 +90,12 @@
 }
 
 .pi-status-dot {
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.9rem;
+  height: 0.9rem;
   border-radius: 999px;
   background: #2ecc71;
-  box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.9);
   animation: pi-dot-pulse 1.6s ease-out infinite;
 }
 

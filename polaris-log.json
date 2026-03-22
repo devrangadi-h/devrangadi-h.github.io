@@ -131,5 +131,12 @@
     "summary": "Tidy Pi status display and add pulsing online indicator",
     "details": "Refined the public Polaris dashboard Pi status card to use a pulsing green dot next to the Online label, separate lines for host/CPU/load/disk/OpenClaw/updated fields, and a human-friendly formatted timestamp instead of the raw ISO string. Also tightened the OpenClaw status summary in the JSON to avoid exposing IPs or other sensitive details.",
     "files": ["polaris.html", "assets/css/polaris.css", "update_pi_status.py", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "15:17",
+    "summary": "Make Pi status indicator more visible",
+    "details": "Increased the size of the Pi status dot, added a white border and stronger glow so the pulsing Online indicator stands out clearly against the dark card background.",
+    "files": ["assets/css/polaris.css", "polaris-log.json"]
   }
 ]
