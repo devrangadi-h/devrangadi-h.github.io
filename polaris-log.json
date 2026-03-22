@@ -117,5 +117,12 @@
     "summary": "Format Polaris change log dates with full day and time",
     "details": "Updated polaris.html to format change log dates as full strings like 'Saturday, March 14th 2026 | 12:34 PM' both in the Latest Activity panel and in each entry's metadata.",
     "files": ["polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "15:05",
+    "summary": "Wire Raspberry Pi status into Polaris dashboard",
+    "details": "Added an auto-generated JSON snapshot (polaris-pi-status.json) with Pi metrics like CPU temperature, load, disk usage, and OpenClaw gateway status, plus a Python script (update_pi_status.py) that refreshes the JSON and pushes changes to GitHub. Updated polaris.html to read this static JSON so the public Polaris dashboard shows live-ish Pi status.",
+    "files": ["polaris.html", "polaris-pi-status.json", "update_pi_status.py", "polaris-log.json"]
   }
 ]
