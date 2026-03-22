@@ -204,8 +204,21 @@
           if (s.load1 != null) parts.push('Load: ' + s.load1);
           if (s.diskRoot) parts.push('Disk: ' + s.diskRoot + ' used');
           if (s.openclawStatus) parts.push('OpenClaw: ' + s.openclawStatus);
-          if (s.lastUpdated) parts.push('Updated: ' + s.lastUpdated);
-          metaEl.textContent = parts.join(' · ');
+          if (s.lastUpdated) {
+            const dt = new Date(s.lastUpdated);
+            const nice = isNaN(dt.getTime())
+              ? s.lastUpdated
+              : dt.toLocaleString(undefined, {
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit'
+                });
+            parts.push('Updated: ' + nice);
+          }
+          metaEl.innerHTML = parts.join('<br />');
         } catch (err) {
           statusEl.textContent = 'Status currently unavailable';
           metaEl.textContent = '';
