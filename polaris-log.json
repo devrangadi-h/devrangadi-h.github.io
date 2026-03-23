@@ -180,5 +180,12 @@
     "summary": "Darken and auto-contrast flower snapshots",
     "details": "Adjusted the flower snapshot pipeline to run each captured frame through Pillow: first apply a stronger auto-contrast with a higher cutoff, then reduce brightness to ~80%. This pulls back overexposed highlights in the Flower Tracker images while keeping the processing lightweight and robust.",
     "files": ["update_flower_snapshot.sh", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "19:21",
+    "summary": "Add password-gated lighting control section",
+    "details": "Added a private Lighting Control section to polaris.html with a simple password gate (polarisrocks) and UI buttons for bright white (cool vs warm) and common brightness levels (25/50/75/100%). This panel is front-end only for now; actual Govee floor lamp control continues to run on the Pi via Polaris scripts and the Govee API.",
+    "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
   }
 ]

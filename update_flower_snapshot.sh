@@ -2,6 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 IMG_PATH="$ROOT_DIR/images/flower-latest.jpg"
 JSON_PATH="$ROOT_DIR/flower-tracker.json"
 DEVICE="/dev/video0"  # USB webcam; adjust if needed

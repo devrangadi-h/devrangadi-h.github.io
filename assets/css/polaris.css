@@ -145,6 +145,54 @@
   opacity: 0.75;
 }
 
+.lights-auth {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.lights-auth input[type="password"] {
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+}
+
+.lights-panel.hidden {
+  display: none;
+}
+
+.lights-panel {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lights-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.lights-btn {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: default; /* UI only for now */
+}
+
+.lights-btn.primary {
+  border-color: #3498db;
+}
+
 @keyframes polaris-pulse {
   0% { transform: scale(1); opacity: 0.9; }
   50% { transform: scale(1.05); opacity: 1; }

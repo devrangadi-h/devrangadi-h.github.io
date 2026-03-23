@@ -86,6 +86,30 @@
 
           <hr />
 
+          <section id="lights" style="margin-top: 2rem;">
+            <h2>Lighting Control</h2>
+            <p class="small">Private controls for your Govee floor lamps. Password: <code>polarisrocks</code></p>
+            <div class="lights-auth">
+              <input type="password" id="lights-password" placeholder="Enter password" />
+              <button id="lights-unlock">Unlock</button>
+            </div>
+            <div id="lights-panel" class="lights-panel hidden">
+              <p class="small">These buttons are UI only; actual control runs on the Pi via Polaris.</p>
+              <div class="lights-row">
+                <button data-scene="bright-white" class="lights-btn primary">Bright white (cool)</button>
+                <button data-scene="warm-white" class="lights-btn">Bright white (warm)</button>
+              </div>
+              <div class="lights-row">
+                <button data-bright="25" class="lights-btn">25% brightness</button>
+                <button data-bright="50" class="lights-btn">50% brightness</button>
+                <button data-bright="75" class="lights-btn">75% brightness</button>
+                <button data-bright="100" class="lights-btn">100% brightness</button>
+              </div>
+            </div>
+          </section>
+
+          <hr />
+
           <h2 id="log">Change Log</h2>
           <p>Grouped by day. Click a date to expand/collapse its entries.</p>
           <div id="log-container">
@@ -336,6 +360,22 @@
       loadPiStatus();
       loadFlower();
       loadLog();
+    </script>
+    <script>
+      (function() {
+        const password = 'polarisrocks';
+        const input = document.getElementById('lights-password');
+        const btn = document.getElementById('lights-unlock');
+        const panel = document.getElementById('lights-panel');
+        if (!input || !btn || !panel) return;
+        btn.addEventListener('click', function() {
+          if (input.value === password) {
+            panel.classList.remove('hidden');
+          } else {
+            alert('Incorrect password');
+          }
+        });
+      })();
     </script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
