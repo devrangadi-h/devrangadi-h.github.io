@@ -185,7 +185,7 @@
     "date": "2026-03-22",
     "time": "19:21",
     "summary": "Add password-gated lighting control section",
-    "details": "Added a private Lighting Control section to polaris.html with a simple password gate (polarisrocks) and UI buttons for bright white (cool vs warm) and common brightness levels (25/50/75/100%). This panel is front-end only for now; actual Govee floor lamp control continues to run on the Pi via Polaris scripts and the Govee API.",
+    "details": "Added a private Lighting Control section to polaris.html with a simple password gate and UI buttons for bright white (cool vs warm) and common brightness levels (25/50/75/100%). This panel is front-end only for now; actual Govee floor lamp control continues to run on the Pi via Polaris scripts and the Govee API.",
     "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
   },
   {
@@ -193,6 +193,13 @@
     "time": "19:23",
     "summary": "Add On/Off buttons to lighting control panel",
     "details": "Extended the password-gated Lighting Control section on polaris.html with explicit On and Off buttons for the Govee floor lamps, alongside existing color temperature and brightness controls. The panel remains UI-only; real lamp control is handled on the Pi via Polaris.",
+    "files": ["polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "19:26",
+    "summary": "Hide displayed password and improve unlock behavior",
+    "details": "Removed the inline display of the Lighting Control password from the Polaris dashboard UI and tightened the unlock script to trim whitespace and allow Enter-key unlocking. The password is still a front-end gate (not real security), but it no longer appears in the visible text on the page.",
     "files": ["polaris.html", "polaris-log.json"]
   }
 ]
