@@ -166,5 +166,12 @@
     "summary": "Add detailed load breakdown to CPU load display",
     "details": "Updated the Polaris dashboard Pi status card so that the CPU Load line now shows both the percentage utilization and a breakdown of the 1m/5m/15m load averages in the format 'CPU Load: X% | Load: 0.02 (1m) · 0.05 (5m) · 0.04 (15m)' when available.",
     "files": ["polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "17:51",
+    "summary": "Add Flower Tracker section with webcam snapshot",
+    "details": "Created a Flower Tracker section on the Polaris dashboard that shows a periodically-updated image captured from the USB webcam on the Raspberry Pi. Added an auto-update script (update_flower_snapshot.sh) that grabs a frame to images/flower-latest.jpg, writes flower-tracker.json with a timestamp, and commits/pushes changes. Wired polaris.html and CSS so the latest snapshot and 'Last updated' time render nicely.",
+    "files": ["polaris.html", "assets/css/polaris.css", "update_flower_snapshot.sh", "flower-tracker.json", "images/flower-latest.jpg", "polaris-log.json"]
   }
 ]

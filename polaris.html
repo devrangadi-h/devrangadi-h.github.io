@@ -76,6 +76,16 @@
 
           <hr />
 
+          <section id="flower" style="margin-top: 2rem;">
+            <h2>Flower Tracker</h2>
+            <p class="small">A periodic snapshot from the USB webcam on your Raspberry Pi.</p>
+            <div id="flower-tracker" class="flower-tracker">
+              <p>Loading latest snapshot…</p>
+            </div>
+          </section>
+
+          <hr />
+
           <h2 id="log">Change Log</h2>
           <p>Grouped by day. Click a date to expand/collapse its entries.</p>
           <div id="log-container">
@@ -234,6 +244,46 @@
         }
       }
 
+      async function loadFlower() {
+        const container = document.getElementById('flower-tracker');
+        if (!container) return;
+        try {
+          const res = await fetch('flower-tracker.json?_=' + Date.now());
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!data || !data.image) throw new Error('Empty payload');
+
+          const img = document.createElement('img');
+          img.src = data.image + '?_=' + Date.now(); // bust caches
+          img.alt = 'Latest flower snapshot';
+
+          const meta = document.createElement('p');
+          meta.className = 'meta';
+          if (data.lastUpdated) {
+            const dt = new Date(data.lastUpdated);
+            const nice = isNaN(dt.getTime())
+              ? data.lastUpdated
+              : dt.toLocaleString(undefined, {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit'
+                });
+            meta.textContent = 'Last updated: ' + nice;
+          } else {
+            meta.textContent = 'Last updated: unknown';
+          }
+
+          container.innerHTML = '';
+          container.appendChild(img);
+          container.appendChild(meta);
+        } catch (err) {
+          container.innerHTML = '<p>Flower snapshot not available yet.</p>';
+          console.error('Failed to load flower tracker', err);
+        }
+      }
+
       async function loadLog() {
         const container = document.getElementById('log-container');
         const latestSummaryEl = document.getElementById('latest-summary');
@@ -284,6 +334,7 @@
       }
 
       loadPiStatus();
+      loadFlower();
       loadLog();
     </script>
     <script src="assets/js/jquery.min.js"></script>
