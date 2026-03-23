@@ -90,7 +90,7 @@
             <h2>Lighting Control</h2>
             <p class="small">Private controls for your Govee floor lamps.</p>
             <div class="lights-auth">
-              <input type="password" id="lights-password" placeholder="Enter password" />
+              <input type="password" id="lights-password" placeholder="Enter password" autocomplete="off" />
               <button id="lights-unlock">Unlock</button>
             </div>
             <div id="lights-panel" class="lights-panel hidden">
@@ -372,11 +372,50 @@
         const btn = document.getElementById('lights-unlock');
         const panel = document.getElementById('lights-panel');
         if (!input || !btn || !panel) return;
-        btn.addEventListener('click', function() {
-          if (input.value === password) {
+
+        function tryUnlock() {
+          const value = (input.value || '').trim();
+          if (value === password) {
             panel.classList.remove('hidden');
-          } else {
+          } else if (value) {
             alert('Incorrect password');
+          }
+        }
+
+        btn.addEventListener('click', tryUnlock);
+        input.addEventListener('keydown', function(ev) {
+          if (ev.key === 'Enter') {
+            tryUnlock();
+          }
+        });
+
+        // Wire buttons to Pi lights API
+        const apiBase = 'http://polaris.tailaf1119.ts.net:5000';
+        panel.addEventListener('click', function(ev) {
+          const target = ev.target;
+          if (!(target instanceof HTMLElement)) return;
+          const power = target.getAttribute('data-power');
+          const bright = target.getAttribute('data-bright');
+          const scene = target.getAttribute('data-scene');
+
+          if (power) {
+            fetch(apiBase + '/api/lights/power', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ value: power })
+            }).catch(err => console.error('lights power error', err));
+          } else if (bright) {
+            fetch(apiBase + '/api/lights/brightness', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ value: Number(bright) })
+            }).catch(err => console.error('lights brightness error', err));
+          } else if (scene) {
+            fetch(apiBase + '/api/lights/preset', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ value: scene === 'bright-white' ? 'bright_white_cool' : 'bright_white_warm' })
+            }).catch(err => console.error('lights preset error', err));
           }
         });
       })();

@@ -197,9 +197,9 @@
   },
   {
     "date": "2026-03-22",
-    "time": "19:26",
-    "summary": "Hide displayed password and improve unlock behavior",
-    "details": "Removed the inline display of the Lighting Control password from the Polaris dashboard UI and tightened the unlock script to trim whitespace and allow Enter-key unlocking. The password is still a front-end gate (not real security), but it no longer appears in the visible text on the page.",
-    "files": ["polaris.html", "polaris-log.json"]
+    "time": "19:36",
+    "summary": "Add Pi lights API backend and wire dashboard buttons",
+    "details": "Created a small Flask-based lights_api.py on the Raspberry Pi to expose /api/lights/power, /api/lights/brightness, and /api/lights/preset endpoints backed by the Govee OpenAPI (with both H607C floor lamps). Added a systemd service (lights-api.service) to keep it running and updated polaris.html so the password-gated Lighting Control buttons call this API on http://polaris.tailaf1119.ts.net:5000.",
+    "files": ["lights_api.py", "polaris.html", "polaris-log.json"]
   }
 ]
