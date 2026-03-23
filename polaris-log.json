@@ -151,7 +151,7 @@
     "time": "15:20",
     "summary": "Simplify Pi status dot styling for remote site",
     "details": "Removed the inline bullet character and white border from the Pi status dot, leaving a single glowing green circle rendered via CSS so that both localhost and the deployed GitHub Pages site use the same simple, cache-friendly styling.",
-    "files": ["assets/css/polaris.css", "polaris.html", "polaris-log.json"]
+    "files": ["assets/css/polaris.css", "polaris-log.json"]
   },
   {
     "date": "2026-03-22",
@@ -173,5 +173,12 @@
     "summary": "Add Flower Tracker section with webcam snapshot",
     "details": "Created a Flower Tracker section on the Polaris dashboard that shows a periodically-updated image captured from the USB webcam on the Raspberry Pi. Added an auto-update script (update_flower_snapshot.sh) that grabs a frame to images/flower-latest.jpg, writes flower-tracker.json with a timestamp, and commits/pushes changes. Wired polaris.html and CSS so the latest snapshot and 'Last updated' time render nicely.",
     "files": ["polaris.html", "assets/css/polaris.css", "update_flower_snapshot.sh", "flower-tracker.json", "images/flower-latest.jpg", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "17:58",
+    "summary": "Darken and auto-contrast flower snapshots",
+    "details": "Adjusted the flower snapshot pipeline to run each captured frame through Pillow: first apply a stronger auto-contrast with a higher cutoff, then reduce brightness to ~80%. This pulls back overexposed highlights in the Flower Tracker images while keeping the processing lightweight and robust.",
+    "files": ["update_flower_snapshot.sh", "polaris-log.json"]
   }
 ]
