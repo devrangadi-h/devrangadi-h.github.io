@@ -122,7 +122,7 @@
     "date": "2026-03-22",
     "time": "15:05",
     "summary": "Wire Raspberry Pi status into Polaris dashboard",
-    "details": "Added an auto-generated JSON snapshot (polaris-pi-status.json) with Pi metrics like CPU temperature, load, disk usage, and OpenClaw gateway status, plus a Python script (update_pi_status.py) that refreshes the JSON and pushes changes to GitHub. Updated polaris.html to read this static JSON so the public Polaris dashboard shows live-ish Pi status.",
+    "details": "Added an auto-generated JSON snapshot (polaris-pi-status.json) with Pi metrics like CPU temperature, load, disk usage, and OpenClaw gateway status, plus a Python script (update_pi_status.py) that refreshes the JSON and pushes changes. Updated polaris.html to read this static JSON so the public Polaris dashboard shows live-ish Pi status.",
     "files": ["polaris.html", "polaris-pi-status.json", "update_pi-status.py", "polaris-log.json"]
   },
   {
@@ -187,5 +187,12 @@
     "summary": "Add password-gated lighting control section",
     "details": "Added a private Lighting Control section to polaris.html with a simple password gate (polarisrocks) and UI buttons for bright white (cool vs warm) and common brightness levels (25/50/75/100%). This panel is front-end only for now; actual Govee floor lamp control continues to run on the Pi via Polaris scripts and the Govee API.",
     "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "19:23",
+    "summary": "Add On/Off buttons to lighting control panel",
+    "details": "Extended the password-gated Lighting Control section on polaris.html with explicit On and Off buttons for the Govee floor lamps, alongside existing color temperature and brightness controls. The panel remains UI-only; real lamp control is handled on the Pi via Polaris.",
+    "files": ["polaris.html", "polaris-log.json"]
   }
 ]
