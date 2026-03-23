@@ -7,8 +7,33 @@ JSON_PATH="$ROOT_DIR/flower-tracker.json"
 DEVICE="/dev/video0"  # USB webcam; adjust if needed
 
 # Capture a single frame from the webcam using ffmpeg
-ffmpeg -loglevel error -f video4linux2 -i "$DEVICE" -frames:v 1 -q:v 3 -f image2 "$IMG_PATH.tmp" || exit 0
-mv "$IMG_PATH.tmp" "$IMG_PATH"
+rm -f "$IMG_PATH.tmp"
+ffmpeg -y -loglevel error -f video4linux2 -i "$DEVICE" -frames:v 1 -q:v 3 -f image2 "$IMG_PATH.tmp" || exit 0
+
+# Post-process exposure using Pillow to avoid blown-out highlights
+python3 - << 'EOF'
+import os
+from PIL import Image, ImageOps
+
+root = os.path.dirname(os.path.abspath(__file__))
+img_path_tmp = os.path.join(root, "images", "flower-latest.jpg.tmp")
+img_path = os.path.join(root, "images", "flower-latest.jpg")
+
+try:
+    img = Image.open(img_path_tmp).convert("RGB")
+    # Apply a gentle auto-contrast to correct exposure without destroying detail
+    img = ImageOps.autocontrast(img, cutoff=2)
+    img.save(img_path, optimize=True, quality=90)
+except Exception:
+    # Fall back to the raw capture if processing fails
+    import shutil
+    if os.path.exists(img_path_tmp):
+        shutil.move(img_path_tmp, img_path)
+else:
+    if os.path.exists(img_path_tmp):
+        os.remove(img_path_tmp)
+
+EOF
 
 # Write/update a tiny JSON with last update time
 python3 - << 'EOF'
