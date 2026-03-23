@@ -21,10 +21,8 @@ img_path = os.path.join(root, "images", "flower-latest.jpg")
 
 try:
     img = Image.open(img_path_tmp).convert("RGB")
-    # Apply a stronger exposure correction: darken slightly, then auto-contrast
-    from PIL import ImageEnhance
-    img = ImageOps.autocontrast(img, cutoff=5)
-    img = ImageEnhance.Brightness(img).enhance(0.8)
+    # Mild exposure correction: small auto-contrast only
+    img = ImageOps.autocontrast(img, cutoff=2)
     img.save(img_path, optimize=True, quality=90)
 except Exception:
     # Fall back to the raw capture if processing fails
