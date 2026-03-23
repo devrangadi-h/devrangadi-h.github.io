@@ -31,12 +31,20 @@ def read_cpu_temp_c():
 
 
 def read_load():
+    """Return load averages and a rough CPU utilization percent.
+
+    CPU % is derived as load1 / cpu_count * 100 and capped at 400% on a 4-core system
+    (i.e., 100% per core). This is an approximation but more intuitive than raw load.
+    """
     try:
         load1, load5, load15 = os.getloadavg()
+        cpu_count = os.cpu_count() or 1
+        cpu_pct = min(max(load1 / cpu_count * 100.0, 0.0), 100.0)
         return {
             "load1": round(load1, 2),
             "load5": round(load5, 2),
             "load15": round(load15, 2),
+            "cpuPercent": round(cpu_pct, 1),
         }
     except (OSError, ValueError):
         return {}

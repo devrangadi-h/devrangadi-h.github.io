@@ -152,5 +152,12 @@
     "summary": "Simplify Pi status dot styling for remote site",
     "details": "Removed the inline bullet character and white border from the Pi status dot, leaving a single glowing green circle rendered via CSS so that both localhost and the deployed GitHub Pages site use the same simple, cache-friendly styling.",
     "files": ["assets/css/polaris.css", "polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "17:37",
+    "summary": "Switch Pi load display to CPU percent",
+    "details": "Changed the Pi status backend to derive a rough CPU utilization percentage from the 1-minute load average and core count, exposing it as cpuPercent in the JSON. Updated the public dashboard to label CPU temperature as 'CPU Temp' and show 'CPU Load: X%' instead of a raw load-average number.",
+    "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
   }
 ]
