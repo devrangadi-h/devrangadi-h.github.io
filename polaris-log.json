@@ -159,5 +159,12 @@
     "summary": "Switch Pi load display to CPU percent",
     "details": "Changed the Pi status backend to derive a rough CPU utilization percentage from the 1-minute load average and core count, exposing it as cpuPercent in the JSON. Updated the public dashboard to label CPU temperature as 'CPU Temp' and show 'CPU Load: X%' instead of a raw load-average number.",
     "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
+  },
+  {
+    "date": "2026-03-22",
+    "time": "17:39",
+    "summary": "Add detailed load breakdown to CPU load display",
+    "details": "Updated the Polaris dashboard Pi status card so that the CPU Load line now shows both the percentage utilization and a breakdown of the 1m/5m/15m load averages in the format 'CPU Load: X% | Load: 0.02 (1m) · 0.05 (5m) · 0.04 (15m)' when available.",
+    "files": ["polaris.html", "polaris-log.json"]
   }
 ]

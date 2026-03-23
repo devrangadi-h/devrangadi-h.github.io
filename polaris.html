@@ -201,7 +201,14 @@
           const parts = [];
           if (s.hostname) parts.push('Host: ' + s.hostname);
           if (s.cpuTempC != null) parts.push('CPU Temp: ' + s.cpuTempC + '°C');
-          if (s.cpuPercent != null) parts.push('CPU Load: ' + s.cpuPercent + '%');
+          if (s.cpuPercent != null) {
+            const loadParts = [];
+            if (s.load1 != null) loadParts.push(s.load1 + ' (1m)');
+            if (s.load5 != null) loadParts.push(s.load5 + ' (5m)');
+            if (s.load15 != null) loadParts.push(s.load15 + ' (15m)');
+            const loadStr = loadParts.length ? ' | Load: ' + loadParts.join(' · ') : '';
+            parts.push('CPU Load: ' + s.cpuPercent + '%' + loadStr);
+          }
           if (s.diskRoot) parts.push('Disk: ' + s.diskRoot + ' used');
           if (s.memory) parts.push('RAM: ' + s.memory + ' used');
           if (s.openclawStatus) parts.push('OpenClaw: ' + s.openclawStatus);
