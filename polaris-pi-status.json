@@ -1,12 +1,12 @@
 {
   "piOnline": true,
   "hostname": "polaris",
-  "lastUpdated": "2026-03-27T22:45:01-07:00",
+  "lastUpdated": "2026-03-27T22:50:01-07:00",
   "cpuTempC": 40.8,
-  "load1": 0.01,
-  "load5": 0.01,
-  "load15": 0.0,
-  "cpuPercent": 0.2,
+  "load1": 0.11,
+  "load5": 0.08,
+  "load15": 0.02,
+  "cpuPercent": 2.8,
   "diskRoot": "13G/115G (12%)",
   "memory": "1.7Gi/15Gi"
 }
