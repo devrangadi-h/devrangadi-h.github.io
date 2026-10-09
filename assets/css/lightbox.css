@@ -171,10 +171,10 @@ html.flb-open .reticle {
 
 .flb__hud-t {
 	min-width: 0;
-	overflow: hidden;
 	text-shadow: 0 0 8px rgb(0 0 0 / 0.55), 0 0 2px rgb(0 0 0 / 0.4);
-	white-space: nowrap;
-	text-overflow: ellipsis;
+	/* Wrap long camera/lens names onto a second line instead of cutting them off */
+	overflow-wrap: anywhere;
+	line-height: 1.5;
 }
 
 .flb__hud-t:empty { display: none; }

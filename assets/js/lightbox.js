@@ -132,8 +132,16 @@
 		const label = p.note || p.alt || 'Photo';
 		root.setAttribute('aria-label', label);
 		ui.img.alt = p.alt || '';
-		ui.tl.textContent = [s.camera, s.lens].filter(has).join(' · ');
-		ui.bl.textContent = [s.aperture, s.shutter, has(s.iso) ? 'ISO ' + s.iso : null, s.focalLength].filter(has).join(' · ');
+		// Each part stays whole; a narrow photo breaks the line only between them
+		ui.tl.replaceChildren();
+		[s.camera, s.lens].filter(has).forEach(function(part, i) {
+			if (i) ui.tl.append(' · ');
+			const span = document.createElement('span');
+			span.style.whiteSpace = 'nowrap';
+			span.textContent = part;
+			ui.tl.append(span);
+		});
+		ui.bl.textContent = [s.aperture, s.shutter, has(s.iso) ? 'ISO ' + s.iso : null, has(s.focal35) ? s.focal35 : s.focalLength].filter(has).join(' · ');
 		ui.br.textContent = [dims(p), has(s.megapixels) ? s.megapixels + ' MP' : null].filter(has).join(' · ');
 		if (hasGps(s.gps)) {
 			ui.geo.hidden = false;

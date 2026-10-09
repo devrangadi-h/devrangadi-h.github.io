@@ -167,10 +167,11 @@
 	position: absolute;
 	top: clamp(6px, 1vw, 12px);
 	right: clamp(6px, 1vw, 12px);
-	display: grid;
-	place-items: center;
-	width: clamp(26px, 2.6vw, 36px);
-	height: clamp(26px, 2.6vw, 36px);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: clamp(26px, 2.6vw, 32px);
+	padding-inline: 10px 12px;
 	border-radius: 999px;
 	background: rgb(10 11 13 / 0.5);
 	-webkit-backdrop-filter: blur(8px);
@@ -179,13 +180,29 @@
 }
 
 .frame-tile__badge svg {
-	width: 58%;
-	height: 58%;
+	flex: none;
+	width: 16px;
+	height: 16px;
 	fill: none;
 	stroke: currentColor;
 	stroke-width: 1.75;
 	stroke-linecap: round;
 	stroke-linejoin: round;
+}
+
+/* Open-book icon + "Story" label, so it can't be read as a copy button */
+.frame-tile__badge-label {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	line-height: 1;
+}
+
+/* Phone tiles are ~114px: icon only */
+@media (max-width: 599.98px) {
+	.frame-tile__badge { padding-inline: 0; width: 26px; justify-content: center; }
+	.frame-tile__badge-label { display: none; }
 }
 
 /* Grid <-> Story: snapshots keep their crop while the square Tile and wide hero morph

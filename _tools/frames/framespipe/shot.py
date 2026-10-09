@@ -128,12 +128,33 @@ def gps(row):
 	return {'lat': round(lat, 5), 'lon': round(lon, 5), 'altitude': round(alt) if alt is not None else None}
 
 
+# iPhones report lenses like "iPhone 18 Pro Max back triple camera 6.93mm f/1.48";
+# show the module photographers know instead ("Main camera f/1.48")
+_PHONE_LENS = re.compile(r'^.*?\b(back|front)\b.*?camera\s+([\d.]+)\s*mm\s+f/([\d.]+)\s*$', re.I)
+
+
+def phone_lens(lens, fl):
+	m = _PHONE_LENS.match(lens)
+	if not m:
+		return lens or None
+	side, mm, ap = m.group(1).lower(), float(m.group(2)), m.group(3)
+	if side == 'front':
+		name = 'Front camera'
+	elif mm < 3.5:
+		name = 'Ultra Wide camera'
+	elif mm < 7.5:
+		name = 'Main camera'
+	else:
+		name = 'Telephoto camera'
+	return f'{name} f/{ap}'
+
+
 def shot_details(row, width, height, show_gps=True):
 	fl = _num(row.get('FocalLength'))
 	f35 = _num(row.get('FocalLengthIn35mmFormat'))
 	iso = _num(row.get('ISO'))
 	lens = row.get('LensModel') or row.get('Lens') or None
-	lens = str(lens).strip() if lens else None
+	lens = phone_lens(str(lens).strip(), fl) if lens else None
 	return {
 		'camera': camera_name(row.get('Make'), row.get('Model')),
 		'lens': lens or None,
