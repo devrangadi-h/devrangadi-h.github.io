@@ -369,5 +369,15 @@
       "update_flower_snapshot.sh",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:25",
+    "summary": "Show the Pi as offline when its status goes stale; hide flower tracker without a camera",
+    "details": "The Pi Status card now shows Offline (with a last-seen time) if the Pi hasn't reported in 15 minutes, instead of always saying Online. The Flower Tracker section hides itself when there's no snapshot from the last 6 hours, and the snapshot script now skips cleanly when no webcam is connected.",
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
   }
 ]
