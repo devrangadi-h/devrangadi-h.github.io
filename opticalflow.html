@@ -1,103 +1,164 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="Comparing the Farneback algorithm with FlowNet 2.0 on endpoint error, angular error, velocity estimation and face tracking." />
-		<link rel="canonical" href="https://devrobotics.dev/opticalflow.html" />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="devrobotics" />
-		<meta property="og:title" content="Optical Flow: Classical CV vs Deep Learning — Hardik Devrangadi" />
-		<meta property="og:description" content="Comparing the Farneback algorithm with FlowNet 2.0 on endpoint error, angular error, velocity estimation and face tracking." />
-		<meta property="og:url" content="https://devrobotics.dev/opticalflow.html" />
-		<meta property="og:image" content="https://devrobotics.dev/images/pic02.jpg" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/site.css" />
-		<link rel="icon" href="/images/icon.png" type="image/png">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">
-					<img src="images/icon.png" alt="Logo" class="site-logo" />
-					devrobotics
-				</a>
-				<nav>
-					<ul>
-						<li><a href="/index.html#intro">About</a></li>
-						<li><a href="/index.html#research">Research</a></li>
-						<li><a href="/index.html#one">Projects</a></li>
-						<li><a href="/index.html#three">Contact</a></li>
-						<li><a href="/polaris.html">Polaris</a></li>
-						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-					</ul>
-				</nav>
-			</header>
-
-		<!-- Wrapper -->
-			<div id="wrapper" style="margin-top: 5.5rem;">
-
-				<!-- Main -->
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</h1>
-
-							<p>This analysis entails a comprehensive examination of Optical Flow using both Classical Computer Vision techniques and the Deep Learning Model, specifically FlowNet 2.0. The comparison hinges on crucial performance metrics: L1 error, Average Endpoint Error, and Average Angular Error. The obtained flow is then visually represented through a grid of arrows, facilitating face tracking via a Haar-Cascade Classifier. The optical flow field is subsequently scrutinized to assess both the velocity of movement and its directional aspects. Furthermore, a user-friendly user interface is designed for the Classical Computer Vision approach, allowing users to visualize optical flow with different step sizes and reset the region of interest.</p>
-
-							<!-- <span class="image fit"><img src="images/pic04.jpg" alt="" /></span> -->
-							<center><div class="yt-embed" data-id="nelAh5yYat4" data-title="Classical Computer Vision Optical Flow UI"><a href="https://www.youtube.com/watch?v=nelAh5yYat4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/nelAh5yYat4/hqdefault.jpg" alt="Play video: Classical Computer Vision Optical Flow UI" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div></center>
-
-<br/><hr>
-<center><div class="yt-embed" data-id="BMFYHfwHm0g" data-title="Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach"><a href="https://www.youtube.com/watch?v=BMFYHfwHm0g" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/BMFYHfwHm0g/hqdefault.jpg" alt="Play video: Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div></center>
-<br/><hr>
-<center><div class="yt-embed" data-id="aHbXsap42-c" data-title="Classical Computer Vision"><a href="https://www.youtube.com/watch?v=aHbXsap42-c" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/aHbXsap42-c/hqdefault.jpg" alt="Play video: Classical Computer Vision" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
-
-<div class="yt-embed" data-id="kpLF2yQc9fU" data-title="Deep Learning Computer Vision"><a href="https://www.youtube.com/watch?v=kpLF2yQc9fU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/kpLF2yQc9fU/hqdefault.jpg" alt="Play video: Deep Learning Computer Vision" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div></center>
-<br/><hr>
-<center><div class="yt-embed" data-id="S2ito1zSUEk" data-title="Optical Flow Output Comparison"><a href="https://www.youtube.com/watch?v=S2ito1zSUEk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/S2ito1zSUEk/hqdefault.jpg" alt="Play video: Optical Flow Output Comparison" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div></center>
-
-
-<br/><hr>
-						
-							<ul class="actions">
-								<li><a href="https://drive.google.com/file/d/1oPx_SNyz03lWLZdPP5RLQ2kJC4OSxS5I/view" target="_blank" class="button">Detailed Report</a></li>
-							</ul>
-					
-						
-
-						</div>
-					</section>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Optical Flow: Classical CV vs Deep Learning — Hardik Devrangadi</title>
+	<meta name="description" content="Comparing the Farneback algorithm with FlowNet 2.0 on endpoint error, angular error, velocity estimation and face tracking." />
+	<link rel="canonical" href="https://devrobotics.dev/opticalflow.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Optical Flow: Classical CV vs Deep Learning — Hardik Devrangadi" />
+	<meta property="og:description" content="Comparing the Farneback algorithm with FlowNet 2.0 on endpoint error, angular error, velocity estimation and face tracking." />
+	<meta property="og:url" content="https://devrobotics.dev/opticalflow.html" />
+	<meta property="og:image" content="https://devrobotics.dev/images/pic02.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/project.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/project.js" defer></script>
+</head>
+<body class="page-project">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
 			</div>
+		</div>
+	</header>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-					</ul>
+	<main id="main">
+		<section class="proj-hero" id="top" aria-labelledby="proj-title">
+			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static.webp" alt="" width="1600" height="900" /></div>
+			<div class="proj-hero__inner container grid">
+				<div class="proj-hero__text span-7" data-reveal-group>
+					<p class="eyebrow proj-hero__crumb"><a href="/#projects">Projects</a> / 03 of 04</p>
+					<h1 class="proj-hero__title" id="proj-title">Comparative analysis of optical flow techniques</h1>
+					<p class="proj-hero__hook">Classical computer vision vs a deep learning approach: <!-- DRAFT COPY -->the Farneback algorithm against FlowNet 2.0.<!-- /DRAFT COPY --></p>
+					<ul class="cluster proj-hero__tags" role="list" aria-label="Stack"><li class="tag">C++</li><li class="tag">Python</li><li class="tag">OpenCV</li><li class="tag">XCode</li><li class="tag">OpenGL</li><li class="tag">PyTorch</li><li class="tag">TensorFlow</li></ul>
 				</div>
-			</footer>
+				<figure class="proj-hero__media span-5">
+					<img src="images/pic02.jpg" alt="Optical flow interface tracking a face in a webcam frame, with velocity and direction readouts" width="1600" height="1600" fetchpriority="high" style="view-transition-name: proj-flow; object-position: 25% 25%" />
+				</figure>
+			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/theme.js"></script>
-			<script src="assets/js/video.js"></script>
+		<div class="proj-body container grid">
+			<aside class="facts tile" aria-labelledby="facts-title">
+				<h2 class="visually-hidden" id="facts-title">Key facts</h2>
+				<dl class="facts__list">
+						<div><dt class="eyebrow">Methods</dt><dd>Farneback (classical) and FlowNet 2.0 (deep learning)</dd></div>
+						<div><dt class="eyebrow">Metrics</dt><dd>L1 error, average endpoint error, average angular error</dd></div>
+						<div class="facts__stack"><dt class="eyebrow">Stack</dt><dd><ul class="cluster" role="list"><li class="tag">C++</li><li class="tag">Python</li><li class="tag">OpenCV</li><li class="tag">XCode</li><li class="tag">OpenGL</li><li class="tag">PyTorch</li><li class="tag">TensorFlow</li></ul></dd></div>
+						<div><dt class="eyebrow">Links</dt><dd><div class="facts__links"><a href="https://drive.google.com/file/d/1oPx_SNyz03lWLZdPP5RLQ2kJC4OSxS5I/view" target="_blank" rel="noopener">Detailed report</a><a href="#videos">Videos</a></div></dd></div>
+				</dl>
+			</aside>
 
-	</body>
+			<article class="proj-main" aria-label="Write-up">
+				<!-- DRAFT COPY: sections restructured from the old page and homepage text -->
+				<section class="proj-section" aria-labelledby="s-overview" data-reveal>
+					<p class="eyebrow">01 · Overview</p>
+					<h2 id="s-overview">Classical computer vision vs deep learning</h2>
+					<p>A comprehensive examination of optical flow estimation using both classical computer vision techniques, such as the Farneback algorithm, and a deep learning model, FlowNet 2.0, comparing how accurately each one estimates motion.</p>
+				</section>
+				<section class="proj-section" aria-labelledby="s-approach" data-reveal>
+					<p class="eyebrow">02 · Approach</p>
+					<h2 id="s-approach">From flow field to tracking</h2>
+					<ol class="points" role="list">
+						<li><span>Estimate optical flow with the classical Farneback algorithm and with FlowNet 2.0.</span></li>
+						<li><span>Visualise the obtained flow as a grid of arrows.</span></li>
+						<li><span>Track faces with a Haar-Cascade classifier.</span></li>
+						<li><span>Analyse the optical flow field for both the velocity of movement and its direction.</span></li>
+						<li><span>A user interface for the classical approach lets users visualise optical flow with different step sizes and reset the region of interest.</span></li>
+					</ol>
+				</section>
+				<section class="proj-section" aria-labelledby="s-results" data-reveal>
+					<p class="eyebrow">03 · Evaluation</p>
+					<h2 id="s-results">How the two were compared</h2>
+					<p>The comparison hinges on three performance metrics: <strong>L1 error</strong>, <strong>average endpoint error</strong> and <strong>average angular error</strong>. The analysis also evaluates flow discontinuity, velocity estimation, object tracking and pixel displacement, and performs bounding box analysis.</p>
+					<p>Side-by-side outputs are in the videos below; the numbers are in the detailed report.</p>
+					<div class="cluster proj-docs"><a class="btn btn--primary" href="https://drive.google.com/file/d/1oPx_SNyz03lWLZdPP5RLQ2kJC4OSxS5I/view" target="_blank" rel="noopener" data-magnetic>Detailed report</a></div>
+				</section>
+				<!-- /DRAFT COPY -->
+			</article>
+		</div>
+
+		<section class="proj-videos container" id="videos" aria-labelledby="videos-title">
+			<div class="proj-videos__head">
+				<h2 id="videos-title">Videos</h2>
+				<p class="eyebrow">5 videos · YouTube, loads on play</p>
+			</div>
+			<ul class="video-grid" role="list">
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="nelAh5yYat4" data-title="Classical Computer Vision Optical Flow UI"><a href="https://www.youtube.com/watch?v=nelAh5yYat4" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/nelAh5yYat4/hqdefault.jpg" alt="Play video: Classical Computer Vision Optical Flow UI" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Classical Computer Vision Optical Flow UI</p>
+				</li>
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="BMFYHfwHm0g" data-title="Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach"><a href="https://www.youtube.com/watch?v=BMFYHfwHm0g" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/BMFYHfwHm0g/hqdefault.jpg" alt="Play video: Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</p>
+				</li>
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="aHbXsap42-c" data-title="Classical Computer Vision"><a href="https://www.youtube.com/watch?v=aHbXsap42-c" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/aHbXsap42-c/hqdefault.jpg" alt="Play video: Classical Computer Vision" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Classical Computer Vision</p>
+				</li>
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="kpLF2yQc9fU" data-title="Deep Learning Computer Vision"><a href="https://www.youtube.com/watch?v=kpLF2yQc9fU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/kpLF2yQc9fU/hqdefault.jpg" alt="Play video: Deep Learning Computer Vision" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Deep Learning Computer Vision</p>
+				</li>
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="S2ito1zSUEk" data-title="Optical Flow Output Comparison"><a href="https://www.youtube.com/watch?v=S2ito1zSUEk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/S2ito1zSUEk/hqdefault.jpg" alt="Play video: Optical Flow Output Comparison" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Optical Flow Output Comparison</p>
+				</li>
+			</ul>
+		</section>
+
+		<nav class="proj-pager container grid" aria-label="More projects">
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--prev" href="eclipse.html" rel="prev">
+				<img src="images/pic01.jpg" alt="" width="1200" height="1200" loading="lazy" data-vt="proj-eclipse" style="object-position: top center" />
+				<span class="proj-pager__text"><span class="eyebrow">&larr; Previous</span><span class="proj-pager__title">The Eclipse hexacopter</span></span>
+			</a>
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--next" href="polaris-project.html" rel="next">
+				<img src="images/polaris.svg" alt="" width="1200" height="1200" loading="lazy" data-vt="proj-polaris" />
+				<span class="proj-pager__text"><span class="eyebrow">Next &rarr;</span><span class="proj-pager__title">Polaris</span></span>
+			</a>
+			<a class="btn btn--ghost proj-pager__all span-12" href="/#projects">All projects</a>
+		</nav>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<!-- DRAFT COPY -->
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+</body>
 </html>
