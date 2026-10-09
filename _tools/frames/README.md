@@ -2,6 +2,16 @@
 
 Turns the private Inbox (`/home/polaris/frames-inbox`, format in its `README.md`) into the published Frames section: processed media, `frames.json`, the grid inside `frames.html`, and `frames/<slug>.html` story pages. Jekyll skips `_tools/`, so none of this is served. No secrets live here.
 
+## Image hosting (once): Cloudflare R2
+
+Published media lives in the R2 bucket `frames`, served at `https://frames.devrobotics.dev` (see `_docs/adr/0001-frames-images-on-cloudflare-r2.md`). Run the wizard from an interactive terminal on the Pi (for example over `ssh polaris@polaris`):
+
+```sh
+_tools/frames/setup-r2.sh
+```
+
+It walks through enabling R2, creating the bucket, connecting the domain, the CORS policy and an API token, then writes the `frames-r2` rclone remote (keys only in rclone's config, `chmod 600`) and verifies an upload and a public read. Safe to re-run.
+
 ## Setup (once per machine)
 
 ```sh
