@@ -4,209 +4,340 @@
     "time": "14:22",
     "summary": "Add OpenClaw/Polaris edit marker to footer",
     "details": "Small HTML comment in index.html footer to verify end-to-end editing and deployment from Raspberry Pi via OpenClaw.",
-    "files": ["index.html"]
+    "files": [
+      "index.html"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "14:48",
     "summary": "Create Polaris public and private dashboards",
     "details": "Added public Polaris activity dashboard at polaris.html and initial private dashboard shell at /private/index.html for Cloudflare Access gating.",
-    "files": ["polaris.html", "private/index.html", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "private/index.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:20",
     "summary": "Redesign public Polaris dashboard with grouped, collapsible log",
     "details": "Updated polaris.html to add overview cards, per-day collapsible panels, and light animations, plus dedicated CSS in assets/css/polaris.css.",
-    "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:32",
     "summary": "Add Polaris TODO section to private dashboard",
     "details": "Extended /private/index.html with a visible Polaris TODO list summarizing pending work like wiring live Pi status, finishing Cloudflare Access, and future dashboard ideas.",
-    "files": ["private/index.html", "polaris-log.json"]
+    "files": [
+      "private/index.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:33",
     "summary": "Add README documenting portfolio + Polaris architecture",
     "details": "Created README.md explaining that this repo backs devrobotics.dev, is managed by an OpenClaw agent (Polaris) on a Raspberry Pi, and includes a high-level system design + process flow for changes.",
-    "files": ["README.md", "polaris-log.json"]
+    "files": [
+      "README.md",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:36",
     "summary": "Add disclaimer noting README is maintained by Polaris",
     "details": "Appended a disclaimer to README.md with a warning icon explaining that the README was drafted and is maintained by the Polaris agent running on the Raspberry Pi via OpenClaw.",
-    "files": ["README.md", "polaris-log.json"]
+    "files": [
+      "README.md",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:37",
     "summary": "Fix clipping on long Polaris log entries",
     "details": "Increased the max-height on open day panels in assets/css/polaris.css so long descriptions are no longer visually cut off at the bottom of the card.",
-    "files": ["assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:41",
     "summary": "Add sidebar link from portfolio to Polaris dashboard",
     "details": "Updated index.html sidebar navigation to include a direct link to /polaris.html so it feels like a first-class part of the site.",
-    "files": ["index.html", "polaris-log.json"]
+    "files": [
+      "index.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:43",
     "summary": "Add scrollable bodies to daily Polaris log panels",
     "details": "Changed the open state of polaris-day-body to use a fixed max-height with overflow-y:auto so long day logs can be scrolled inside the card instead of being visually clipped.",
-    "files": ["assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:45",
     "summary": "Revert main sidebar to original layout",
     "details": "Restored index.html sidebar navigation to the original five-section layout (Introduction, Current Research, Featured Projects, At a Glance, Contact) and removed the Polaris Dashboard link to keep the portfolio section visually unchanged.",
-    "files": ["index.html", "polaris-log.json"]
+    "files": [
+      "index.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "15:52",
     "summary": "Add global header with theme toggle and logo",
     "details": "Introduced a persistent site-header on index.html, polaris.html, and main project pages with a left-aligned light/dark theme toggle and right-aligned logo (images/icon.png), wired to a small script that remembers the chosen theme via localStorage.",
-    "files": ["assets/css/main.css", "index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+    "files": [
+      "assets/css/main.css",
+      "index.html",
+      "polaris.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "16:02",
     "summary": "Switch header background to solid black for visibility",
     "details": "Updated .site-header to use an opaque black background and slightly larger top padding so the new global header bar stands out clearly above the dark page background.",
-    "files": ["assets/css/main.css", "polaris-log.json"]
+    "files": [
+      "assets/css/main.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "17:35",
     "summary": "Refine devrobotics site layout, theming, and Polaris integration",
     "details": "Converted the main site to a light/dark theme with a global top nav, updated the hero to reflect Hardik's role at Amazon Robotics, rewrote the graduate UAV research section into concise bullet points, aligned Polaris with the new layout (including a Powered by Polaris & OpenClaw section), and applied consistent header + theme behavior across project detail pages.",
-    "files": ["index.html", "assets/css/main.css", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+    "files": [
+      "index.html",
+      "assets/css/main.css",
+      "polaris.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "18:16",
     "summary": "Adjust Polaris change log panel height",
     "details": "Tuned the CSS for .polaris-day-body.open to use viewport-based min/max heights so each change log day opens to a larger, more readable box (~30–70% of the viewport) while still allowing scrolling for very long days.",
-    "files": ["assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "18:24",
     "summary": "Highlight Polaris assistant in hero text",
     "details": "Updated the main hero section to mention Polaris as a personal assistant running on a Raspberry Pi using OpenClaw, helping maintain the site and automate workflows.",
-    "files": ["index.html", "polaris-log.json"]
+    "files": [
+      "index.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "18:42",
     "summary": "Default site theme to dark mode",
     "details": "Changed the theme initialization logic so that dark mode is the default when no preference is stored, while still respecting light/dark choices via localStorage across the home, Polaris, and project pages.",
-    "files": ["index.html", "polaris.html", "eclipse.html", "objectdetection.html", "opticalflow.html", "polaris-log.json"]
+    "files": [
+      "index.html",
+      "polaris.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-14",
     "time": "18:45",
     "summary": "Format Polaris change log dates with full day and time",
     "details": "Updated polaris.html to format change log dates as full strings like 'Saturday, March 14th 2026 | 12:34 PM' both in the Latest Activity panel and in each entry's metadata.",
-    "files": ["polaris.html", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "15:05",
     "summary": "Wire Raspberry Pi status into Polaris dashboard",
     "details": "Added an auto-generated JSON snapshot (polaris-pi-status.json) with Pi metrics like CPU temperature, load, disk usage, and OpenClaw gateway status, plus a Python script (update_pi_status.py) that refreshes the JSON and pushes changes. Updated polaris.html to read this static JSON so the public Polaris dashboard shows live-ish Pi status.",
-    "files": ["polaris.html", "polaris-pi-status.json", "update_pi-status.py", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "polaris-pi-status.json",
+      "update_pi-status.py",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "15:12",
     "summary": "Tidy Pi status display and add pulsing online indicator",
     "details": "Refined the public Polaris dashboard Pi status card to use a pulsing green dot next to the Online label, separate lines for host/CPU/load/disk/OpenClaw/updated fields, and a human-friendly formatted timestamp instead of the raw ISO string. Also tightened the OpenClaw status summary in the JSON to avoid exposing IPs or other sensitive details.",
-    "files": ["polaris.html", "assets/css/polaris.css", "update_pi_status.py", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "assets/css/polaris.css",
+      "update_pi_status.py",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "15:17",
     "summary": "Make Pi status indicator more visible",
     "details": "Increased the size of the Pi status dot, added a white border and stronger glow so the pulsing Online indicator stands out clearly against the dark card background.",
-    "files": ["assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "15:18",
     "summary": "Add RAM usage to public Pi status dashboard",
     "details": "Extended the Pi status JSON and Polaris dashboard to include RAM usage (used/total) alongside CPU temperature, load, and disk usage. The Pi-side script now parses `free -h` into a friendly RAM string and the dashboard renders it on its own line.",
-    "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
+    "files": [
+      "update_pi_status.py",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "15:20",
     "summary": "Simplify Pi status dot styling for remote site",
     "details": "Removed the inline bullet character and white border from the Pi status dot, leaving a single glowing green circle rendered via CSS so that both localhost and the deployed GitHub Pages site use the same simple, cache-friendly styling.",
-    "files": ["assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "17:37",
     "summary": "Switch Pi load display to CPU percent",
     "details": "Changed the Pi status backend to derive a rough CPU utilization percentage from the 1-minute load average and core count, exposing it as cpuPercent in the JSON. Updated the public dashboard to label CPU temperature as 'CPU Temp' and show 'CPU Load: X%' instead of a raw load-average number.",
-    "files": ["update_pi_status.py", "polaris.html", "polaris-log.json"]
+    "files": [
+      "update_pi_status.py",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "17:39",
     "summary": "Add detailed load breakdown to CPU load display",
     "details": "Updated the Polaris dashboard Pi status card so that the CPU Load line now shows both the percentage utilization and a breakdown of the 1m/5m/15m load averages in the format 'CPU Load: X% | Load: 0.02 (1m) · 0.05 (5m) · 0.04 (15m)' when available.",
-    "files": ["polaris.html", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "17:51",
     "summary": "Add Flower Tracker section with webcam snapshot",
     "details": "Created a Flower Tracker section on the Polaris dashboard that shows a periodically-updated image captured from the USB webcam on the Raspberry Pi. Added an auto-update script (update_flower_snapshot.sh) that grabs a frame to images/flower-latest.jpg, writes flower-tracker.json with a timestamp, and commits/pushes changes. Wired polaris.html and CSS so the latest snapshot and 'Last updated' time render nicely.",
-    "files": ["polaris.html", "assets/css/polaris.css", "update_flower_snapshot.sh", "flower-tracker.json", "images/flower-latest.jpg", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "assets/css/polaris.css",
+      "update_flower_snapshot.sh",
+      "flower-tracker.json",
+      "images/flower-latest.jpg",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "17:58",
     "summary": "Darken and auto-contrast flower snapshots",
     "details": "Adjusted the flower snapshot pipeline to run each captured frame through Pillow: first apply a stronger auto-contrast with a higher cutoff, then reduce brightness to ~80%. This pulls back overexposed highlights in the Flower Tracker images while keeping the processing lightweight and robust.",
-    "files": ["update_flower_snapshot.sh", "polaris-log.json"]
+    "files": [
+      "update_flower_snapshot.sh",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "19:21",
     "summary": "Add password-gated lighting control section",
     "details": "Added a private Lighting Control section to polaris.html with a simple password gate and UI buttons for bright white (cool vs warm) and common brightness levels (25/50/75/100%). This panel is front-end only for now; actual Govee floor lamp control continues to run on the Pi via Polaris scripts and the Govee API.",
-    "files": ["polaris.html", "assets/css/polaris.css", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "assets/css/polaris.css",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "19:23",
     "summary": "Add On/Off buttons to lighting control panel",
     "details": "Extended the password-gated Lighting Control section on polaris.html with explicit On and Off buttons for the Govee floor lamps, alongside existing color temperature and brightness controls. The panel remains UI-only; real lamp control is handled on the Pi via Polaris.",
-    "files": ["polaris.html", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-03-22",
     "time": "19:36",
     "summary": "Add Pi lights API backend and wire dashboard buttons",
     "details": "Created a small Flask-based lights_api.py on the Raspberry Pi to expose /api/lights/power, /api/lights/brightness, and /api/lights/preset endpoints backed by the Govee OpenAPI (with both H607C floor lamps). Added a systemd service (lights-api.service) to keep it running and updated polaris.html so the password-gated Lighting Control buttons call this API on http://polaris.tailaf1119.ts.net:5000.",
-    "files": ["lights_api.py", "polaris.html", "polaris-log.json"]
+    "files": [
+      "lights_api.py",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   },
   {
     "date": "2026-04-07",
     "time": "21:21",
     "summary": "Hide Flower Tracker heading on Polaris dashboard",
     "details": "Updated polaris.html so the Flower Tracker section no longer shows the \"Flower Tracker\" heading or descriptive text, keeping only the live snapshot block and metadata. The underlying image update pipeline and JSON wiring remain unchanged.",
-    "files": ["polaris.html", "polaris-log.json"]
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:14",
+    "summary": "Retire OpenClaw runtime; move lights API into site repo",
+    "details": "Uninstalled the OpenClaw gateway from the Pi to free ~1.4 GB. The lights API now runs from a .venv inside devrobotics-site, with the Govee key moved to ~/.config/polaris (outside the repo). Removed the OpenClaw status check from update_pi_status.py and the dashboard, added a .gitignore, and repaired a corrupted local git repo.",
+    "files": [
+      ".gitignore",
+      "lights_api.py",
+      "govee_control.py",
+      "update_pi_status.py",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   }
 ]

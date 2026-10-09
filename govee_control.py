@@ -7,7 +7,7 @@ import urllib.error
 
 API_BASE = "https://developer-api.govee.com/v1"
 
-CRED_PATH = os.path.expanduser("/home/polaris/.openclaw/credentials/govee_api_key")
+CRED_PATH = os.path.expanduser("/home/polaris/.config/polaris/govee_api_key")
 
 
 def load_api_key():

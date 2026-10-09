@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 import urllib.request
 import urllib.error
 
-API_KEY_PATH = "/home/polaris/.openclaw/credentials/govee_api_key"
+API_KEY_PATH = "/home/polaris/.config/polaris/govee_api_key"
 GOVEE_OPENAPI_BASE = "https://openapi.api.govee.com/router/api/v1"
 
 # Two H607C floor lamps from the OpenAPI devices list

@@ -87,44 +87,6 @@ def read_memory():
     return None
 
 
-def read_openclaw_status():
-    """Return a short OpenClaw status string, or None on failure.
-
-    We keep this intentionally simple to avoid depending on specific output formats.
-    """
-    try:
-        out = subprocess.check_output(["openclaw", "gateway", "status"], text=True, stderr=subprocess.STDOUT)
-    except (subprocess.SubprocessError, OSError):
-        return None
-
-    # Very rough parsing for a short, non-sensitive summary.
-    # We intentionally avoid exposing IP addresses or full command lines.
-    runtime = None
-    gateway = None
-    for line in out.splitlines():
-        t = line.strip()
-        if t.startswith("Runtime:"):
-            runtime = t.replace("Runtime:", "").strip()
-        if t.startswith("Gateway:"):
-            gateway = t.replace("Gateway:", "").strip()
-
-    if not runtime and not gateway:
-        return None
-
-    # Collapse details to a simple health string.
-    pieces = []
-    if runtime:
-        pieces.append(runtime.split(",")[0])  # e.g., "running (pid ...)" → "running (pid ...)" then trimmed below
-    if gateway:
-        pieces.append(gateway.split(",")[0])  # e.g., "bind=tailnet (...)" → "bind=tailnet (...)" then trimmed below
-
-    summary = " | ".join(pieces)
-    # Strip anything in parentheses to avoid leaking IPs/PIDs.
-    import re
-    summary = re.sub(r"\s*\([^)]*\)", "", summary).strip()
-    return summary or None
-
-
 def build_status():
     now = datetime.now(timezone.utc).astimezone()  # local time with tz
     data = {
@@ -147,10 +109,6 @@ def build_status():
     mem = read_memory()
     if mem is not None:
         data["memory"] = mem
-
-    oc_status = read_openclaw_status()
-    if oc_status is not None:
-        data["openclawStatus"] = oc_status
 
     return data
 
