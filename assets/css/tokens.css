@@ -11,14 +11,6 @@
 }
 
 @font-face {
-	font-family: "Geist";
-	src: url("../fonts/geist-var.woff2") format("woff2");
-	font-weight: 100 900;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
 	font-family: "JetBrains Mono";
 	src: url("../fonts/jetbrains-mono-var.woff2") format("woff2");
 	font-weight: 100 800;
@@ -41,6 +33,7 @@
 	--accent-strong: #075985;
 	--accent-contrast: #ffffff;
 	--accent-glow: rgb(14 165 233 / 0.15);
+	--spot-glow: rgb(14 165 233 / 0.11);
 	--points: #0284c7;
 	--ok: #15803d;
 	--warn: #b45309;
@@ -104,6 +97,7 @@
 		--accent-strong: #bae6fd;
 		--accent-contrast: #0a0b0d;
 		--accent-glow: rgb(125 211 252 / 0.2);
+		--spot-glow: rgb(125 211 252 / 0.1);
 		--points: #38bdf8;
 		--ok: #4ade80;
 		--warn: #fbbf24;
@@ -125,14 +119,10 @@
 	--accent-strong: #bae6fd;
 	--accent-contrast: #0a0b0d;
 	--accent-glow: rgb(125 211 252 / 0.2);
+	--spot-glow: rgb(125 211 252 / 0.1);
 	--points: #38bdf8;
 	--ok: #4ade80;
 	--warn: #fbbf24;
 	--nav-bg: rgb(10 11 13 / 0.72);
 	--shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
-}
-
-/* Font preview hook for the Inter vs Geist decision (open question in the plan) */
-:root[data-font="geist"] {
-	--font-sans: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

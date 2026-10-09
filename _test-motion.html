@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="noindex" />
+	<title>Motion test · devrobotics</title>
+	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<style>
+		/* Test-page-only helpers */
+		.t-hero { min-height: 100svh; display: flex; align-items: center; padding-top: var(--nav-h); }
+		.t-tall { min-height: 120vh; }
+		.t-num { font-family: var(--font-mono); font-size: var(--fs-2xl); }
+		.t-input { height: 44px; padding: 0 var(--sp-3); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font: inherit; }
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+	<main id="main">
+		<section class="t-hero" id="top" data-hero>
+			<div class="container stack-lg">
+				<div class="stack" data-reveal-group>
+					<p class="eyebrow">Motion test · not linked</p>
+					<h1>Reticle, reveals, magnets</h1>
+					<p class="lead">Move the pointer over the buttons and tiles; scroll for reveals and counters.</p>
+				</div>
+				<div class="cluster" data-reveal>
+					<a class="btn btn--primary" href="#projects" data-magnetic id="cta-primary">See projects</a>
+					<a class="btn btn--ghost" href="#contact" data-magnetic id="cta-ghost">Get in touch</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section container" id="projects">
+			<div class="stack-lg">
+				<h2 data-reveal>Projects</h2>
+				<div class="grid" data-reveal-group id="tiles">
+					<a class="tile tile--link span-3 md-span-6" href="#p1" data-shape="detection"><h3>Object detection</h3><p class="muted">Tile with data-shape.</p></a>
+					<a class="tile tile--link span-3 md-span-6" href="#p2" data-shape="eclipse"><h3>Eclipse</h3><p class="muted">Hexacopter.</p></a>
+					<a class="tile tile--link span-3 md-span-6" href="#p3" data-shape="flow"><h3>Optical flow</h3><p class="muted">Streamlines.</p></a>
+					<a class="tile tile--link span-3 md-span-6" href="#p4" data-shape="polaris"><h3>Polaris</h3><p class="muted">Raspberry Pi.</p></a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section container t-tall" id="glance">
+			<div class="grid">
+				<div class="tile span-8" data-reveal id="counters">
+					<p class="eyebrow">At a glance</p>
+					<div class="cluster">
+						<div><span class="t-num" data-counter="4">4</span><p class="muted">Projects</p></div>
+						<div><span class="t-num" data-counter="6" data-counter-suffix="+">6+</span><p class="muted">Mini projects</p></div>
+						<div><span class="t-num" data-counter="12.5">12.5</span><p class="muted">Decimal check</p></div>
+					</div>
+				</div>
+				<div class="tile span-4" data-reveal data-shape="polaris" id="live">
+					<p class="eyebrow">Polaris live</p>
+					<p class="mono" data-typewriter id="tw">Rebuilt the status page and pushed the log.</p>
+					<button class="btn btn--ghost" type="button" id="tw-btn">Dispatch polaris:latest</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="section container" id="contact">
+			<div class="tile stack" data-reveal>
+				<h2>Contact</h2>
+				<label class="stack"><span class="muted">Native cursor here</span><input class="t-input" id="t-input" type="text" placeholder="Type…" /></label>
+				<div class="cluster"><a class="btn btn--primary" href="mailto:test@example.com" data-magnetic>Email</a><a href="#top">Back to top</a></div>
+			</div>
+		</section>
+		<div class="t-tall"></div>
+	</main>
+	<footer class="site-footer"><div class="container cluster"><span>Motion test page</span></div></footer>
+	<script>
+		document.getElementById('tw-btn').addEventListener('click', function() {
+			var el = document.getElementById('tw');
+			el.textContent = 'Latest: ' + new Date().toLocaleTimeString() + ' — refreshed the Polaris status JSON and committed.';
+			document.dispatchEvent(new CustomEvent('polaris:latest', { detail: { el: el } }));
+		});
+	</script>
+</body>
+</html>

@@ -24,7 +24,6 @@
 		.sg-cell { background: var(--accent-glow); border: 1px dashed var(--accent); border-radius: var(--radius-sm); padding: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); text-align: center; }
 		.sg-cell--tall { min-height: 8rem; display: flex; align-items: center; justify-content: center; }
 		.sg-rows { display: grid; gap: var(--gutter); }
-		.sg-btn-active { border-color: var(--accent); color: var(--accent); }
 	</style>
 </head>
 <body>
@@ -108,24 +107,20 @@
 		<section class="section" id="fonts" aria-labelledby="fonts-title">
 			<div class="container stack-lg">
 				<div class="stack">
-					<p class="eyebrow">03 · Font compare</p>
-					<h2 id="fonts-title">Inter or Geist</h2>
-					<p class="muted">The buttons swap the sans font for the whole page (sets <code class="mono">data-font</code> on &lt;html&gt;). The two columns below always render in their own font.</p>
-				</div>
-				<div class="cluster" role="group" aria-label="Page font">
-					<button class="btn btn--ghost" type="button" data-font-set="inter" aria-pressed="true">Inter</button>
-					<button class="btn btn--ghost" type="button" data-font-set="geist" aria-pressed="false">Geist</button>
+					<p class="eyebrow">03 · Typefaces</p>
+					<h2 id="fonts-title">Inter and JetBrains Mono</h2>
+					<p class="muted">Inter for headings and body text; JetBrains Mono for labels, stats and Polaris readouts.</p>
 				</div>
 				<div class="sg-compare">
-					<div class="tile stack" style="font-family: 'Inter', system-ui, sans-serif;">
+					<div class="tile stack">
 						<p class="eyebrow">Inter</p>
 						<h3>Seeing the world one frame at a time</h3>
-						<p>A robot's perception pipeline turns raw pixels and depth readings into something it can act on: where the floor ends, which blobs are people, and how far the nearest wall really is. Calibration, synchronisation and outlier rejection matter as much as the neural network on top. 0123456789</p>
+						<p>A robot's perception pipeline turns raw pixels and depth readings into something it can act on: where the floor ends, which blobs are people, and how far the nearest wall really is. 0123456789</p>
 					</div>
-					<div class="tile stack" style="font-family: 'Geist', system-ui, sans-serif;">
-						<p class="eyebrow">Geist</p>
-						<h3>Seeing the world one frame at a time</h3>
-						<p>A robot's perception pipeline turns raw pixels and depth readings into something it can act on: where the floor ends, which blobs are people, and how far the nearest wall really is. Calibration, synchronisation and outlier rejection matter as much as the neural network on top. 0123456789</p>
+					<div class="tile stack mono">
+						<p class="eyebrow">JetBrains Mono</p>
+						<h3>polaris · 49.0 °C · load 0.28</h3>
+						<p>2026-10-08 18:53  Add a Polaris project write-up. 0123456789 {}[]() =&gt; !=</p>
 					</div>
 				</div>
 			</div>
@@ -296,26 +291,6 @@
 			document.addEventListener('themechange', updateSwatches);
 			matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateSwatches);
 
-			// Font buttons: toggle data-font="geist" on <html>
-			var fontButtons = document.querySelectorAll('[data-font-set]');
-			function syncFontButtons() {
-				var geist = root.dataset.font === 'geist';
-				fontButtons.forEach(function (btn) {
-					var on = (btn.getAttribute('data-font-set') === 'geist') === geist;
-					btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-					btn.classList.toggle('sg-btn-active', on);
-				});
-			}
-			fontButtons.forEach(function (btn) {
-				btn.addEventListener('click', function () {
-					if (btn.getAttribute('data-font-set') === 'geist') root.dataset.font = 'geist';
-					else delete root.dataset.font;
-					syncFontButtons();
-				});
-			});
-			// site.js may set data-font from ?font=geist after this runs (it is deferred)
-			syncFontButtons();
-			document.addEventListener('DOMContentLoaded', syncFontButtons);
 		})();
 	</script>
 </body>

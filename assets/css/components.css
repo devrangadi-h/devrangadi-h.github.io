@@ -399,7 +399,14 @@
 	position: absolute;
 	inset: 0;
 	z-index: -1;
-	background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), var(--accent-glow), transparent 60%);
+	/* Wide, eased falloff so the glow reads as ambient light, not a spotlight */
+	background: radial-gradient(750px circle at var(--mx, 50%) var(--my, 50%),
+		var(--spot-glow) 0%,
+		color-mix(in srgb, var(--spot-glow) 70%, transparent) 15%,
+		color-mix(in srgb, var(--spot-glow) 42%, transparent) 32%,
+		color-mix(in srgb, var(--spot-glow) 18%, transparent) 50%,
+		color-mix(in srgb, var(--spot-glow) 5%, transparent) 70%,
+		transparent 90%);
 	opacity: 0;
 	transition: opacity var(--dur) var(--ease);
 	pointer-events: none;

@@ -1,11 +1,8 @@
-// Shared behaviour for redesigned pages: theme, nav, mobile menu, font preview.
+// Shared behaviour for redesigned pages: theme, nav, mobile menu.
 (function() {
 	'use strict';
 	const root = document.documentElement;
 	root.classList.add('js');
-
-	// Font preview (?font=geist) — temporary, for choosing a typeface.
-	if (new URLSearchParams(location.search).get('font') === 'geist') root.dataset.font = 'geist';
 
 	// Theme
 	const darkMq = matchMedia('(prefers-color-scheme: dark)');
