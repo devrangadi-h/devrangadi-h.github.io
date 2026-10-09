@@ -409,5 +409,18 @@
       "polaris.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:28",
+    "summary": "Shrink project images by 90% and add alt text",
+    "details": "The three homepage project images went from 5.2 MB to about 490 KB total (resized for web, same look). They now have descriptive alt text, and clicking an image opens its project page instead of jumping to the top.",
+    "files": [
+      "images/pic01.jpg",
+      "images/pic02.jpg",
+      "images/pic03.jpg",
+      "index.html",
+      "polaris-log.json"
+    ]
   }
 ]
