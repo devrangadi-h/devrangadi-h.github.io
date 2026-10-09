@@ -86,14 +86,14 @@
 
           <section id="lights" style="margin-top: 2rem;">
             <h2>Lighting Control</h2>
-            <p class="small">Private controls for your Govee floor lamps.</p>
+            <p class="small">Private controls for the Govee floor lamps. Works only from devices on the owner&rsquo;s Tailscale network.</p>
+            <p class="small" id="lights-status" aria-live="polite"></p>
             <div class="lights-auth">
-              <input type="password" id="lights-password" placeholder="Enter password" autocomplete="off" />
+              <input type="password" id="lights-password" placeholder="Access token" autocomplete="off" />
               <button id="lights-unlock">Unlock</button>
             </div>
             <div id="lights-panel" class="lights-panel hidden">
-              <p class="small">These buttons are UI only; actual control runs on the Pi via Polaris.</p>
-              <div class="lights-row">
+                            <div class="lights-row">
                 <button data-power="on" class="lights-btn primary">On</button>
                 <button data-power="off" class="lights-btn">Off</button>
               </div>
@@ -364,56 +364,72 @@
     </script>
     <script>
       (function() {
-        const password = 'polarisrocks';
+        // Lights API is reachable only on the owner's tailnet (Tailscale Serve, HTTPS).
+        // The token is checked by the Pi; nothing secret lives in this page.
+        const apiBase = 'https://polaris.tailaf1119.ts.net';
         const input = document.getElementById('lights-password');
         const btn = document.getElementById('lights-unlock');
         const panel = document.getElementById('lights-panel');
+        const statusEl = document.getElementById('lights-status');
         if (!input || !btn || !panel) return;
 
+        let token = '';
+        try { token = localStorage.getItem('lightsToken') || ''; } catch (e) {}
+
+        function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
+
+        function callApi(path, body) {
+          return fetch(apiBase + path, {
+            method: body ? 'POST' : 'GET',
+            headers: Object.assign({ 'Authorization': 'Bearer ' + token },
+                                   body ? { 'Content-Type': 'application/json' } : {}),
+            body: body ? JSON.stringify(body) : undefined
+          }).then(res => {
+            if (res.status === 401) throw new Error('unauthorized');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          });
+        }
+
         function tryUnlock() {
-          const value = (input.value || '').trim();
-          if (value === password) {
+          const typed = (input.value || '').trim();
+          if (typed) token = typed;
+          if (!token) return;
+          setStatus('Connecting to Polaris…');
+          callApi('/api/lights/ping').then(() => {
+            try { localStorage.setItem('lightsToken', token); } catch (e) {}
             panel.classList.remove('hidden');
-          } else if (value) {
-            alert('Incorrect password');
-          }
+            setStatus('Connected.');
+          }).catch(err => {
+            panel.classList.add('hidden');
+            if (err.message === 'unauthorized') {
+              try { localStorage.removeItem('lightsToken'); } catch (e) {}
+              setStatus('Token not accepted.');
+            } else {
+              setStatus('Can’t reach Polaris. Make sure this device is connected to Tailscale.');
+            }
+          });
         }
 
         btn.addEventListener('click', tryUnlock);
         input.addEventListener('keydown', function(ev) {
-          if (ev.key === 'Enter') {
-            tryUnlock();
-          }
+          if (ev.key === 'Enter') tryUnlock();
         });
+        if (token) tryUnlock();
 
-        // Wire buttons to Pi lights API
-        const apiBase = 'http://polaris.tailaf1119.ts.net:5000';
         panel.addEventListener('click', function(ev) {
           const target = ev.target;
           if (!(target instanceof HTMLElement)) return;
           const power = target.getAttribute('data-power');
           const bright = target.getAttribute('data-bright');
           const scene = target.getAttribute('data-scene');
-
-          if (power) {
-            fetch(apiBase + '/api/lights/power', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ value: power })
-            }).catch(err => console.error('lights power error', err));
-          } else if (bright) {
-            fetch(apiBase + '/api/lights/brightness', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ value: Number(bright) })
-            }).catch(err => console.error('lights brightness error', err));
-          } else if (scene) {
-            fetch(apiBase + '/api/lights/preset', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ value: scene === 'bright-white' ? 'bright_white_cool' : 'bright_white_warm' })
-            }).catch(err => console.error('lights preset error', err));
-          }
+          let req = null;
+          if (power) req = callApi('/api/lights/power', { value: power });
+          else if (bright) req = callApi('/api/lights/brightness', { value: Number(bright) });
+          else if (scene) req = callApi('/api/lights/preset', { value: scene === 'bright-white' ? 'bright_white_cool' : 'bright_white_warm' });
+          if (!req) return;
+          setStatus('Sending…');
+          req.then(() => setStatus('Done.')).catch(err => setStatus('Failed: ' + err.message));
         });
       })();
     </script>

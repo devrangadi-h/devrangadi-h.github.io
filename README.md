@@ -15,10 +15,10 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
   - Has a local clone of this repo at `/home/polaris/devrobotics-site`
   - Can read and edit the site (HTML/CSS/JS) directly
   - Uses SSH keys + Git to commit and push changes back to GitHub
-  - Runs additional services:
+  - Runs additional services from a separate local folder, `/home/polaris/polaris` (not part of this repo, so it isn't published):
     - A Pi status updater (`update_pi_status.py`) that maintains `polaris-pi-status.json`
     - A flower snapshot pipeline (`update_flower_snapshot.sh`) triggered by systemd timers
-    - A small lights control API (`lights_api.py`) for Govee floor lamps (H607C)
+    - A small lights control API (`lights_api.py`) for Govee floor lamps (H607C), reachable only on the owner's Tailscale network over HTTPS and protected by a token
 
 - **GitHub**
   - Stores the canonical source for the portfolio and dashboards
@@ -26,7 +26,6 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 
 - **Cloudflare**
   - Fronts `devrobotics.dev` and `polaris.devrobotics.dev`
-  - Will be used for Cloudflare Access on the private Polaris dashboard area
 
 ## Structure Overview
 
@@ -36,17 +35,10 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
   - Shows the activity log of changes made by Polaris via `polaris-log.json`
   - Includes an overview section (latest change, Pi status widget, repo info)
   - Shows Pi and webcam status (Flower Tracker)
-  - Contains a password-gated **Lighting Control** panel wired to the Pi lights API
+  - Contains a token-gated **Lighting Control** panel that talks to the Pi lights API over the tailnet
 - `polaris-log.json` — machine-readable log of changes Polaris makes to this repo
-- `polaris-pi-status.json` — snapshot of Pi health (hostname, CPU temp/load, disk, OpenClaw status)
+- `polaris-pi-status.json` — snapshot of Pi health (hostname, CPU temp/load, disk, memory)
 - `flower-tracker.json` + `images/flower-latest.jpg` — latest webcam snapshot + metadata
-- `govee_lan.py` — local (LAN) control of Govee H607C floor lamps via UDP
-- `govee_control.py` — helper for testing/using the Govee cloud API
-- `lights_api.py` — Flask-based HTTP API on the Pi for lamp control
-- `update_pi_status.py` — Pi status JSON generator (driven by cron/systemd)
-- `update_flower_snapshot.sh` — webcam snapshot + JSON + Git push pipeline (driven by systemd timer)
-- `private/` — **private Polaris dashboard** (to be gated by Cloudflare Access)
-  - `private/index.html` — private dashboard shell + TODO section
 - `assets/` & `images/` — styling, scripts, and media
 
 ## System Design: Site + Pi + Polaris (Simplified)
@@ -66,12 +58,10 @@ GitHub (devrangadi-h/devrangadi-h.github.io)            │
                                                          │
 Cloudflare                                              │
   - DNS + proxy for devrobotics.dev + polaris.*         │
-  - (Planned) Cloudflare Access for /private/*          │
                                                          │
 Visitors                                                │
   - devrobotics.dev → portfolio                         │
   - polaris.devrobotics.dev/polaris.html → public log   │
-  - polaris.devrobotics.dev/private/ → gated dashboard  │
 ```
 
 In words:
@@ -79,7 +69,7 @@ In words:
 1. **Polaris** (OpenClaw agent on the Pi) edits this repo when instructed (e.g., update copy, add dashboards, wire integrations).
 2. It logs its own changes into `polaris-log.json` and commits/pushes via SSH.
 3. GitHub Pages rebuilds and publishes the updated site.
-4. Cloudflare fronts the domain(s) and will enforce access control for the private area.
+4. Cloudflare fronts the domain(s).
 
 ## System Design: Pi Status Pipeline
 
@@ -88,7 +78,6 @@ Polaris maintains a public Pi health summary via a lightweight JSON file.
 ```text
 [Pi] update_pi_status.py (cron/systemd)                 
   ├─ Reads host metrics (hostname, CPU temp, load, disk)
-  ├─ Calls `openclaw gateway status` for short summary   
   ├─ Writes polaris-pi-status.json                      
   └─ git add/commit/push (if JSON changed)              
 
@@ -163,8 +152,8 @@ Pi: govee_lan.py (UDP 4003)   │ (fallback)
   - On/Off/Brightness/Color   │
                               │
 polaris.html Lighting Control ┘
-  - Password-gated panel
-  - Buttons → fetch() to Pi API
+  - Token-gated panel
+  - Buttons → fetch() to Pi API (tailnet only)
 ```
 
 Capabilities Polaris can drive:
@@ -175,51 +164,34 @@ Capabilities Polaris can drive:
   - Set RGB color (`colorRgb`).
   - Set color temperature (`colorTemperatureK`, e.g. 6500K for bright cool white, 3000K for warm white).
 - **LAN (fallback)**
-  - Direct UDP control to `10.0.0.197` and `10.0.0.253` on port 4003 for on/off, brightness, and RGB.
+  - Direct UDP control to the lamps on the home LAN (port 4003) for on/off, brightness, and RGB.
 
 ## System Design: Polaris Lighting Control Panel (Dashboard)
 
-The public Polaris dashboard includes a small, password-gated "Lighting Control" panel:
+The public Polaris dashboard includes a small, token-gated "Lighting Control" panel:
 
 ```text
-User browser (devrobotics.dev/polaris.html)
-  ├─ Unlocks panel with password (polarisrocks)
+User browser (devrobotics.dev/polaris.html, on the owner's Tailscale network)
+  ├─ Enters an access token (stored in that browser only)
   ├─ Clicks buttons: On/Off, bright white (cool/warm), 25/50/75/100% brightness
-  └─ JS fetch() → http://polaris.tailaf1119.ts.net:5000/api/lights/...
+  └─ JS fetch() → HTTPS tailnet address (Tailscale Serve) → /api/lights/...
 
-Pi: lights_api.py (Flask, systemd service)
+Pi: lights_api.py (Flask, systemd service, listens on localhost only)
+  ├─ Checks the bearer token on every request
   ├─ /api/lights/power      → calls Govee OpenAPI powerSwitch
   ├─ /api/lights/brightness → calls Govee OpenAPI brightness
   └─ /api/lights/preset     → maps to colorTemperatureK + brightness presets
 
 Govee Cloud
   └─ Applies commands to both H607C lamps
-
-Lamps (H607C floor lamps)
-  └─ Respond with color/brightness changes in the room
 ```
 
 Notes:
 
-- The password gate is **front-end only** (not real security); true protection comes from network access (only devices that can reach the Pi API can control the lamps).
-- The API key for Govee remains on the Pi; it is never exposed in browser JavaScript.
-- A future TODO is to expose the Pi lights API through a public HTTPS endpoint (e.g., nginx reverse proxy) with rate limiting and a kill switch so anyone on the internet can play with the lamps safely.
+- The token and the Govee API key live only on the Pi; neither is in this repo or in browser JavaScript.
+- The API is not reachable from the public internet, only from devices signed in to the tailnet.
 
 ## Current TODOs / Future Work
-
-- **Public lights control via HTTPS**
-  - Expose `lights_api.py` through a secure public endpoint (e.g., `lights.devrobotics.dev` behind nginx or Cloudflare/Tailscale), with:
-    - Proper TLS
-    - Basic rate limiting
-    - A simple “kill switch” to disable public control if needed
-  - Update `polaris.html` to call this HTTPS endpoint instead of the tailnet URL.
-
-- **Private Polaris dashboard (/private)**
-  - Finish wiring the private dashboard with Cloudflare Access.
-  - Move more sensitive controls (logs, debug panels) behind the private area.
-
-- **Pi/Flower health badges**
-  - Add small “freshness” indicators showing if Pi status or flower snapshots are stale.
 
 - **Lighting scenes**
   - Add named scenes (focus, chill, movie mode, night) with specific brightness + color temperature presets.

@@ -352,5 +352,22 @@
       "images/Font Awesome.webarchive",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:25",
+    "summary": "Secure the lighting controls and stop publishing Pi-side code",
+    "details": "The lighting panel now uses an access token checked by the Pi instead of a password in the page, and talks to the lights API over HTTPS on the private tailnet only. The Pi scripts (lights API, status and flower updaters) moved out of this repo so they're no longer served on the site, and the unused /private page was removed. README updated to match.",
+    "files": [
+      "README.md",
+      "polaris.html",
+      "private/index.html",
+      "lights_api.py",
+      "govee_control.py",
+      "govee_lan.py",
+      "update_pi_status.py",
+      "update_flower_snapshot.sh",
+      "polaris-log.json"
+    ]
   }
 ]
