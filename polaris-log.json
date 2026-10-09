@@ -515,5 +515,204 @@
       "sitemap.xml",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "19:54",
+    "summary": "Redesign step 1: new design foundation",
+    "details": "Started the site redesign on a separate redesign branch. Added design tokens for a monochrome plus light-blue theme in light and dark (following the visitor's system setting, with a toggle that remembers the choice), self-hosted Inter and JetBrains Mono, a 12-column grid, and a new nav that hides on scroll with a mobile menu. A style guide page previews every component and is kept off the live site.",
+    "files": [
+      "assets/css/tokens.css",
+      "assets/css/base.css",
+      "assets/css/components.css",
+      "assets/js/site.js",
+      "assets/fonts/",
+      "_styleguide.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 2: bento-grid homepage",
+    "details": "Rewrote the homepage as a full-screen hero followed by a bento grid: About, Polaris live, Graduate Research, four project cards, At a glance counters with the mini projects, Skills and Contact. The text is condensed from the old page and marked as draft for review; the long project write-ups move to the project pages.",
+    "files": [
+      "index.html",
+      "assets/css/home.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 3: LiDAR point-cloud hero",
+    "details": "Added a Three.js point cloud behind the homepage: a LiDAR-style terrain with a sweeping scan line that dims as you scroll, and morphs into a shape for each project card on hover (bounding boxes, the Eclipse hexacopter, a flow field, a Raspberry Pi board, a flight path). Slow devices step down in quality instead of losing it, and reduced-motion or no-WebGL visitors see a still image.",
+    "files": [
+      "assets/js/pointcloud.js",
+      "images/pointcloud-static.webp",
+      "assets/vendor/three.module.min.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 4: motion and interaction layer",
+    "details": "Added scroll reveals, a soft spotlight glow on cards, a crosshair cursor that locks onto links and cards, magnetic buttons, smooth scrolling, count-up counters, a typed-out latest log line, and page-to-page view transitions. Everything switches off for touch devices or reduced motion where it should.",
+    "files": [
+      "assets/js/motion.js",
+      "assets/css/motion.css",
+      "assets/vendor/gsap.min.js",
+      "assets/vendor/ScrollTrigger.min.js",
+      "assets/vendor/lenis.min.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 5: Polaris live tile on the homepage",
+    "details": "The homepage now shows Polaris's status (online, stale or offline), CPU temperature, load, memory, disk, the latest change and how long ago it reported, refreshed every minute from the same status and log files the dashboard uses.",
+    "files": [
+      "assets/js/polaris-live.js",
+      "index.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:24",
+    "summary": "Redesign step 8: new 404 page",
+    "details": "Replaced the 404 page with a 'signal lost' scope panel: a scan line sweeping a faint point grid, the missing route in a readout, and links back home, to the projects and to Polaris.",
+    "files": [
+      "404.html",
+      "assets/css/404.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:31",
+    "summary": "Redesign step 6: shared project page template",
+    "details": "Rebuilt the Object Detection, Eclipse, Optical Flow and Polaris write-up pages on one template: a hero image that morphs in from its homepage card, a sticky key-facts sidebar, short numbered sections, click-to-play video grids and previous/next links. Every report, PDF and video from the old pages is kept.",
+    "files": [
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "assets/css/project.css",
+      "assets/js/project.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:35",
+    "summary": "Redesign step 7: new Polaris dashboard",
+    "details": "Redesigned this dashboard: a status card with online/stale/offline states, 24-hour CPU temperature and load sparklines (they fill in once the status file carries history), this log as a terminal-style timeline, the flower camera, and a restyled lighting panel that works exactly as before.",
+    "files": [
+      "polaris.html",
+      "assets/css/dashboard.css",
+      "assets/js/dashboard.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:45",
+    "summary": "Keep 24 hours of Pi status history",
+    "details": "The Pi status updater now keeps a rolling 24-hour history (one sample every 15 minutes, up to 96) of CPU temperature and load in polaris-pi-status.json, which feeds the new dashboard's sparklines. Existing status fields are unchanged.",
+    "files": [
+      "polaris-pi-status.json",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:05",
+    "summary": "Redesign step 9: final copy approved",
+    "details": "Applied the owner's copy review: the hero tagline now includes photography and videography, the research summary and its sensing and flight facts are more precise, and the At a glance section keeps two counters (featured and mini projects). All other condensed text was approved as drafted.",
+    "files": [
+      "index.html",
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "polaris.html",
+      "404.html",
+      "assets/css/home.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:15",
+    "summary": "Remove the old HTML5 UP template",
+    "details": "Deleted the HTML5 UP Hyperspace theme now that every page uses the new design: its CSS, Sass, jQuery plugins, scripts, Font Awesome files and the template licence. Since none of the template remains, its footer credit is no longer needed. The README describes the new file layout.",
+    "files": [
+      "assets/css/",
+      "assets/js/",
+      "assets/sass/",
+      "assets/webfonts/",
+      "LICENSE.txt",
+      "README.md",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:20",
+    "summary": "Redesign step 10: faster first paint and lighter images",
+    "details": "Hero text now animates in with CSS instead of waiting for scripts, cutting the homepage's mobile load time from about 7.5 s to 3.3 s. Added smaller WebP versions of the project photos, headshot and logo with responsive srcsets, stopped downloading the hidden fallback image, removed a mobile layout shift in the nav, and added a 1200x630 link-preview image.",
+    "files": [
+      "index.html",
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "polaris.html",
+      "404.html",
+      "assets/css/motion.css",
+      "assets/vendor/lenis.min.js",
+      "images/",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:45",
+    "summary": "Add a small hidden surprise",
+    "details": "Something for the curious. It loads only when found, so it costs regular visitors nothing.",
+    "files": [
+      "assets/js/site.js",
+      "assets/js/pointcloud.js",
+      "assets/js/egg.js",
+      "assets/css/egg.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "22:00",
+    "summary": "Redesign step 10: accessibility fixes",
+    "details": "From the accessibility audit: the mobile menu now moves keyboard focus into its links and closes when focus leaves it, small hero text keeps its contrast over the point cloud on phones, the Polaris architecture diagram stays legible on phones by scrolling sideways, cards reveal instantly when reached by keyboard, and animated counters and the typed log line read their final text to screen readers.",
+    "files": [
+      "assets/js/site.js",
+      "assets/js/motion.js",
+      "assets/css/home.css",
+      "assets/css/project.css",
+      "polaris-project.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "22:05",
+    "summary": "Redesign step 11: the new site is live",
+    "details": "Merged the redesign into main: the point-cloud homepage, the shared project pages, the new Polaris dashboard and 404 page, the light and dark theme, and every fix from the final performance and accessibility checks.",
+    "files": [
+      "(merge of the redesign branch)",
+      "polaris-log.json"
+    ]
   }
 ]

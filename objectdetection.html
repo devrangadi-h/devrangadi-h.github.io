@@ -1,95 +1,149 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>2D Object Detection</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="A real-time object classification system in C++ and OpenCV that recognizes 15 objects from a live webcam stream using K-Nearest Neighbors." />
-		<link rel="canonical" href="https://devrobotics.dev/objectdetection.html" />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="devrobotics" />
-		<meta property="og:title" content="Realtime 2D Object Detection — Hardik Devrangadi" />
-		<meta property="og:description" content="A real-time object classification system in C++ and OpenCV that recognizes 15 objects from a live webcam stream using K-Nearest Neighbors." />
-		<meta property="og:url" content="https://devrobotics.dev/objectdetection.html" />
-		<meta property="og:image" content="https://devrobotics.dev/images/pic03.jpg" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/site.css" />
-		<link rel="icon" href="/images/icon.png" type="image/png">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">
-					<img src="images/icon.png" alt="Logo" class="site-logo" />
-					devrobotics
-				</a>
-				<nav>
-					<ul>
-						<li><a href="/index.html#intro">About</a></li>
-						<li><a href="/index.html#research">Research</a></li>
-						<li><a href="/index.html#one">Projects</a></li>
-						<li><a href="/index.html#three">Contact</a></li>
-						<li><a href="/polaris.html">Polaris</a></li>
-						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-					</ul>
-				</nav>
-			</header>
-
-		<!-- Wrapper -->
-			<div id="wrapper" style="margin-top: 5.5rem;">
-
-				<!-- Main -->
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">Realtime 2D Object Detection</h1>
-
-							<p>This project aims to perform 2-D Object Recognition, by processing the image sequence output from a webcam,
-								to isolate objects placed in view on a white surface, and be translation, scale, and rotation invariant. This project
-								incorporates the pre-processing of the incoming video stream by thresholding, cleaning by applying
-								morphological features.</p>
-
-							<!-- <span class="image fit"><img src="images/pic04.jpg" alt="" /></span> -->
-							<center><div class="yt-embed" data-id="9gmSl2JLopE" data-title="Realtime Object Detection"><a href="https://www.youtube.com/watch?v=9gmSl2JLopE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9gmSl2JLopE/hqdefault.jpg" alt="Play video: Realtime Object Detection" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div></center>
-<br/><hr>
-						
-							<ul class="actions">
-								<li><a href="https://drive.google.com/file/d/1cNz4DvEURypqdYpIoe8jSa3Yp8koM25R/view?usp=share_link" target="_blank" class="button">Detailed Report</a></li>
-							</ul>
-					
-						
-
-						</div>
-					</section>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Realtime 2D Object Detection — Hardik Devrangadi</title>
+	<meta name="description" content="A real-time object classification system in C++ and OpenCV that recognizes 15 objects from a live webcam stream using K-Nearest Neighbors." />
+	<link rel="canonical" href="https://devrobotics.dev/objectdetection.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Realtime 2D Object Detection — Hardik Devrangadi" />
+	<meta property="og:description" content="A real-time object classification system in C++ and OpenCV that recognizes 15 objects from a live webcam stream using K-Nearest Neighbors." />
+	<meta property="og:url" content="https://devrobotics.dev/objectdetection.html" />
+	<meta property="og:image" content="https://devrobotics.dev/images/pic03.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/project.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/project.js" defer></script>
+</head>
+<body class="page-project">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
 			</div>
+		</div>
+	</header>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-					</ul>
+	<main id="main">
+		<section class="proj-hero" id="top" aria-labelledby="proj-title">
+			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static-800.webp" srcset="images/pointcloud-static-800.webp 800w, images/pointcloud-static.webp 1600w" sizes="100vw" alt="" width="1600" height="900" /></div>
+			<div class="proj-hero__inner container grid">
+				<div class="proj-hero__text span-7" data-intro>
+					<p class="eyebrow proj-hero__crumb"><a href="/#projects">Projects</a> / 01 of 04</p>
+					<h1 class="proj-hero__title" id="proj-title">Realtime 2D object detection</h1>
+					<p class="proj-hero__hook">A robust object classification system that recognises 15 objects from a live webcam stream.</p>
+					<ul class="cluster proj-hero__tags" role="list" aria-label="Stack"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">XCode</li></ul>
 				</div>
-			</footer>
+				<figure class="proj-hero__media span-5">
+					<img src="images/pic03-800.webp" srcset="images/pic03-400.webp 400w, images/pic03-800.webp 800w, images/pic03.jpg 1600w" sizes="(min-width: 1024px) 40vw, 100vw" alt="Webcam frame of objects on a white surface, each boxed and labelled: spoon, clip, keychain, sunglasses, hard disk, highlighter" width="1600" height="1600" fetchpriority="high" style="view-transition-name: proj-detection" />
+				</figure>
+			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/theme.js"></script>
-			<script src="assets/js/video.js"></script>
+		<div class="proj-body container grid">
+			<aside class="facts tile" aria-labelledby="facts-title">
+				<h2 class="visually-hidden" id="facts-title">Key facts</h2>
+				<dl class="facts__list">
+						<div><dt class="eyebrow">Classifier</dt><dd>K-Nearest Neighbor</dd></div>
+						<div><dt class="eyebrow">Result</dt><dd>95% accuracy across 15 objects</dd></div>
+						<div class="facts__stack"><dt class="eyebrow">Stack</dt><dd><ul class="cluster" role="list"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">XCode</li></ul></dd></div>
+						<div><dt class="eyebrow">Links</dt><dd><div class="facts__links"><a href="https://drive.google.com/file/d/1cNz4DvEURypqdYpIoe8jSa3Yp8koM25R/view?usp=share_link" target="_blank" rel="noopener">Detailed report</a><a href="#videos">Demo video</a></div></dd></div>
+				</dl>
+			</aside>
 
-	</body>
+			<article class="proj-main" aria-label="Write-up">
+				<section class="proj-section" aria-labelledby="s-overview" data-reveal>
+					<p class="eyebrow">01 · Overview</p>
+					<h2 id="s-overview">Recognising objects from a live webcam</h2>
+					<p>A robust object classification system that processes video frames to classify 15 different objects from a live webcam video stream. It leverages K-Nearest Neighbor classification to achieve 95% accuracy.</p>
+					<p>The project performs 2D object recognition on the image sequence from a webcam: it isolates objects placed in view on a white surface, and is translation, scale and rotation invariant.</p>
+				</section>
+				<section class="proj-section" aria-labelledby="s-approach" data-reveal>
+					<p class="eyebrow">02 · Approach</p>
+					<h2 id="s-approach">From raw frames to a label</h2>
+					<ol class="points" role="list">
+						<li><span>Pre-process the incoming video stream by thresholding.</span></li>
+						<li><span>Clean the thresholded frames by applying morphological operations.</span></li>
+						<li><span>Isolate each object placed on the white surface, independent of its position, scale and rotation.</span></li>
+						<li><span>Classify each object with K-Nearest Neighbor classification.</span></li>
+					</ol>
+				</section>
+				<section class="proj-section" aria-labelledby="s-results" data-reveal>
+					<p class="eyebrow">03 · Results</p>
+					<h2 id="s-results">Results</h2>
+					<dl class="stats">
+						<div><dt>Objects classified</dt><dd>15</dd></div>
+						<div><dt>Classification accuracy</dt><dd>95%</dd></div>
+					</dl>
+					<p>The full method and evaluation are in the detailed report.</p>
+					<div class="cluster proj-docs"><a class="btn btn--primary" href="https://drive.google.com/file/d/1cNz4DvEURypqdYpIoe8jSa3Yp8koM25R/view?usp=share_link" target="_blank" rel="noopener" data-magnetic>Detailed report</a></div>
+				</section>
+			</article>
+		</div>
+
+		<section class="proj-videos container" id="videos" aria-labelledby="videos-title">
+			<div class="proj-videos__head">
+				<h2 id="videos-title">Videos</h2>
+				<p class="eyebrow">1 video · YouTube, loads on play</p>
+			</div>
+			<ul class="video-grid" role="list">
+				<li class="video tile" data-reveal>
+					<div class="yt-embed" data-id="9gmSl2JLopE" data-title="Realtime Object Detection"><a href="https://www.youtube.com/watch?v=9gmSl2JLopE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9gmSl2JLopE/hqdefault.jpg" alt="Play video: Realtime Object Detection" width="480" height="360" loading="lazy" /><span class="yt-play" aria-hidden="true"></span></a></div>
+					<p class="video__title">Realtime Object Detection</p>
+				</li>
+			</ul>
+		</section>
+
+		<nav class="proj-pager container grid" aria-label="More projects">
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--prev" href="polaris-project.html" rel="prev">
+				<img src="images/polaris.svg" alt="" width="1200" height="1200" loading="lazy" data-vt="proj-polaris" />
+				<span class="proj-pager__text"><span class="eyebrow">&larr; Previous</span><span class="proj-pager__title">Polaris</span></span>
+			</a>
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--next" href="eclipse.html" rel="next">
+				<img src="images/pic01-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-eclipse" style="object-position: top center" />
+				<span class="proj-pager__text"><span class="eyebrow">Next &rarr;</span><span class="proj-pager__title">The Eclipse hexacopter</span></span>
+			</a>
+			<a class="btn btn--ghost proj-pager__all span-12" href="/#projects">All projects</a>
+		</nav>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+</body>
 </html>

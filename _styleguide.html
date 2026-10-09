@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Style guide · devrobotics</title>
+	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<style>
+		/* Style-guide-only helpers (sg-*); not part of the site CSS */
+		.sg-head { padding-top: var(--sp-6); }
+		.sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: var(--sp-3); }
+		.sg-swatch { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); }
+		.sg-swatch__chip { height: 4.5rem; border-bottom: 1px solid var(--border); }
+		.sg-swatch__meta { padding: var(--sp-2) var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-xs); }
+		.sg-swatch__name { color: var(--text); }
+		.sg-swatch__value { color: var(--muted); word-break: break-all; }
+		.sg-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--sp-4); }
+		.sg-cell { background: var(--accent-glow); border: 1px dashed var(--accent); border-radius: var(--radius-sm); padding: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); text-align: center; }
+		.sg-cell--tall { min-height: 8rem; display: flex; align-items: center; justify-content: center; }
+		.sg-rows { display: grid; gap: var(--gutter); }
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+	<main id="main">
+		<section class="section sg-head">
+			<div class="container stack">
+				<p class="eyebrow">Internal · not linked from the site</p>
+				<h1>Style guide</h1>
+				<p class="lead">Tokens, type and components for the devrobotics redesign. Toggle the theme in the nav to check both palettes; scroll down to test the hide-on-scroll bar.</p>
+			</div>
+		</section>
+
+		<section class="section" id="colours" aria-labelledby="colours-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">01 · Colour</p>
+					<h2 id="colours-title">Colours</h2>
+					<p class="muted">Values are read live from the computed style, so they change with the theme.</p>
+				</div>
+				<div class="sg-swatches" data-swatches>
+					<div class="sg-swatch" data-token="--bg"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--bg</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--surface"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--surface</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--surface-2"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--surface-2</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--border"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--border</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--border-strong"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--border-strong</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--text"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--text</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--muted"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--muted</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--accent"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--accent</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--accent-strong"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--accent-strong</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--accent-contrast"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--accent-contrast</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--accent-glow"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--accent-glow</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--points"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--points</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--ok"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--ok</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--warn"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--warn</div><div class="sg-swatch__value"></div></div></div>
+					<div class="sg-swatch" data-token="--nav-bg"><div class="sg-swatch__chip"></div><div class="sg-swatch__meta"><div class="sg-swatch__name">--nav-bg</div><div class="sg-swatch__value"></div></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="type" aria-labelledby="type-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">02 · Type</p>
+					<h2 id="type-title">Type</h2>
+				</div>
+				<div class="stack">
+					<h1>Robots that see in three dimensions</h1>
+					<h2>Stereo depth on a Raspberry Pi 5</h2>
+					<h3>Point cloud filtering and downsampling</h3>
+					<h4>Voxel grid at 2 cm resolution</h4>
+					<p class="lead">I build perception and autonomy software for mobile robots: from camera calibration to SLAM, path planning and the glue code that keeps it running on real hardware.</p>
+					<p>Polaris is a small differential-drive rover that maps its surroundings with a depth camera and an IMU. The perception stack fuses visual odometry with wheel encoders, builds an occupancy grid, and replans around obstacles at ten hertz. Most of the hard work is not the algorithms themselves but making them robust to motion blur, poor lighting and a CPU that is also running everything else. Read the <a href="/polaris.html">Polaris write-up</a> for the full build log.</p>
+					<p class="eyebrow">Eyebrow · Perception · 2026</p>
+					<p class="mono">ros2 launch polaris_bringup rover.launch.py use_sim:=false</p>
+					<p class="muted">Muted text for captions, metadata and secondary detail.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="fonts" aria-labelledby="fonts-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">03 · Typefaces</p>
+					<h2 id="fonts-title">Inter and JetBrains Mono</h2>
+					<p class="muted">Inter for headings and body text; JetBrains Mono for labels, stats and Polaris readouts.</p>
+				</div>
+				<div class="sg-compare">
+					<div class="tile stack">
+						<p class="eyebrow">Inter</p>
+						<h3>Seeing the world one frame at a time</h3>
+						<p>A robot's perception pipeline turns raw pixels and depth readings into something it can act on: where the floor ends, which blobs are people, and how far the nearest wall really is. 0123456789</p>
+					</div>
+					<div class="tile stack mono">
+						<p class="eyebrow">JetBrains Mono</p>
+						<h3>polaris · 49.0 °C · load 0.28</h3>
+						<p>2026-10-08 18:53  Add a Polaris project write-up. 0123456789 {}[]() =&gt; !=</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="grid" aria-labelledby="grid-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">04 · Grid</p>
+					<h2 id="grid-title">Grid</h2>
+					<p class="muted">12 columns; every span goes full width below 768px. The rows below mirror the homepage bento.</p>
+				</div>
+				<div class="sg-rows">
+					<div class="grid">
+						<div class="span-1 sg-cell">1</div><div class="span-1 sg-cell">2</div><div class="span-1 sg-cell">3</div><div class="span-1 sg-cell">4</div>
+						<div class="span-1 sg-cell">5</div><div class="span-1 sg-cell">6</div><div class="span-1 sg-cell">7</div><div class="span-1 sg-cell">8</div>
+						<div class="span-1 sg-cell">9</div><div class="span-1 sg-cell">10</div><div class="span-1 sg-cell">11</div><div class="span-1 sg-cell">12</div>
+					</div>
+					<div class="grid">
+						<div class="span-6 sg-cell sg-cell--tall">span-6</div>
+						<div class="span-6 sg-cell sg-cell--tall">span-6</div>
+					</div>
+					<div class="grid">
+						<div class="span-8 sg-cell sg-cell--tall">span-8</div>
+						<div class="span-4 sg-cell sg-cell--tall">span-4</div>
+					</div>
+					<div class="grid">
+						<div class="span-3 md-span-6 sg-cell sg-cell--tall">span-3 md-span-6</div>
+						<div class="span-3 md-span-6 sg-cell sg-cell--tall">span-3 md-span-6</div>
+						<div class="span-3 md-span-6 sg-cell sg-cell--tall">span-3 md-span-6</div>
+						<div class="span-3 md-span-6 sg-cell sg-cell--tall">span-3 md-span-6</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="buttons" aria-labelledby="buttons-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">05 · Buttons</p>
+					<h2 id="buttons-title">Buttons</h2>
+				</div>
+				<div class="cluster">
+					<a class="btn btn--primary" href="/polaris.html">See Polaris live</a>
+					<a class="btn btn--ghost" href="/#projects">Browse projects</a>
+					<button class="btn btn--primary" type="button">Download CV</button>
+					<button class="btn btn--ghost" type="button">Get in touch</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="tiles" aria-labelledby="tiles-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">06 · Tiles</p>
+					<h2 id="tiles-title">Tiles</h2>
+				</div>
+				<div class="grid">
+					<div class="tile span-6 stack">
+						<p class="eyebrow">Plain tile</p>
+						<h3>Optical flow on the edge</h3>
+						<p class="muted">Dense Farneback flow at 30 fps on a 640×480 stream, used to estimate ego-motion when wheel odometry slips on carpet.</p>
+					</div>
+					<a class="tile tile--link span-6 stack" href="/objectdetection.html">
+						<p class="eyebrow">tile--link</p>
+						<h3>Real-time object detection</h3>
+						<p class="muted">A quantised YOLO model detecting people, chairs and doorways so the planner can treat them differently from static walls.</p>
+					</a>
+					<a class="tile tile--link span-4 stack" href="/opticalflow.html">
+						<p class="eyebrow">tile--link</p>
+						<h3>Optical flow</h3>
+						<p class="muted">Motion fields from monocular video.</p>
+					</a>
+					<a class="tile tile--link span-4 stack" href="/eclipse.html">
+						<p class="eyebrow">tile--link</p>
+						<h3>Eclipse tracker</h3>
+						<p class="muted">Solar tracking with a pan-tilt mount.</p>
+					</a>
+					<a class="tile tile--link span-4 stack" href="/polaris.html">
+						<p class="eyebrow">tile--link</p>
+						<h3>Polaris rover</h3>
+						<p class="muted">Autonomous mapping on a Raspberry Pi 5.</p>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="tags" aria-labelledby="tags-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">07 · Tags</p>
+					<h2 id="tags-title">Tags</h2>
+				</div>
+				<div class="cluster">
+					<span class="tag">ROS 2</span>
+					<span class="tag">SLAM</span>
+					<span class="tag">OpenCV</span>
+					<span class="tag">PyTorch</span>
+					<span class="tag">C++</span>
+					<span class="tag">Point clouds</span>
+					<span class="tag">Raspberry Pi</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="status" aria-labelledby="status-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">08 · Status dots</p>
+					<h2 id="status-title">Status dots</h2>
+				</div>
+				<div class="stack">
+					<p class="cluster"><span class="status-dot" aria-hidden="true"></span><span>Polaris Pi online · last heartbeat 12 s ago</span></p>
+					<p class="cluster"><span class="status-dot status-dot--warn" aria-hidden="true"></span><span>Battery at 18% · returning to dock</span></p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="scroll-test" aria-labelledby="scroll-title">
+			<div class="container stack-lg">
+				<div class="stack">
+					<p class="eyebrow">09 · Scroll test</p>
+					<h2 id="scroll-title">Long-form content</h2>
+					<p class="muted">Filler so the page is several screens tall: scroll down and the nav should hide; scroll up and it should come back.</p>
+				</div>
+				<div class="stack">
+					<h3>Why the robot runs on a Pi</h3>
+					<p>Running the whole autonomy stack on a single-board computer forces honest engineering. There is no discrete GPU to hide inefficiencies, so every node has to justify its CPU budget. The depth pipeline downsamples early, the planner works on a coarse grid, and logging is batched so the SD card is not a bottleneck.</p>
+					<p>That constraint also makes the robot cheap to rebuild. If a motor driver burns out during a test run, the replacement costs less than a lunch, and the software stack comes back with a single provisioning script.</p>
+					<h3>Calibration is never finished</h3>
+					<p>Camera intrinsics drift when the lens gets knocked, and extrinsics between the camera and the IMU change every time the chassis is reassembled. Polaris runs a quick checkerboard routine at startup and compares the reprojection error against the last known good value. If it creeps above half a pixel the robot refuses to map and asks for a full recalibration.</p>
+					<p>It sounds fussy, but a few tenths of a degree of rotation error between sensors turns into walls that bend and doorways that close up on the map after a few metres of travel.</p>
+					<h3>From point cloud to occupancy grid</h3>
+					<p>Each depth frame becomes a point cloud of roughly three hundred thousand points. A voxel filter brings that down to a few thousand, a ground plane fit removes the floor, and the remaining points are projected into a 2D occupancy grid with five-centimetre cells. Ray casting clears free space between the camera and each hit, so moving people do not leave permanent ghosts behind.</p>
+					<p>The grid feeds a hybrid A* planner that respects the rover's turning radius, followed by a pure-pursuit controller that tracks the path at walking speed.</p>
+					<h3>What comes next</h3>
+					<p>The next milestone is semantic mapping: labelling regions of the grid as kitchen, hallway or doorway so that high-level commands like "go to the kitchen" make sense. That means running a segmentation model alongside the detector without blowing the thermal budget, which is its own small research project.</p>
+					<p>Progress, failures and the occasional crash into the sofa are all logged on the Polaris page, which pulls live status from the robot itself.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container cluster">
+			<span>&copy; 2026 Hardik Devrangadi · devrobotics</span>
+			<a href="https://github.com/devrangadi-h">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/">LinkedIn</a>
+			<a href="/#contact">Contact</a>
+		</div>
+	</footer>
+
+	<script>
+		(function () {
+			'use strict';
+			var root = document.documentElement;
+
+			// Swatches: paint the chip with the token and print its computed value
+			function updateSwatches() {
+				var styles = getComputedStyle(root);
+				document.querySelectorAll('[data-token]').forEach(function (el) {
+					var name = el.getAttribute('data-token');
+					el.querySelector('.sg-swatch__chip').style.background = 'var(' + name + ')';
+					el.querySelector('.sg-swatch__value').textContent = styles.getPropertyValue(name).trim();
+				});
+			}
+			updateSwatches();
+			document.addEventListener('themechange', updateSwatches);
+			matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateSwatches);
+
+		})();
+	</script>
+</body>
+</html>

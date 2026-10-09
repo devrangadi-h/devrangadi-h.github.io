@@ -1,276 +1,227 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Hardik Devrangadi</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="Robotics Systems Engineer at Amazon Robotics. Portfolio of autonomous UAV research, computer vision projects, and Polaris, a Raspberry Pi assistant." />
-		<link rel="canonical" href="https://devrobotics.dev/" />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="devrobotics" />
-		<meta property="og:title" content="Hardik Devrangadi — Robotics Engineer" />
-		<meta property="og:description" content="Robotics Systems Engineer at Amazon Robotics. Portfolio of autonomous UAV research, computer vision projects, and Polaris, a Raspberry Pi assistant." />
-		<meta property="og:url" content="https://devrobotics.dev/" />
-		<meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/site.css" />
-		<link rel="icon" href="/images/icon.png" type="image/png">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Hardik Devrangadi</title>
+	<meta name="description" content="Robotics Systems Engineer at Amazon Robotics. Portfolio of autonomous UAV research, computer vision projects, and Polaris, a Raspberry Pi assistant." />
+	<link rel="canonical" href="https://devrobotics.dev/" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Hardik Devrangadi — Robotics Engineer" />
+	<meta property="og:description" content="Robotics Systems Engineer at Amazon Robotics. Portfolio of autonomous UAV research, computer vision projects, and Polaris, a Raspberry Pi assistant." />
+	<meta property="og:url" content="https://devrobotics.dev/" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/home.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/polaris-live.js" defer></script>
+	<script type="module" src="assets/js/pointcloud.js"></script>
+</head>
+<body class="page-home">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
 
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">
-					<img src="images/icon.png" alt="Logo" class="site-logo" />
-					devrobotics
-				</a>
-				<nav>
-					<ul>
-						<li><a href="#intro">About</a></li>
-						<li><a href="#research">Research</a></li>
-						<li><a href="#one">Projects</a></li>
-						<li><a href="#three">Contact</a></li>
-						<li><a href="/polaris.html">Polaris</a></li>
-						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-					</ul>
-				</nav>
-			</header>
+	<div class="pc-stage" aria-hidden="true">
+		<canvas class="pc-canvas" data-pointcloud></canvas>
+		<img class="pc-fallback" src="images/pointcloud-static.webp" alt="" width="1600" height="900" loading="lazy" />
+	</div>
 
-		<!-- Wrapper -->
-			<div id="wrapper" style="margin-top: 5.5rem;">
+	<main id="main">
+		<section class="hero" id="top" data-hero aria-labelledby="hero-title">
+			<div class="hero__inner container" data-intro>
+				<p class="eyebrow hero__eyebrow">Robotics Systems Engineer · Amazon Robotics · Seattle</p>
+				<h1 class="hero__title" id="hero-title">Hardik Devrangadi</h1>
+				<p class="hero__tagline">Robotics · computer vision · autonomous UAVs · photography &amp; videography</p>
+				<p class="hero__pitch">I build robots that leave the lab and hold up in the real world.</p>
+				<div class="cluster hero__ctas">
+					<a class="btn btn--primary" href="#projects" data-magnetic>See projects</a>
+					<a class="btn btn--ghost" href="#contact" data-magnetic>Get in touch</a>
+				</div>
+			</div>
+			<a class="hero__cue" href="#about">
+				<span class="mono">Scroll</span>
+				<span class="hero__cue-line" aria-hidden="true"></span>
+			</a>
+		</section>
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<img src="images/headshot.png" alt="Profile Headshot" class="round-image">
-							<h1>Hi, I am Hardik Devrangadi, <br /> a Robotics Engineer <br /> from Seattle</h1>
-							
-							<p>I am a Robotics Systems Engineer at <strong>Amazon Robotics</strong>, where I work on deploying large-scale robotic systems that power Amazon’s fulfillment and logistics network.</p>
-							<p>I'm also building <strong>Polaris</strong>, a personal assistant that runs on a Raspberry Pi using <strong>OpenClaw</strong>, helping me edit this site, track changes, and automate my workflows.</p>
-							
-							<ul class="actions">
-								<li><a href="#desc" class="button scrolly">About Me</a></li>
-							</ul>
-						</div>
-					</section>
-					
-					<section id="desc" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<hr>
-							<h2>About Me</h2>
-							<p>I like building robots that leave the lab and hold up in the real world. I started in electronics and communication engineering in Bangalore, where I was one of the core members of Project Jatayu, the team that built <a href="eclipse.html">The Eclipse</a>, an autonomous hexacopter we flew at AUVSI SUAS 2019. That project got me hooked on autonomy.</p>
-							<p>Along the way I&rsquo;ve worked on both sides of the stack. At Samsung R&amp;D I used GANs to build a 65,000+ image dataset and trained a <a href="https://arxiv.org/abs/1801.04381" target="_blank" rel="noopener">MobileNetV2</a> model on it, then deployed it on a phone with TensorFlow Lite to classify images into five categories, work the Samsung team recognized with awards. At PwC I was a software developer, which is where I learned to ship software properly, with CI/CD, code reviews and agile teams.</p>
-							<p>I went on to a master&rsquo;s in Robotics at Northeastern University, focused on computer vision, sensing and autonomous UAVs, which became my master&rsquo;s research project, and today I&rsquo;m a Robotics Systems Engineer at <strong>Amazon Robotics</strong> in Seattle, deploying robotic systems at fulfillment-network scale.</p>
+		<section class="bento container grid" id="bento" aria-label="About, projects and contact">
+			<!-- About -->
+			<article class="tile span-6 about" id="about" aria-labelledby="about-title" data-reveal>
+				<div class="tile__head">
+					<p class="eyebrow">01 · About</p>
+					<img class="about__photo" src="images/headshot-120.webp" alt="Hardik Devrangadi" width="120" height="120" loading="lazy" />
+				</div>
+				<h2 class="tile__title" id="about-title">From hexacopters to fulfilment-scale robots</h2>
+				<p class="muted">I started in electronics and communication engineering in Bangalore, where I helped build <a href="eclipse.html">The Eclipse</a>, an autonomous hexacopter we flew at AUVSI SUAS 2019. Since then I&rsquo;ve trained on-device vision models at Samsung R&amp;D, shipped software at PwC and earned a master&rsquo;s in Robotics at Northeastern. Today I deploy robotic systems at fulfilment-network scale at <strong>Amazon Robotics</strong>.</p>
+				<ol class="path mono" role="list" aria-label="Path">
+					<li>Amazon Robotics</li>
+					<li>Northeastern · M.S. Robotics</li>
+					<li>PwC</li>
+					<li>Samsung R&amp;D</li>
+					<li>RVCE · B.E. ECE</li>
+				</ol>
+			</article>
 
-							<h3>Path</h3>
-							<ol class="path">
-								<li><strong>Amazon Robotics</strong> &middot; Robotics Systems Engineer, Seattle</li>
-								<li><strong>Northeastern University</strong> &middot; M.S., Robotics; graduate research on an autonomous atmospheric-sensing UAV</li>
-								<li><strong>PricewaterhouseCoopers</strong> &middot; Software Developer</li>
-								<li><strong>Samsung R&amp;D</strong> &middot; Intern: GAN-generated dataset, on-device CNN with TensorFlow Lite</li>
-								<li><strong>RV College of Engineering</strong>, Bangalore &middot; B.E., Electronics &amp; Communication; core member of Project Jatayu (AUVSI SUAS 2019)</li>
-							</ol>
+			<!-- Polaris live -->
+			<article class="tile span-6 live" id="polaris-live" aria-labelledby="live-title" data-shape="polaris" data-polaris-live data-reveal>
+				<div class="tile__head">
+					<p class="eyebrow">02 · Polaris live</p>
+					<p class="live__state mono" role="status"><span class="status-dot status-dot--warn" data-pl-dot aria-hidden="true"></span><span data-pl-state>Live status</span></p>
+				</div>
+				<h2 class="tile__title" id="live-title">A Raspberry Pi that runs this site</h2>
+				<p class="muted">Polaris maintains this website, reports its own health and keeps a public log of every change it makes.</p>
+				<dl class="live__readouts mono">
+					<div><dt>Host</dt><dd data-pl-host>—</dd></div>
+					<div><dt>CPU temp</dt><dd data-pl-temp>—</dd></div>
+					<div><dt>CPU</dt><dd data-pl-cpu>—</dd></div>
+					<div><dt>Load 1m</dt><dd data-pl-load>—</dd></div>
+					<div><dt>Memory</dt><dd data-pl-mem>—</dd></div>
+					<div><dt>Disk</dt><dd data-pl-disk>—</dd></div>
+				</dl>
+				<div class="live__latest">
+					<p class="eyebrow">Latest action <span class="live__when" data-pl-latest-when></span></p>
+					<p class="live__latest-text mono" data-pl-latest data-typewriter>Live status loads with JavaScript.</p>
+				</div>
+				<p class="live__foot mono"><span data-pl-updated></span><a href="polaris.html">Open dashboard &rarr;</a></p>
+			</article>
 
-							<h3>Toolbox</h3>
-							<ul class="toolbox">
-								<li>C++</li><li>Python</li><li>OpenCV</li><li>PyTorch</li><li>TensorFlow / TF Lite</li>
-								<li>PX4</li><li>MAVLink / MAVROS</li><li>Pixhawk</li><li>RTK GPS</li><li>IMUs</li>
-								<li>Guidance, navigation &amp; control</li><li>CI/CD</li><li>Raspberry Pi</li>
-							</ul>
-							<hr>
-						</div>
-					</section>
+			<!-- Graduate research -->
+			<article class="tile span-12 research" id="research" aria-labelledby="research-title" data-shape="research" data-reveal>
+				<div class="research__intro">
+					<p class="eyebrow">03 · Graduate research</p>
+					<h2 class="tile__title" id="research-title">An autonomous UAV for high-altitude atmospheric data</h2>
+					<p class="muted">At Northeastern University, with Prof. Rifat Sipahi, I led the development of a UAV that collects atmospheric data at different altitudes.</p>
+				</div>
+				<ul class="research__facts" role="list">
+					<li><span class="eyebrow">Sensing</span><span>Onboard humidity, temperature, pressure, wind speed and wind direction sensors with Python drivers for real-time acquisition.</span></li>
+					<li><span class="eyebrow">Flight</span><span>Designed the guidance, navigation and control system and validated it in planned flight tests that were both manual and autonomous.</span></li>
+				</ul>
+			</article>
 
-					<!-- Research -->
-					<section id="research" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<hr>
-							<h2>Graduate Research</h2>
-							<p>During my master’s at Northeastern University, I worked on an autonomous UAV research project in collaboration with Prof. Rifat Sipahi:</p>
-							<ul>
-								<li>Led the development of an autonomous Unmanned Aerial Vehicle (UAV) designed to collect high‑altitude atmospheric data to advance robotics and meteorology.</li>
-								<li>Integrated onboard sensors for humidity, temperature, pressure, and wind speed, along with Python‑based drivers for precise, real‑time data acquisition.</li>
-								<li>Designed and implemented the Guidance, Navigation, and Control (GNC) system to ensure stable and autonomous flight, even in challenging conditions.</li>
-								<li>Engineered a real‑time onboard imaging system to transmit aerial imagery, improving data quality and providing visual context for analysis.</li>
-								<li>Planned and executed flight tests to validate UAV stability, sensor performance, and overall system behavior before large‑scale data collection.</li>
-								<li>Deepened my interest in autonomous systems and reinforced my commitment to building reliable, real‑world robotic platforms.</li>
-							</ul>
-							
-							<hr>
-						</div>
-						
-					</section>
-
-				<!-- One -->
-					<section id="one" class="wrapper style2 spotlights">
-						<section>
-							<a href="objectdetection.html" class="image"><img src="images/pic03.jpg" alt="Realtime 2D object detection project" data-position="center center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Realtime 2D Object Detection</h2>
-									<p>A Robust Object Classification System that processes video frames to classify 15 different objects from a live webcam video stream. Leverages K-Nearest Neighbor Classification to achieve 95% accuracy in object classification.
-										</p>
-									<blockquote>C++, OpenCV, XCode</blockquote>
-									<ul class="actions">
-										<li><a href="objectdetection.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-						<section>
-							<a href="eclipse.html" class="image"><img src="images/pic01.jpg" alt="The Eclipse autonomous hexacopter" data-position="top center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Disaster Response Autonomous Hexacopter - "The Eclipse"</h2>
-									<p>An industrial grade autonomous UAV spanning 1000mm capable of producing over 22lbs of thrust equipped with several sensors, capable of surveying, static obstacle avoidance, target classification and air delivery.</p>
-									<blockquote>C++, Python, OpenCV, PX4, MavLink, MavProxy, MavROS, Pixhawk 2.4</blockquote>
-									<ul class="actions">
-										<li><a href="eclipse.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-						<section>
-							<a href="opticalflow.html" class="image"><img src="images/pic02.jpg" alt="Optical flow comparison project" data-position="25% 25%" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</h2>
-									<p>Conducted a comparative analysis of optical flow estimation techniques, evaluating the accuracy of classical approaches such as the FarneBack algorithm, and deep learning-based methods like FlowNet 2.0. Evaluated endpoint error, angular error, flow discontinuity, velocity estimation, object tracking, pixel displacement and performed bounding box analysis.</p>
-									<blockquote>C++, Python, OpenCV, XCode, OpenGL, PyTorch, TensorFlow</blockquote>
-									<ul class="actions">
-										<li><a href="opticalflow.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-							<section>
-							<a href="polaris-project.html" class="image"><img src="images/polaris.svg" alt="Diagram of Polaris, a Raspberry Pi assistant, and the services it runs" data-position="center center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Polaris: A Raspberry Pi Assistant</h2>
-									<p>An always-on Raspberry Pi 5 that maintains this website, reports its own health, controls my floor lamps over a private Tailscale network, and keeps a public log of every change it makes.</p>
-									<blockquote>Raspberry Pi, Python, Flask, systemd, Tailscale, GitHub Pages, Cloudflare</blockquote>
-									<ul class="actions">
-										<li><a href="polaris-project.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
-					</section>
-
-				<!-- Two -->
-					<section id="two" class="wrapper style3 fade-up">
-						<div class="inner">
-							<h2>At a Glance</h2>
-							<p>These are some of my mini projects, that helped me master some concepts and helped me build practical skills in various areas of technology and development. Each project represents a unique learning experience and showcases my ability to apply theoretical knowledge to real-world scenarios. <br/>
-							An easy way to view all my projects is my <i><strong><a href="https://linktr.ee/hardikdev" target="_blank">LinkTree</a></strong></i>
-							</p>
-							<div class="features">
-								<section>
-									<span class="icon solid major fa-solid fa-panorama"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/1HndMqWwY4OknyyU28nDKyW5jV0xSRDXF/view?usp=share_link" target="_blank">Panorama Image Stitching</a></h3>
-									
-									<p>The objective of this project is to generate a panoramic or mosaic image by stitching multiple images together. This is achieved through a series of steps, including camera calibration to remove distortions, detecting major features using the Harris Detector, and stitching images with overlapping Harris corners. The end goal is to create a seamless and distortion-free panorama from the input images.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Camera calibration, distortion correction, feature detection, Harris Detector, image stitching, image transformation, panorama creation. </blockquote>
-									<!-- <center><p><a href="https://drive.google.com/file/d/1HndMqWwY4OknyyU28nDKyW5jV0xSRDXF/view?usp=share_link" target="_blank">Report</a></p> </center> -->
-								</section>
-								<section>
-									<span class="icon solid major fa-camera-retro"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/1luXq_2GOjSshEVeU_JuxbC75RaDQkFJq/view?usp=share_link" target='_blank'>Real-time Webcam Image Filtering</a></h3>
-									
-									<p>This project aims to apply real-time image filtering to webcam input. It involves several image processing tasks, such as converting images to grayscale, applying Gaussian blur, cartoonizing with gradient magnitude and blur/quantize filters, and adding salt and pepper noise. The core concept revolves around using convolution techniques to manipulate images. The desired image manipulations are achieved through pixel-level operations.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Real-time image processing, webcam input, grayscale conversion, Gaussian blur, cartoonization, gradient magnitude, convolution, noise addition. </blockquote>
-								</section>
-								<section>
-									<span class="icon solid major fa-images"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/104NzC84ZYSaaOau8ZCoqtbRcomt3QPu_/view?usp=share_link" target='_blank'>Content-Based Image Retrieval</a></h3>
-									<p>This project aims to retrieve images from a dataset based on their characteristics, such as color, texture, and spatial layout, using a selected target image. It involves the extraction of feature vectors and the calculation of the top N matches, providing practical experience in image matching and pattern recognition.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Content-based image retrieval, feature vector extraction, color spaces, histograms, texture features, spatial layout, distance metrics, pattern recognition, Gabor filters, parameter tuning.</blockquote>
-								</section>
-								<section>
-									<span class="icon solid major fa-wand-magic-sparkles"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/11GI9mZ4-aC4UWrGbHC7n-jJdPdDFtJ9-/view?usp=sharing" target='_blank'>Camera Calibration and Augmented Reality Application</a></h3>
-									<p>This project involves camera calibration and processing image sequences from a webcam to detect and isolate a chessboard pattern. It projects detected points as 3D points for tracking movement and uses robust features. This application extracts and displays chessboard corners, performs camera calibration, estimates camera pose, and overlays a virtual object on the image frame. It also extends to perform perspective transformation and blending of images.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Camera calibration, feature detection (SURF Features), image processing, pose estimation, virtual object overlay, perspective transformation, QR code detection, Augmented Reality techniques. </blockquote>
-								</section>
-								<section>
-									<span class="icon solid major fa-location-dot"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/1uLpVngfUTGkcXad47UsUuYPYr1xTBYCu/view?usp=share_link" target='_blank'>RTK GPS Data Collection and Analysis</a></h3>
-									<p>The objective of this project is to set up and collect RTK GPS (u-blox ZED-F9P) data from both a base station and a rover. This data collection is conducted in open spaces and locations with occlusions to analyze and compare the gathered data. The goal is to eliminate common noise, study the differences between stationary and moving data, and draw meaningful inferences from the collected data sets.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Hardware setup for RTK GPS data collection, base station and rover configuration, noise elimination, stationary and moving data collection, data comparison, analysis, and drawing inferences from the collected data. </blockquote>
-								</section>
-								<section>
-									<span class="icon solid major fa-gauge"></span>
-									<h3 class="glance-title"><a href="https://drive.google.com/file/d/1vk5a1Z_3POFjMTmxPxkzHO8ztfz1R7pm/view?usp=share_link" target='_blank'>IMU Data Collection and Analysis</a></h3>
-									<p>The project's objective was to configure the VectorNav IMU hardware to collect data in the $VNYMR format and set the data collection rate at 40Hz. Data collection took place in stationary conditions, and various parameters including Orientation, Angular Velocity, Linear Acceleration, Magnetic Field, Noise Characteristics, Error Distribution, and Allan Deviation were analyzed for the IMU data.</p>
-									<strong>Skills Honed:</strong>
-									<blockquote>Configuration of IMU hardware, data format setting, data collection rate adjustment, data analysis of parameters including Orientation, Angular Velocity, Linear Acceleration, Magnetic Field, Noise Characteristics, Error Distribution, and Allan Deviation. </blockquote>
-								</section>
-							</div>
-						</div>
-					</section>
-
-				<!-- Contact -->
-					<section id="three" class="wrapper style1 fade-up">
-						<div class="inner">
-							<hr>
-							<h2>Get in touch</h2>
-							<p>Feel free to reach out if you'd like to discuss exciting opportunities in the world of robotics, computer vision, and drones, or if you're interested in collaborating on groundbreaking projects with a passionate robotics enthusiast like me.</p>
-							<div class="style1">
-								<section>
-									<ul class="contact">
-										<li>
-											<h3>Email</h3>
-											<a href="mailto:hello@devrobotics.dev" target="_blank">hello@devrobotics.dev</a>
-										</li>
-																				<li>
-											<h3>Social</h3>
-											<ul class="icons">
-												<!-- <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li> -->
-												<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-												<li><a href="https://github.com/devrangadi-h" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-												<li><a href="https://www.linkedin.com/in/hardikdev/" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-												<li><a href="https://www.youtube.com/channel/UCXxdnmgU7o6cQPVTbDsboZw" target="_blank" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
-												<li><a href="https://www.instagram.com/hardikdevrangadi/" target="_blank" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-												
-											</ul>
-										</li>
-									</ul>
-								</section>
-							</div>
-							<hr>
-						</div>
-						
-					</section>
-
+			<!-- Projects -->
+			<div class="bento__heading span-12" id="projects">
+				<p class="eyebrow">04 · Projects</p>
+				<h2>Selected projects</h2>
 			</div>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-						<li><!-- Edited by Polaris via OpenClaw on 2026-03-14 --></li>
+			<a class="tile tile--link span-3 md-span-6 project" href="objectdetection.html" data-shape="detection" data-reveal>
+				<img class="project__thumb" src="images/pic03-800.webp" srcset="images/pic03-400.webp 400w, images/pic03-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-detection" />
+				<h3 class="project__title">Realtime 2D object detection</h3>
+				<p class="project__hook muted">Classifies 15 objects from a live webcam stream with KNN at 95% accuracy.</p>
+				<ul class="cluster project__tags" role="list"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">XCode</li></ul>
+			</a>
+			<a class="tile tile--link span-3 md-span-6 project" href="eclipse.html" data-shape="eclipse" data-reveal>
+				<img class="project__thumb" src="images/pic01-800.webp" srcset="images/pic01-400.webp 400w, images/pic01-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-eclipse; object-position: top center" />
+				<h3 class="project__title">The Eclipse hexacopter</h3>
+				<p class="project__hook muted">A 1000 mm disaster-response UAV with 22 lbs of thrust, built for AUVSI SUAS 2019.</p>
+				<ul class="cluster project__tags" role="list"><li class="tag">PX4</li><li class="tag">MAVROS</li><li class="tag">OpenCV</li></ul>
+			</a>
+			<a class="tile tile--link span-3 md-span-6 project" href="opticalflow.html" data-shape="flow" data-reveal>
+				<img class="project__thumb" src="images/pic02-800.webp" srcset="images/pic02-400.webp 400w, images/pic02-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-flow; object-position: 25% 25%" />
+				<h3 class="project__title">Optical flow: classical vs deep</h3>
+				<p class="project__hook muted">Farneback against FlowNet 2.0 on endpoint error, angular error and tracking.</p>
+				<ul class="cluster project__tags" role="list"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">PyTorch</li></ul>
+			</a>
+			<a class="tile tile--link span-3 md-span-6 project" href="polaris-project.html" data-shape="polaris" data-reveal>
+				<img class="project__thumb" src="images/polaris.svg" alt="" width="1200" height="1200" loading="lazy" style="view-transition-name: proj-polaris" />
+				<h3 class="project__title">Polaris</h3>
+				<p class="project__hook muted">An always-on Raspberry Pi 5 that maintains this site and logs every change.</p>
+				<ul class="cluster project__tags" role="list"><li class="tag">Raspberry Pi</li><li class="tag">Python</li><li class="tag">Tailscale</li></ul>
+			</a>
+
+			<!-- At a glance -->
+			<article class="tile span-8 glance" id="glance" aria-labelledby="glance-title" data-reveal>
+				<p class="eyebrow">05 · At a glance</p>
+				<h2 class="tile__title" id="glance-title">Mini projects and numbers</h2>
+				<dl class="glance__stats">
+					<div><dt>Featured projects</dt><dd class="mono"><span data-counter="4">4</span></dd></div>
+					<div><dt>Mini projects</dt><dd class="mono"><span data-counter="6">6</span></dd></div>
+				</dl>
+				<ul class="glance__list" role="list" aria-label="Mini projects">
+					<li><a href="https://drive.google.com/file/d/1HndMqWwY4OknyyU28nDKyW5jV0xSRDXF/view?usp=share_link" target="_blank" rel="noopener">Panorama image stitching</a><span class="muted">Calibration, Harris corners and stitching into a seamless panorama.</span></li>
+					<li><a href="https://drive.google.com/file/d/1luXq_2GOjSshEVeU_JuxbC75RaDQkFJq/view?usp=share_link" target="_blank" rel="noopener">Real-time webcam filtering</a><span class="muted">Grayscale, blur, cartoonise and noise filters via convolution on live video.</span></li>
+					<li><a href="https://drive.google.com/file/d/104NzC84ZYSaaOau8ZCoqtbRcomt3QPu_/view?usp=share_link" target="_blank" rel="noopener">Content-based image retrieval</a><span class="muted">Top-N matches from colour, texture and spatial-layout features.</span></li>
+					<li><a href="https://drive.google.com/file/d/11GI9mZ4-aC4UWrGbHC7n-jJdPdDFtJ9-/view?usp=sharing" target="_blank" rel="noopener">Camera calibration &amp; AR</a><span class="muted">Chessboard calibration and pose estimation to overlay virtual objects.</span></li>
+					<li><a href="https://drive.google.com/file/d/1uLpVngfUTGkcXad47UsUuYPYr1xTBYCu/view?usp=share_link" target="_blank" rel="noopener">RTK GPS data analysis</a><span class="muted">u-blox ZED-F9P base and rover data, open sky vs occluded sites.</span></li>
+					<li><a href="https://drive.google.com/file/d/1vk5a1Z_3POFjMTmxPxkzHO8ztfz1R7pm/view?usp=share_link" target="_blank" rel="noopener">IMU data analysis</a><span class="muted">VectorNav IMU at 40 Hz: noise characteristics and Allan deviation.</span></li>
+				</ul>
+				<p class="glance__more muted">Everything in one place: <a href="https://linktr.ee/hardikdev" target="_blank" rel="noopener">Linktree</a></p>
+			</article>
+
+			<!-- Skills -->
+			<article class="tile span-4 skills" id="skills" aria-labelledby="skills-title" data-reveal>
+				<p class="eyebrow">06 · Skills</p>
+				<h2 class="tile__title" id="skills-title">Toolbox</h2>
+				<ul class="cluster" role="list">
+					<li class="tag">C++</li><li class="tag">Python</li><li class="tag">OpenCV</li><li class="tag">PyTorch</li><li class="tag">TensorFlow / TF Lite</li>
+					<li class="tag">PX4</li><li class="tag">MAVLink / MAVROS</li><li class="tag">Pixhawk</li><li class="tag">RTK GPS</li><li class="tag">IMUs</li>
+					<li class="tag">Guidance, navigation &amp; control</li><li class="tag">CI/CD</li><li class="tag">Raspberry Pi</li>
+				</ul>
+			</article>
+
+			<!-- Contact -->
+			<article class="tile span-12 contact" id="contact" aria-labelledby="contact-title" data-reveal>
+				<div class="contact__text">
+					<p class="eyebrow">07 · Contact</p>
+					<h2 class="tile__title" id="contact-title">Get in touch</h2>
+					<p class="muted">Happy to talk robotics, computer vision and drones, whether it&rsquo;s an opportunity or a project to build together.</p>
+				</div>
+				<div class="contact__actions">
+					<a class="btn btn--primary" href="mailto:hello@devrobotics.dev" data-magnetic>hello@devrobotics.dev</a>
+					<ul class="cluster" role="list" aria-label="Social links">
+						<li><a class="btn btn--ghost" href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a></li>
+						<li><a class="btn btn--ghost" href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a></li>
+						<li><a class="btn btn--ghost" href="https://www.youtube.com/channel/UCXxdnmgU7o6cQPVTbDsboZw" target="_blank" rel="noopener">YouTube</a></li>
+						<li><a class="btn btn--ghost" href="https://www.instagram.com/hardikdevrangadi/" target="_blank" rel="noopener">Instagram</a></li>
 					</ul>
 				</div>
-			</footer>
+			</article>
+		</section>
+	</main>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/theme.js"></script>
-
-	</body>
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+</body>
 </html>

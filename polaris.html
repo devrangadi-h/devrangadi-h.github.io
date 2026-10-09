@@ -1,466 +1,208 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>Polaris Activity Log</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Live activity log and Raspberry Pi status for Polaris, the assistant that maintains devrobotics.dev." />
-    <link rel="canonical" href="https://devrobotics.dev/polaris.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="devrobotics" />
-    <meta property="og:title" content="Polaris Dashboard — devrobotics" />
-    <meta property="og:description" content="Live activity log and Raspberry Pi status for Polaris, the assistant that maintains devrobotics.dev." />
-    <meta property="og:url" content="https://devrobotics.dev/polaris.html" />
-    <meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/site.css" />
-    <link rel="stylesheet" href="assets/css/polaris.css" />
-    <link rel="icon" href="/images/icon.png" type="image/png">
-  </head>
-  <body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Polaris Dashboard — devrobotics</title>
+	<meta name="description" content="Live activity log and Raspberry Pi status for Polaris, the assistant that maintains devrobotics.dev." />
+	<link rel="canonical" href="https://devrobotics.dev/polaris.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Polaris Dashboard — devrobotics" />
+	<meta property="og:description" content="Live activity log and Raspberry Pi status for Polaris, the assistant that maintains devrobotics.dev." />
+	<meta property="og:url" content="https://devrobotics.dev/polaris.html" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/dashboard.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/dashboard.js" defer></script>
+</head>
+<body class="page-dash">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
 
-    <!-- Header -->
-      <header id="header">
-        <a href="index.html" class="title">
-          <img src="images/icon.png" alt="Logo" class="site-logo" />
-          devrobotics
-        </a>
-        <nav>
-          <ul>
-            <li><a href="/index.html#intro">About</a></li>
-            <li><a href="/index.html#research">Research</a></li>
-            <li><a href="/index.html#one">Projects</a></li>
-            <li><a href="/index.html#three">Contact</a></li>
-            <li><a href="/polaris.html">Polaris</a></li>
-            <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-          </ul>
-        </nav>
-      </header>
+	<main id="main">
+		<header class="dash-hero container" id="top" data-intro>
+			<p class="eyebrow">Polaris · live dashboard</p>
+			<h1 class="dash-hero__title">Polaris dashboard</h1>
+			<p class="lead">What Polaris, the Raspberry Pi assistant that maintains <strong>devrobotics.dev</strong>, has been doing: its health, its change log and the lights it looks after.</p>
+		</header>
 
-    <!-- Wrapper -->
-    <div id="wrapper" style="margin-top: 5.5rem;">
-      <section id="top" class="wrapper style1 fade-up">
-        <div class="inner polaris-hero">
-          <h1>Polaris Dashboard</h1>
-          <p>This dashboard shows what Polaris has been doing on <strong>devrobotics.dev</strong> via your Raspberry Pi and OpenClaw.</p>
+		<section class="dash container grid" aria-label="Dashboard">
+			<!-- Pi status -->
+			<article class="tile span-12 status" id="status" aria-labelledby="status-title" data-state="unknown" data-dash-status data-reveal>
+				<div class="status__head">
+					<div class="status__id">
+						<p class="eyebrow" id="status-title">Raspberry Pi status</p>
+						<p class="status__state" role="status"><span class="status-dot status-dot--warn" data-dash-dot aria-hidden="true"></span><span data-dash-state>Live status loads with JavaScript.</span></p>
+					</div>
+					<p class="status__updated mono muted" data-dash-updated></p>
+				</div>
+				<dl class="readouts mono">
+					<div><dt>Host</dt><dd data-dash-host>—</dd></div>
+					<div><dt>CPU temp</dt><dd data-dash-temp>—</dd></div>
+					<div><dt>CPU</dt><dd data-dash-cpu>—</dd></div>
+					<div><dt>Load 1/5/15m</dt><dd data-dash-load>—</dd></div>
+					<div><dt>Memory used</dt><dd data-dash-mem>—</dd></div>
+					<div><dt>Disk used</dt><dd data-dash-disk>—</dd></div>
+				</dl>
+			</article>
 
-          <section class="wrapper style2" style="margin-top: 2rem;">
-            <div class="inner">
-              <h2>Powered by Polaris &amp; OpenClaw</h2>
-              <p>
-                Polaris is a local agent running on your Raspberry Pi via <strong>OpenClaw</strong>. It can edit this website, log its own changes,
-                and coordinate with your GitHub Pages deployment. This section – and the change log below – are both maintained by Polaris.
-              </p>
-              <ul>
-                <li>Edits live in <code>devrangadi-h/devrangadi-h.github.io</code> on GitHub.</li>
-                <li>Changes are tracked in <code>polaris-log.json</code> and rendered here.</li>
-                <li>Dark/light theme, header, and layout are shared with the main portfolio site.</li>
-              </ul>
-            </div>
-          </section>
+			<!-- Sparklines -->
+			<article class="tile span-7 trends" id="trends" aria-labelledby="trends-title" data-reveal>
+				<div class="tile__row">
+					<p class="eyebrow" id="trends-title">Last 24 hours</p>
+					<p class="mono muted trends__range" data-spark-range></p>
+				</div>
+				<noscript><p class="mono muted">CPU temperature and load charts load with JavaScript.</p></noscript>
+				<div class="spark" data-spark="cpuTempC" data-spark-unit=" °C" data-spark-digits="1">
+					<p class="spark__label mono">CPU temp</p>
+					<p class="spark__empty mono muted">Collecting history…</p>
+				</div>
+				<div class="spark" data-spark="load1" data-spark-unit="" data-spark-digits="2">
+					<p class="spark__label mono">Load 1m</p>
+					<p class="spark__empty mono muted">Collecting history…</p>
+				</div>
+			</article>
 
-          <section id="overview" class="features">
-            <section>
-              <span class="icon solid major fa-gauge"></span>
-              <h2>Latest Activity</h2>
-              <p id="latest-summary">Loading latest change…</p>
-              <p id="latest-meta" class="small"></p>
-            </section>
-            <section>
-              <span class="icon solid major fa-microchip"></span>
-              <h2>Pi Status</h2>
-              <p id="pi-status">Checking Raspberry Pi…</p>
-              <p id="pi-status-meta" class="small"></p>
-            </section>
-            <section>
-              <span class="icon solid major fa-code-branch"></span>
-              <h2>Site & Repo</h2>
-              <p>
-                Repo: <a href="https://github.com/devrangadi-h/devrangadi-h.github.io" target="_blank">devrangadi-h/devrangadi-h.github.io</a><br />
-                Hosting: GitHub Pages<br />
-                Assistant: Polaris on Raspberry Pi (OpenClaw)
-              </p>
-            </section>
-          </section>
+			<!-- Lighting control -->
+			<article class="tile span-5 lights" id="lights" aria-labelledby="lights-title" data-lights="locked" data-reveal>
+				<div class="tile__row">
+					<p class="eyebrow">Lighting control</p>
+					<span class="lights__badge mono" data-lights-badge>Locked</span>
+				</div>
+				<h2 class="tile__title" id="lights-title">Floor lamps</h2>
+				<p class="muted lights__note">Private controls for the Govee floor lamps. Works only from devices on the owner&rsquo;s Tailscale network.</p>
 
-          <hr />
+				<div class="lights__auth" data-lights-auth>
+					<label class="visually-hidden" for="lights-password">Access token</label>
+					<input type="password" id="lights-password" class="field mono" placeholder="Access token" autocomplete="off" spellcheck="false" />
+					<button type="button" id="lights-unlock" class="btn btn--primary">Unlock</button>
+				</div>
 
-          <section id="flower" style="margin-top: 2rem;">
-            <div id="flower-tracker" class="flower-tracker">
-              <p>Loading latest snapshot…</p>
-            </div>
-          </section>
+				<div id="lights-panel" class="lights__panel" hidden>
+					<div class="lights__group">
+						<p class="eyebrow" id="lights-power-label">Power</p>
+						<div class="segmented" role="group" aria-labelledby="lights-power-label">
+							<button type="button" class="segmented__btn" data-power="on" aria-pressed="false">On</button>
+							<button type="button" class="segmented__btn" data-power="off" aria-pressed="false">Off</button>
+						</div>
+					</div>
+					<div class="lights__group">
+						<div class="tile__row">
+							<label class="eyebrow" for="lights-bright">Brightness</label>
+							<output class="mono lights__value" for="lights-bright" data-bright-out>75%</output>
+						</div>
+						<input type="range" id="lights-bright" class="range" min="1" max="100" step="1" value="75" />
+						<div class="cluster lights__chips">
+							<button type="button" class="chip mono" data-bright="25">25%</button>
+							<button type="button" class="chip mono" data-bright="50">50%</button>
+							<button type="button" class="chip mono" data-bright="75">75%</button>
+							<button type="button" class="chip mono" data-bright="100">100%</button>
+						</div>
+					</div>
+					<div class="lights__group">
+						<p class="eyebrow">Presets</p>
+						<div class="cluster lights__chips">
+							<button type="button" class="chip" data-scene="bright-white"><span class="chip__swatch chip__swatch--cool" aria-hidden="true"></span>Bright white (cool)</button>
+							<button type="button" class="chip" data-scene="warm-white"><span class="chip__swatch chip__swatch--warm" aria-hidden="true"></span>Bright white (warm)</button>
+						</div>
+					</div>
+					<button type="button" class="lights__change mono" data-lights-change>Change token</button>
+				</div>
 
-          <hr />
+				<p class="lights__status mono" id="lights-status" aria-live="polite"></p>
+				<noscript><p class="muted">Lighting control needs JavaScript.</p></noscript>
+			</article>
 
-          <section id="lights" style="margin-top: 2rem;">
-            <h2>Lighting Control</h2>
-            <p class="small">Private controls for the Govee floor lamps. Works only from devices on the owner&rsquo;s Tailscale network.</p>
-            <p class="small" id="lights-status" aria-live="polite"></p>
-            <div class="lights-auth">
-              <input type="password" id="lights-password" placeholder="Access token" autocomplete="off" />
-              <button id="lights-unlock">Unlock</button>
-            </div>
-            <div id="lights-panel" class="lights-panel hidden">
-                            <div class="lights-row">
-                <button data-power="on" class="lights-btn primary">On</button>
-                <button data-power="off" class="lights-btn">Off</button>
-              </div>
-              <div class="lights-row">
-                <button data-scene="bright-white" class="lights-btn">Bright white (cool)</button>
-                <button data-scene="warm-white" class="lights-btn">Bright white (warm)</button>
-              </div>
-              <div class="lights-row">
-                <button data-bright="25" class="lights-btn">25% brightness</button>
-                <button data-bright="50" class="lights-btn">50% brightness</button>
-                <button data-bright="75" class="lights-btn">75% brightness</button>
-                <button data-bright="100" class="lights-btn">100% brightness</button>
-              </div>
-            </div>
-          </section>
+			<!-- Activity log -->
+			<article class="tile span-8 log" id="log" aria-labelledby="log-title" data-reveal>
+				<div class="tile__row">
+					<p class="eyebrow">Activity log</p>
+					<p class="mono muted log__count" data-log-count></p>
+				</div>
+				<h2 class="tile__title" id="log-title">What Polaris changed</h2>
+				<div class="term">
+					<div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><p class="mono">polaris-log.json</p></div>
+					<div class="term__body mono">
+						<p class="term__prompt" aria-hidden="true"><span class="term__ps">polaris:~$</span> tail polaris-log.json</p>
+						<ol class="term__list" role="list" aria-label="Change log, newest first" data-log-list>
+							<li class="term__msg">Loading log…</li>
+						</ol>
+						<noscript><p class="term__msg">The log loads with JavaScript. Raw data: <a href="polaris-log.json">polaris-log.json</a></p></noscript>
+						<button type="button" class="term__more" data-log-more hidden></button>
+					</div>
+				</div>
+			</article>
 
-          <hr />
+			<div class="span-4 dash__side">
+				<!-- Flower camera: shown only when a snapshot arrived in the last 6 hours -->
+				<article class="tile flower" id="flower" aria-labelledby="flower-title" hidden data-flower>
+					<p class="eyebrow">Flower camera</p>
+					<h2 class="tile__title" id="flower-title">Latest snapshot</h2>
+					<div class="flower__frame" data-flower-frame></div>
+					<p class="mono muted flower__meta" data-flower-meta></p>
+				</article>
 
-          <h2 id="log">Change Log</h2>
-          <p>Grouped by day. Click a date to expand/collapse its entries.</p>
-          <div id="log-container">
-            <p>Loading log…</p>
-          </div>
-        </div>
-      </section>
-    </div>
+				<!-- Site & repo -->
+				<article class="tile about" aria-labelledby="about-title" data-reveal>
+					<p class="eyebrow">Site &amp; repo</p>
+					<h2 class="tile__title" id="about-title">Powered by Polaris &amp; OpenClaw</h2>
+					<p class="muted">Polaris is a local agent running on a Raspberry Pi via <strong>OpenClaw</strong>. It edits this website, logs its own changes and coordinates with the GitHub Pages deployment.</p>
+					<dl class="facts mono">
+						<div><dt>Repo</dt><dd><a href="https://github.com/devrangadi-h/devrangadi-h.github.io" target="_blank" rel="noopener">devrangadi-h/devrangadi-h.github.io</a></dd></div>
+						<div><dt>Hosting</dt><dd>GitHub Pages</dd></div>
+						<div><dt>Assistant</dt><dd>Polaris on Raspberry Pi (OpenClaw)</dd></div>
+						<div><dt>Log</dt><dd><a href="polaris-log.json">polaris-log.json</a></dd></div>
+					</dl>
+					<a class="about__more" href="polaris-project.html">How Polaris works &rarr;</a>
+				</article>
+			</div>
+		</section>
+	</main>
 
-    <footer id="footer" class="wrapper style1-alt">
-      <div class="inner">
-        <ul class="menu">
-          <li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-          <li>Polaris dashboard</li>
-        </ul>
-      </div>
-    </footer>
-
-    <script>
-      function formatDateTime(dateStr, timeStr) {
-        if (!dateStr) return '';
-        const parts = dateStr.split('-');
-        if (parts.length !== 3) return dateStr;
-        const [year, month, day] = parts.map(Number);
-        let hours = 0, minutes = 0;
-        if (timeStr) {
-          const tParts = timeStr.split(':');
-          hours = parseInt(tParts[0] || '0', 10);
-          minutes = parseInt(tParts[1] || '0', 10);
-        }
-        const dt = new Date(year, month - 1, day, hours, minutes);
-        if (isNaN(dt.getTime())) return dateStr + (timeStr ? ' ' + timeStr : '');
-
-        const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        const dayName = weekdays[dt.getDay()];
-        const monthName = months[dt.getMonth()];
-        const dNum = dt.getDate();
-        const yNum = dt.getFullYear();
-        const suffix = (dNum % 10 === 1 && dNum !== 11) ? 'st'
-                    : (dNum % 10 === 2 && dNum !== 12) ? 'nd'
-                    : (dNum % 10 === 3 && dNum !== 13) ? 'rd'
-                    : 'th';
-
-        let formatted = `${dayName}, ${monthName} ${dNum}${suffix} ${yNum}`;
-        if (timeStr) {
-          const h24 = dt.getHours();
-          const h12 = h24 % 12 || 12;
-          const mins = String(dt.getMinutes()).padStart(2, '0');
-          const ampm = h24 >= 12 ? 'PM' : 'AM';
-          formatted += ` | ${h12}:${mins} ${ampm}`;
-        }
-        return formatted;
-      }
-
-      function groupByDate(entries) {
-        const byDate = {};
-        entries.forEach(e => {
-          const d = e.date || 'Unknown date';
-          if (!byDate[d]) byDate[d] = [];
-          byDate[d].push(e);
-        });
-        return byDate;
-      }
-
-      function createDayPanel(date, entries) {
-        const panel = document.createElement('article');
-        panel.className = 'polaris-day-panel';
-
-        const header = document.createElement('header');
-        header.className = 'polaris-day-header';
-        const formattedDay = formatDateTime(date, null);
-        header.innerHTML = `
-          <h3>${formattedDay}</h3>
-          <span class="toggle">▼</span>
-        `;
-
-        const body = document.createElement('div');
-        body.className = 'polaris-day-body';
-
-        entries
-          .slice()
-          .reverse()
-          .forEach(entry => {
-            const item = document.createElement('div');
-            item.className = 'polaris-log-entry';
-            const when = formatDateTime(entry.date, entry.time);
-            const files = (entry.files || []).join(', ');
-            item.innerHTML = `
-              <h4>${entry.summary || 'Change'}</h4>
-              <p class="meta">${when}${files ? ' · ' + files : ''}</p>
-              <p>${entry.details || ''}</p>
-            `;
-            body.appendChild(item);
-          });
-
-        header.addEventListener('click', () => {
-          const isOpen = body.classList.toggle('open');
-          const toggle = header.querySelector('.toggle');
-          toggle.textContent = isOpen ? '▲' : '▼';
-        });
-
-        panel.appendChild(header);
-        panel.appendChild(body);
-        return panel;
-      }
-
-      async function loadPiStatus() {
-        const statusEl = document.getElementById('pi-status');
-        const metaEl = document.getElementById('pi-status-meta');
-        try {
-          // Static JSON generated on the Raspberry Pi and pushed to GitHub Pages
-          const res = await fetch('polaris-pi-status.json?_=' + Date.now());
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const s = await res.json();
-          if (!s) throw new Error('Empty status');
-
-          // The Pi pushes this file every 15 minutes; if it stops, treat the Pi as offline.
-          const ageMin = s.lastUpdated ? (Date.now() - new Date(s.lastUpdated).getTime()) / 60000 : Infinity;
-          const online = !!s.piOnline && ageMin < 35;
-          statusEl.innerHTML = online
-            ? '<span class="pi-status-indicator"><span class="pi-status-dot"></span><span class="pi-status-label">Online</span></span>'
-            : '<span class="pi-status-indicator"><span class="pi-status-dot" style="background:#e74c3c; box-shadow:0 0 0 0 rgba(231,76,60,0.7);"></span><span class="pi-status-label">Offline</span></span>';
-
-          const parts = [];
-          if (s.hostname) parts.push('Host: ' + s.hostname);
-          if (s.cpuTempC != null) parts.push('CPU Temp: ' + s.cpuTempC + '°C');
-          if (s.cpuPercent != null) {
-            const loadParts = [];
-            if (s.load1 != null) loadParts.push(s.load1 + ' (1m)');
-            if (s.load5 != null) loadParts.push(s.load5 + ' (5m)');
-            if (s.load15 != null) loadParts.push(s.load15 + ' (15m)');
-            const loadStr = loadParts.length ? ' | Load: ' + loadParts.join(' · ') : '';
-            parts.push('CPU Load: ' + s.cpuPercent + '%' + loadStr);
-          }
-          if (s.diskRoot) parts.push('Disk: ' + s.diskRoot + ' used');
-          if (s.memory) parts.push('RAM: ' + s.memory + ' used');
-          if (s.lastUpdated) {
-            const dt = new Date(s.lastUpdated);
-            const nice = isNaN(dt.getTime())
-              ? s.lastUpdated
-              : dt.toLocaleString(undefined, {
-                  weekday: 'short',
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit'
-                });
-            parts.push((online ? 'Updated: ' : 'Last seen: ') + nice);
-          }
-          metaEl.innerHTML = parts.join('<br />');
-        } catch (err) {
-          statusEl.textContent = 'Status currently unavailable';
-          metaEl.textContent = '';
-          console.error('Failed to load Pi status', err);
-        }
-      }
-
-      async function loadFlower() {
-        const container = document.getElementById('flower-tracker');
-        if (!container) return;
-        try {
-          const res = await fetch('flower-tracker.json?_=' + Date.now());
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const data = await res.json();
-          if (!data || !data.image) throw new Error('Empty payload');
-
-          // Hide the section when the camera hasn't sent a snapshot in the last 6 hours.
-          const ageH = data.lastUpdated ? (Date.now() - new Date(data.lastUpdated).getTime()) / 3600000 : Infinity;
-          if (!(ageH < 6)) throw new Error('Snapshot is stale');
-
-          const img = document.createElement('img');
-          img.src = data.image + '?_=' + Date.now(); // bust caches
-          img.alt = 'Latest flower snapshot';
-
-          const meta = document.createElement('p');
-          meta.className = 'meta';
-          if (data.lastUpdated) {
-            const dt = new Date(data.lastUpdated);
-            const nice = isNaN(dt.getTime())
-              ? data.lastUpdated
-              : dt.toLocaleString(undefined, {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit'
-                });
-            meta.textContent = 'Last updated: ' + nice;
-          } else {
-            meta.textContent = 'Last updated: unknown';
-          }
-
-          container.innerHTML = '';
-          container.appendChild(img);
-          container.appendChild(meta);
-        } catch (err) {
-          const section = document.getElementById('flower');
-          if (section) {
-            section.hidden = true;
-            const hr = section.nextElementSibling;
-            if (hr && hr.tagName === 'HR') hr.hidden = true;
-          }
-          console.info('Flower tracker hidden:', err.message);
-        }
-      }
-
-      async function loadLog() {
-        const container = document.getElementById('log-container');
-        const latestSummaryEl = document.getElementById('latest-summary');
-        const latestMetaEl = document.getElementById('latest-meta');
-        try {
-          const res = await fetch('polaris-log.json?_=' + Date.now());
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const entries = await res.json();
-          if (!Array.isArray(entries) || entries.length === 0) {
-            container.innerHTML = '<p>No entries yet.</p>';
-            latestSummaryEl.textContent = 'No activity logged yet.';
-            latestMetaEl.textContent = '';
-            return;
-          }
-
-          // Latest activity
-          const latest = entries[entries.length - 1];
-          latestSummaryEl.textContent = latest.summary || 'Latest change';
-          latestMetaEl.textContent = formatDateTime(latest.date, latest.time);
-
-          // Group by date and render collapsible panels
-          const byDate = groupByDate(entries);
-          const dates = Object.keys(byDate).sort().reverse();
-
-          const list = document.createElement('div');
-          list.className = 'polaris-log-list';
-
-          dates.forEach((date, idx) => {
-            const panel = createDayPanel(date, byDate[date]);
-            // Open the most recent day by default
-            if (idx === 0) {
-              const body = panel.querySelector('.polaris-day-body');
-              const toggle = panel.querySelector('.toggle');
-              body.classList.add('open');
-              toggle.textContent = '▲';
-            }
-            list.appendChild(panel);
-          });
-
-          container.innerHTML = '';
-          container.appendChild(list);
-        } catch (err) {
-          container.innerHTML = '<p>Could not load log right now.</p>';
-          latestSummaryEl.textContent = 'Unable to load activity.';
-          latestMetaEl.textContent = '';
-          console.error('Failed to load Polaris log', err);
-        }
-      }
-
-      loadPiStatus();
-      loadFlower();
-      loadLog();
-    </script>
-    <script>
-      (function() {
-        // Lights API is reachable only on the owner's tailnet (Tailscale Serve, HTTPS).
-        // The token is checked by the Pi; nothing secret lives in this page.
-        const apiBase = 'https://polaris.tailaf1119.ts.net';
-        const input = document.getElementById('lights-password');
-        const btn = document.getElementById('lights-unlock');
-        const panel = document.getElementById('lights-panel');
-        const statusEl = document.getElementById('lights-status');
-        if (!input || !btn || !panel) return;
-
-        let token = '';
-        try { token = localStorage.getItem('lightsToken') || ''; } catch (e) {}
-
-        function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
-
-        function callApi(path, body) {
-          return fetch(apiBase + path, {
-            method: body ? 'POST' : 'GET',
-            headers: Object.assign({ 'Authorization': 'Bearer ' + token },
-                                   body ? { 'Content-Type': 'application/json' } : {}),
-            body: body ? JSON.stringify(body) : undefined
-          }).then(res => {
-            if (res.status === 401) throw new Error('unauthorized');
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-          });
-        }
-
-        function tryUnlock() {
-          const typed = (input.value || '').trim();
-          if (typed) token = typed;
-          if (!token) return;
-          setStatus('Connecting to Polaris…');
-          callApi('/api/lights/ping').then(() => {
-            try { localStorage.setItem('lightsToken', token); } catch (e) {}
-            panel.classList.remove('hidden');
-            setStatus('Connected.');
-          }).catch(err => {
-            panel.classList.add('hidden');
-            if (err.message === 'unauthorized') {
-              try { localStorage.removeItem('lightsToken'); } catch (e) {}
-              setStatus('Token not accepted.');
-            } else {
-              setStatus('Can’t reach Polaris. Make sure this device is connected to Tailscale.');
-            }
-          });
-        }
-
-        btn.addEventListener('click', tryUnlock);
-        input.addEventListener('keydown', function(ev) {
-          if (ev.key === 'Enter') tryUnlock();
-        });
-        if (token) tryUnlock();
-
-        panel.addEventListener('click', function(ev) {
-          const target = ev.target;
-          if (!(target instanceof HTMLElement)) return;
-          const power = target.getAttribute('data-power');
-          const bright = target.getAttribute('data-bright');
-          const scene = target.getAttribute('data-scene');
-          let req = null;
-          if (power) req = callApi('/api/lights/power', { value: power });
-          else if (bright) req = callApi('/api/lights/brightness', { value: Number(bright) });
-          else if (scene) req = callApi('/api/lights/preset', { value: scene === 'bright-white' ? 'bright_white_cool' : 'bright_white_warm' });
-          if (!req) return;
-          setStatus('Sending…');
-          req.then(() => setStatus('Done.')).catch(err => setStatus('Failed: ' + err.message));
-        });
-      })();
-    </script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/theme.js"></script>
-  </body>
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+</body>
 </html>

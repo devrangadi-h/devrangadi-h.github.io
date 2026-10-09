@@ -1,0 +1,196 @@
+/* Motion layer styles (motion.js). Everything here is off for reduced motion,
+   and hidden-until-revealed states apply only once motion.js has run (html.motion),
+   so content is never invisible without JS. */
+
+/* View Transitions between pages: short cross-fade, shared thumbnails morph */
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition { navigation: auto; }
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: var(--dur);
+		animation-timing-function: var(--ease);
+	}
+
+	::view-transition-group(*) {
+		animation-duration: var(--dur-slow);
+		animation-timing-function: var(--ease);
+	}
+}
+
+/* Reveals: start 12px low and transparent; motion.js animates to rest */
+@media (prefers-reduced-motion: no-preference) {
+	html.motion [data-reveal]:not(.is-revealed),
+	html.motion [data-reveal-group] > :not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(12px);
+		transition: none;
+	}
+}
+
+/* Above-the-fold intros: CSS-only so the hero paints without waiting for JS */
+@keyframes intro-rise {
+	from { opacity: 0; transform: translateY(12px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	[data-intro] > * { animation: intro-rise 700ms var(--ease) both; }
+	[data-intro] > :nth-child(2) { animation-delay: 60ms; }
+	[data-intro] > :nth-child(3) { animation-delay: 120ms; }
+	[data-intro] > :nth-child(4) { animation-delay: 180ms; }
+	[data-intro] > :nth-child(5) { animation-delay: 240ms; }
+	[data-intro] > :nth-child(n+6) { animation-delay: 300ms; }
+}
+
+@media print {
+	html.motion [data-reveal],
+	html.motion [data-reveal-group] > * {
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}
+
+/* Card spotlight (motion.js sets --mx/--my) */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+	html.motion .tile:hover::before {
+		opacity: 1;
+	}
+}
+
+/* Typewriter caret while typing */
+[data-typewriter].is-typing::after {
+	content: "";
+	display: inline-block;
+	width: 0.5em;
+	height: 1.1em;
+	margin-left: 2px;
+	vertical-align: text-bottom;
+	background: var(--accent);
+	animation: motion-caret 0.9s steps(1) infinite;
+}
+
+@keyframes motion-caret {
+	50% { opacity: 0; }
+}
+
+/* Lenis (from its recommended stylesheet) */
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+/* Reticle cursor: native cursor hidden except over text fields */
+html.has-reticle,
+html.has-reticle * {
+	cursor: none !important;
+}
+
+html.has-reticle :is(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable=""], [contenteditable="true"]) {
+	cursor: text !important;
+}
+
+html.has-reticle select {
+	cursor: default !important;
+}
+
+.reticle {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	z-index: 1000;
+	pointer-events: none;
+	color: var(--text);
+	opacity: 0;
+	transition: opacity var(--dur-fast) var(--ease);
+}
+
+.reticle.is-visible { opacity: 1; }
+.reticle.is-visible.is-native { opacity: 0; }
+
+.reticle > span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	will-change: transform;
+}
+
+/* Centre: a hairline cross with an open middle, plus a 3px dot */
+.reticle__cross {
+	width: 0;
+	height: 0;
+	transition: opacity var(--dur-fast) var(--ease);
+}
+
+.reticle__cross::before,
+.reticle__cross::after {
+	content: "";
+	position: absolute;
+	background: linear-gradient(var(--dir), currentColor 0 5px, transparent 5px 11px, currentColor 11px);
+	opacity: 0.7;
+}
+
+.reticle__cross::before {
+	--dir: to right;
+	width: 16px;
+	height: 1px;
+	left: -8px;
+	top: -0.5px;
+}
+
+.reticle__cross::after {
+	--dir: to bottom;
+	width: 1px;
+	height: 16px;
+	left: -0.5px;
+	top: -8px;
+}
+
+.reticle__dot {
+	width: 3px;
+	height: 3px;
+	margin: -1.5px 0 0 -1.5px;
+	border-radius: 50%;
+	background: var(--accent);
+	box-shadow: 0 0 0 1.5px var(--bg);
+}
+
+/* Corner brackets: each translate()d to its corner point by motion.js */
+.reticle__c {
+	width: 8px;
+	height: 8px;
+	border: 0 solid currentColor;
+	opacity: 0.55;
+	transition: opacity var(--dur-fast) var(--ease);
+}
+
+.reticle__c--tl { border-top-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: var(--r, 0); }
+.reticle__c--tr { margin-left: -8px; border-top-width: 1.5px; border-right-width: 1.5px; border-top-right-radius: var(--r, 0); }
+.reticle__c--bl { margin-top: -8px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-bottom-left-radius: var(--r, 0); }
+.reticle__c--br { margin: -8px 0 0 -8px; border-bottom-width: 1.5px; border-right-width: 1.5px; border-bottom-right-radius: var(--r, 0); }
+
+.reticle.is-locked .reticle__c {
+	color: var(--accent);
+	opacity: 1;
+}
+
+.reticle.is-locked .reticle__cross {
+	opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reticle { display: none; }
+}

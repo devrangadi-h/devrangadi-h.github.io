@@ -1,159 +1,198 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Polaris: A Raspberry Pi Assistant — Hardik Devrangadi</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
-		<link rel="canonical" href="https://devrobotics.dev/polaris-project.html" />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="devrobotics" />
-		<meta property="og:title" content="Polaris: A Raspberry Pi Assistant — Hardik Devrangadi" />
-		<meta property="og:description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
-		<meta property="og:url" content="https://devrobotics.dev/polaris-project.html" />
-		<meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/site.css" />
-		<link rel="icon" href="/images/icon.png" type="image/png">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">
-					<img src="images/icon.png" alt="Logo" class="site-logo" />
-					devrobotics
-				</a>
-				<nav>
-					<ul>
-						<li><a href="/index.html#intro">About</a></li>
-						<li><a href="/index.html#research">Research</a></li>
-						<li><a href="/index.html#one">Projects</a></li>
-						<li><a href="/index.html#three">Contact</a></li>
-						<li><a href="/polaris.html">Polaris</a></li>
-						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-					</ul>
-				</nav>
-			</header>
-
-		<!-- Wrapper -->
-			<div id="wrapper" style="margin-top: 5.5rem;">
-
-				<!-- Main -->
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">Polaris: A Raspberry Pi Assistant</h1>
-							<p>Polaris is a personal assistant that runs on a Raspberry Pi 5 at home. It maintains this website, reports its own health, runs my floor lamps, and writes a public log of every change it makes. It runs an <strong>OpenClaw</strong> agent, plus a few small services I wrote around it.</p>
-							<p>I built it to find out what it takes to make a small, always-on system that you can trust: one that tells you when it&rsquo;s broken instead of quietly failing.</p>
-
-							<ul class="actions">
-								<li><a href="polaris.html" class="button primary">Open the live dashboard</a></li>
-								<li><a href="polaris.html#log" class="button">Read the change log</a></li>
-							</ul>
-
-							<hr>
-
-							<h2>Hardware</h2>
-							<ul>
-								<li><strong>Raspberry Pi 5</strong> (16 GB) running Raspberry Pi OS. Always on and headless</li>
-								<li><strong>USB webcam</strong> for the flower tracker</li>
-								<li><strong>Two Govee H607C floor lamps</strong>, controlled through Govee&rsquo;s cloud API</li>
-							</ul>
-
-							<h2>How it works</h2>
-							<figure class="diagram">
-								<svg viewBox="0 0 760 330" role="img" aria-labelledby="dg-title">
-									<title id="dg-title">Polaris architecture: the Pi pushes to GitHub Pages behind Cloudflare, and serves the lights API over a private Tailscale network</title>
-									<g class="dg-box"><rect x="280" y="125" width="200" height="80" rx="12"/></g>
-									<text x="380" y="160" class="dg-strong">Raspberry Pi 5</text>
-									<text x="380" y="184" class="dg-sub">Polaris + services</text>
-
-									<g class="dg-box"><rect x="20" y="20" width="200" height="70" rx="12"/></g>
-									<text x="120" y="50" class="dg-strong">GitHub</text>
-									<text x="120" y="72" class="dg-sub">repo + Pages</text>
-
-									<g class="dg-box"><rect x="20" y="240" width="200" height="70" rx="12"/></g>
-									<text x="120" y="270" class="dg-strong">Cloudflare</text>
-									<text x="120" y="292" class="dg-sub">HTTPS, DNS</text>
-
-									<g class="dg-box"><rect x="540" y="20" width="200" height="70" rx="12"/></g>
-									<text x="640" y="50" class="dg-strong">Tailscale</text>
-									<text x="640" y="72" class="dg-sub">private HTTPS</text>
-
-									<g class="dg-box"><rect x="540" y="240" width="200" height="70" rx="12"/></g>
-									<text x="640" y="270" class="dg-strong">Govee cloud</text>
-									<text x="640" y="292" class="dg-sub">two floor lamps</text>
-
-									<g class="dg-line">
-										<path d="M280 150 L220 70"/>
-										<path d="M120 90 L120 240"/>
-										<path d="M480 150 L540 70"/>
-										<path d="M480 180 L540 270"/>
-									</g>
-									<text x="235" y="118" class="dg-sub" text-anchor="end">git push</text>
-									<text x="130" y="170" class="dg-sub" text-anchor="start">serves site</text>
-									<text x="525" y="118" class="dg-sub" text-anchor="start">lights API</text>
-									<text x="525" y="232" class="dg-sub" text-anchor="start">commands</text>
-								</svg>
-							</figure>
-
-							<h3>1. Editing the website</h3>
-							<p>This site is a static site on GitHub Pages, with Cloudflare in front for HTTPS. The Pi keeps a clone of the repository. When I ask Polaris for a change, it edits the files, adds an entry to <code>polaris-log.json</code>, and commits and pushes. GitHub Pages redeploys within a minute or two, and the dashboard shows the new log entry.</p>
-
-							<h3>2. Reporting its own health</h3>
-							<p>Every 15 minutes a small Python script collects the Pi&rsquo;s CPU temperature, load, memory and disk usage, writes them to a JSON file and pushes it. The dashboard reads that file. If the latest report is more than 35 minutes old, it shows the Pi as <strong>offline</strong>, along with when it was last seen.</p>
-
-							<h3>3. Controlling the lights</h3>
-							<p>A tiny Flask API on the Pi turns the lamps on and off, sets brightness and switches between warm and cool white. Since it controls something physical, I locked it down:</p>
-							<ul>
-								<li>It only listens on the Pi itself. <strong>Tailscale Serve</strong> gives it an HTTPS address that only my own devices can reach, so it isn&rsquo;t on the public internet.</li>
-								<li>Every request needs an access token, which the Pi checks. The page stores nothing secret.</li>
-								<li>The API only answers browser requests from this site, and the Govee API key never leaves the Pi.</li>
-							</ul>
-
-							<h3>4. The flower tracker</h3>
-							<p>A systemd timer grabs a webcam frame every five minutes with <code>ffmpeg</code> and publishes it to the dashboard. If the camera is unplugged, the job skips quietly and the dashboard hides the section until fresh snapshots arrive.</p>
-
-							<hr>
-
-							<h2>Lessons learned</h2>
-							<h3>&ldquo;Online&rdquo; isn&rsquo;t a status, it&rsquo;s a claim</h3>
-							<p>In July 2026 a few objects in the Pi&rsquo;s local git repository were corrupted. Every status push after that failed silently. The dashboard kept showing <em>Online</em>, because the status file said so, with a timestamp from early July, for three months. I repaired the repository and changed the dashboard to judge freshness itself. Now a missed report shows up as offline within 35 minutes.</p>
-							<h3>Security in a static site lives somewhere else</h3>
-							<p>The first version of the lights panel was gated by a password checked in the browser, so anyone could read it in the page source. The repository also published the Pi&rsquo;s backend scripts, since GitHub Pages serves everything in a repo. Both are fixed: the backend now lives outside the website, and the server checks the token.</p>
-							<h3>Small automations need housekeeping</h3>
-							<p>Pushing a status update every five minutes added more than 34,000 commits to the repository. Reporting every 15 minutes cuts that down a lot, and the dashboard is still fresh enough to be useful.</p>
-
-							<hr>
-							<ul class="actions">
-								<li><a href="polaris.html" class="button primary">Open the live dashboard</a></li>
-								<li><a href="index.html#one" class="button">Back to projects</a></li>
-							</ul>
-						</div>
-					</section>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Polaris: A Raspberry Pi Assistant — Hardik Devrangadi</title>
+	<meta name="description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
+	<link rel="canonical" href="https://devrobotics.dev/polaris-project.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Polaris: A Raspberry Pi Assistant — Hardik Devrangadi" />
+	<meta property="og:description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
+	<meta property="og:url" content="https://devrobotics.dev/polaris-project.html" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/project.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/project.js" defer></script>
+</head>
+<body class="page-project">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
 			</div>
+		</div>
+	</header>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-					</ul>
+	<main id="main">
+		<section class="proj-hero" id="top" aria-labelledby="proj-title">
+			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static-800.webp" srcset="images/pointcloud-static-800.webp 800w, images/pointcloud-static.webp 1600w" sizes="100vw" alt="" width="1600" height="900" /></div>
+			<div class="proj-hero__inner container grid">
+				<div class="proj-hero__text span-7" data-intro>
+					<p class="eyebrow proj-hero__crumb"><a href="/#projects">Projects</a> / 04 of 04</p>
+					<h1 class="proj-hero__title" id="proj-title">Polaris</h1>
+					<p class="proj-hero__hook">A Raspberry Pi assistant that maintains this website, reports its own health and keeps a public log of every change it makes.</p>
+					<ul class="cluster proj-hero__tags" role="list" aria-label="Stack"><li class="tag">Raspberry Pi</li><li class="tag">Python</li><li class="tag">Flask</li><li class="tag">systemd</li><li class="tag">Tailscale</li><li class="tag">GitHub Pages</li><li class="tag">Cloudflare</li></ul>
 				</div>
-			</footer>
+				<figure class="proj-hero__media span-5">
+					<img src="images/polaris.svg" alt="Diagram of Polaris, a Raspberry Pi assistant, and the services it runs" width="1200" height="1200" fetchpriority="high" style="view-transition-name: proj-polaris" />
+				</figure>
+			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/theme.js"></script>
+		<div class="proj-body container grid">
+			<aside class="facts tile" aria-labelledby="facts-title">
+				<h2 class="visually-hidden" id="facts-title">Key facts</h2>
+				<dl class="facts__list">
+						<div><dt class="eyebrow">Agent</dt><dd>OpenClaw, plus a few small services I wrote around it</dd></div>
+						<div><dt class="eyebrow">Hardware</dt><dd>Raspberry Pi 5 (16 GB), USB webcam, two Govee H607C floor lamps</dd></div>
+						<div class="facts__stack"><dt class="eyebrow">Stack</dt><dd><ul class="cluster" role="list"><li class="tag">Raspberry Pi</li><li class="tag">Python</li><li class="tag">Flask</li><li class="tag">systemd</li><li class="tag">Tailscale</li><li class="tag">GitHub Pages</li><li class="tag">Cloudflare</li></ul></dd></div>
+						<div><dt class="eyebrow">Links</dt><dd><div class="facts__links"><a href="/polaris.html">Live dashboard</a><a href="/polaris.html#log">Change log</a><a href="#s-lessons">Lessons learned</a></div></dd></div>
+				</dl>
+			</aside>
 
-	</body>
+			<article class="proj-main" aria-label="Write-up">
+				<section class="proj-section" aria-labelledby="s-overview" data-reveal>
+					<p class="eyebrow">01 · Overview</p>
+					<h2 id="s-overview">A small system you can trust</h2>
+					<p>Polaris is a personal assistant that runs on a Raspberry Pi 5 at home. It maintains this website, reports its own health, runs my floor lamps, and writes a public log of every change it makes. It runs an <strong>OpenClaw</strong> agent, plus a few small services I wrote around it.</p>
+					<p>I built it to find out what it takes to make a small, always-on system that you can trust: one that tells you when it&rsquo;s broken instead of quietly failing.</p>
+					<div class="cluster proj-docs"><a class="btn btn--primary" href="/polaris.html" data-magnetic>Open the live dashboard</a><a class="btn btn--ghost" href="/polaris.html#log" data-magnetic>Read the change log</a></div>
+				</section>
+
+				<section class="proj-section" aria-labelledby="s-hardware" data-reveal>
+					<p class="eyebrow">02 · Hardware</p>
+					<h2 id="s-hardware">Hardware</h2>
+					<ul>
+						<li><strong>Raspberry Pi 5</strong> (16 GB) running Raspberry Pi OS. Always on and headless</li>
+						<li><strong>USB webcam</strong> for the flower tracker</li>
+						<li><strong>Two Govee H607C floor lamps</strong>, controlled through Govee&rsquo;s cloud API</li>
+					</ul>
+				</section>
+
+				<section class="proj-section" aria-labelledby="s-how" data-reveal>
+					<p class="eyebrow">03 · Architecture</p>
+					<h2 id="s-how">How it works</h2>
+					<figure class="diagram" tabindex="0">
+						<svg viewBox="0 0 760 330" role="img" aria-labelledby="dg-title">
+							<title id="dg-title">Polaris architecture: the Pi pushes to GitHub Pages behind Cloudflare, and serves the lights API over a private Tailscale network</title>
+							<g class="dg-line">
+								<path d="M280 150 L220 70"/>
+								<path d="M120 90 L120 240"/>
+								<path d="M480 150 L540 70"/>
+								<path d="M480 180 L540 270"/>
+							</g>
+							<g class="dg-box dg-box--core"><rect x="280" y="125" width="200" height="80" rx="12"/></g>
+							<text x="380" y="160" class="dg-strong">Raspberry Pi 5</text>
+							<text x="380" y="184" class="dg-sub">Polaris + services</text>
+
+							<g class="dg-box"><rect x="20" y="20" width="200" height="70" rx="12"/></g>
+							<text x="120" y="50" class="dg-strong">GitHub</text>
+							<text x="120" y="72" class="dg-sub">repo + Pages</text>
+
+							<g class="dg-box"><rect x="20" y="240" width="200" height="70" rx="12"/></g>
+							<text x="120" y="270" class="dg-strong">Cloudflare</text>
+							<text x="120" y="292" class="dg-sub">HTTPS, DNS</text>
+
+							<g class="dg-box"><rect x="540" y="20" width="200" height="70" rx="12"/></g>
+							<text x="640" y="50" class="dg-strong">Tailscale</text>
+							<text x="640" y="72" class="dg-sub">private HTTPS</text>
+
+							<g class="dg-box"><rect x="540" y="240" width="200" height="70" rx="12"/></g>
+							<text x="640" y="270" class="dg-strong">Govee cloud</text>
+							<text x="640" y="292" class="dg-sub">two floor lamps</text>
+
+							<text x="235" y="118" class="dg-sub" text-anchor="end">git push</text>
+							<text x="130" y="170" class="dg-sub" text-anchor="start">serves site</text>
+							<text x="525" y="118" class="dg-sub" text-anchor="start">lights API</text>
+							<text x="525" y="232" class="dg-sub" text-anchor="start">commands</text>
+						</svg>
+					</figure>
+
+					<h3>1. Editing the website</h3>
+					<p>This site is a static site on GitHub Pages, with Cloudflare in front for HTTPS. The Pi keeps a clone of the repository. When I ask Polaris for a change, it edits the files, adds an entry to <code>polaris-log.json</code>, and commits and pushes. GitHub Pages redeploys within a minute or two, and the dashboard shows the new log entry.</p>
+
+					<h3>2. Reporting its own health</h3>
+					<p>Every 15 minutes a small Python script collects the Pi&rsquo;s CPU temperature, load, memory and disk usage, writes them to a JSON file and pushes it. The dashboard reads that file. If the latest report is more than 35 minutes old, it shows the Pi as <strong>offline</strong>, along with when it was last seen.</p>
+
+					<h3>3. Controlling the lights</h3>
+					<p>A tiny Flask API on the Pi turns the lamps on and off, sets brightness and switches between warm and cool white. Since it controls something physical, I locked it down:</p>
+					<ul>
+						<li>It only listens on the Pi itself. <strong>Tailscale Serve</strong> gives it an HTTPS address that only my own devices can reach, so it isn&rsquo;t on the public internet.</li>
+						<li>Every request needs an access token, which the Pi checks. The page stores nothing secret.</li>
+						<li>The API only answers browser requests from this site, and the Govee API key never leaves the Pi.</li>
+					</ul>
+
+					<h3>4. The flower tracker</h3>
+					<p>A systemd timer grabs a webcam frame every five minutes with <code>ffmpeg</code> and publishes it to the dashboard. If the camera is unplugged, the job skips quietly and the dashboard hides the section until fresh snapshots arrive.</p>
+				</section>
+
+				<section class="proj-section" aria-labelledby="s-lessons" data-reveal>
+					<p class="eyebrow">04 · Lessons learned</p>
+					<h2 id="s-lessons">Lessons learned</h2>
+					<h3>&ldquo;Online&rdquo; isn&rsquo;t a status, it&rsquo;s a claim</h3>
+					<p>In July 2026 a few objects in the Pi&rsquo;s local git repository were corrupted. Every status push after that failed silently. The dashboard kept showing <em>Online</em>, because the status file said so, with a timestamp from early July, for three months. I repaired the repository and changed the dashboard to judge freshness itself. Now a missed report shows up as offline within 35 minutes.</p>
+					<h3>Security in a static site lives somewhere else</h3>
+					<p>The first version of the lights panel was gated by a password checked in the browser, so anyone could read it in the page source. The repository also published the Pi&rsquo;s backend scripts, since GitHub Pages serves everything in a repo. Both are fixed: the backend now lives outside the website, and the server checks the token.</p>
+					<h3>Small automations need housekeeping</h3>
+					<p>Pushing a status update every five minutes added more than 34,000 commits to the repository. Reporting every 15 minutes cuts that down a lot, and the dashboard is still fresh enough to be useful.</p>
+					<div class="cluster proj-docs"><a class="btn btn--primary" href="/polaris.html" data-magnetic>Open the live dashboard</a></div>
+				</section>
+			</article>
+		</div>
+
+		<nav class="proj-pager container grid" aria-label="More projects">
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--prev" href="opticalflow.html" rel="prev">
+				<img src="images/pic02-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-flow" style="object-position: 25% 25%" />
+				<span class="proj-pager__text"><span class="eyebrow">&larr; Previous</span><span class="proj-pager__title">Optical flow: classical vs deep</span></span>
+			</a>
+			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--next" href="objectdetection.html" rel="next">
+				<img src="images/pic03-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-detection" />
+				<span class="proj-pager__text"><span class="eyebrow">Next &rarr;</span><span class="proj-pager__title">Realtime 2D object detection</span></span>
+			</a>
+			<a class="btn btn--ghost proj-pager__all span-12" href="/#projects">All projects</a>
+		</nav>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+</body>
 </html>

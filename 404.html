@@ -1,67 +1,99 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Page not found — devrobotics</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="robots" content="noindex" />
-		<link rel="stylesheet" href="/assets/css/main.css" />
-		<link rel="stylesheet" href="/assets/css/site.css" />
-		<link rel="icon" href="/images/icon.png" type="image/png">
-		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Page not found — devrobotics</title>
+	<meta name="description" content="This page doesn't exist or has moved." />
+	<meta name="robots" content="noindex" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<!-- Absolute paths throughout: GitHub Pages serves this file at any depth -->
+	<link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="stylesheet" href="/assets/css/tokens.css" />
+	<link rel="stylesheet" href="/assets/css/base.css" />
+	<link rel="stylesheet" href="/assets/css/components.css" />
+	<link rel="stylesheet" href="/assets/css/motion.css" />
+	<link rel="stylesheet" href="/assets/css/404.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="/assets/js/site.js" defer></script>
+	<script src="/assets/vendor/gsap.min.js" defer></script>
+	<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="/assets/vendor/lenis.min.js" defer></script>
+	<script src="/assets/js/motion.js" defer></script>
+</head>
+<body class="page-404">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="/images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
 
-		<!-- Header -->
-			<header id="header">
-				<a href="/index.html" class="title">
-					<img src="/images/icon.png" alt="Logo" class="site-logo" />
-					devrobotics
-				</a>
-				<nav>
-					<ul>
-						<li><a href="/index.html#intro">About</a></li>
-						<li><a href="/index.html#research">Research</a></li>
-						<li><a href="/index.html#one">Projects</a></li>
-						<li><a href="/index.html#three">Contact</a></li>
-						<li><a href="/polaris.html">Polaris</a></li>
-						<li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme"><span class="theme-icon">☾</span></button></li>
-					</ul>
-				</nav>
-			</header>
-
-		<!-- Wrapper -->
-			<div id="wrapper" style="margin-top: 5.5rem;">
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">Page not found</h1>
-							<p>This page doesn't exist, or it has moved. Try the homepage or one of the projects below.</p>
-							<ul class="actions">
-								<li><a href="/index.html" class="button primary">Homepage</a></li>
-								<li><a href="/index.html#one" class="button">Projects</a></li>
-							</ul>
-						</div>
-					</section>
+	<main id="main">
+		<section class="lost container" id="top" aria-labelledby="lost-title">
+			<div class="lost__copy" data-intro>
+				<p class="eyebrow lost__eyebrow"><span class="status-dot status-dot--warn" aria-hidden="true"></span>Signal lost</p>
+				<p class="lost__code mono" aria-hidden="true">404</p>
+				<h1 class="lost__title" id="lost-title">No return from this sector.</h1>
+				<p class="lead">The page you were looking for doesn't exist, or it has moved. Re-plan the route from one of these waypoints.</p>
+				<div class="cluster lost__ctas">
+					<a class="btn btn--primary" href="/" data-magnetic>Back to home</a>
+					<a class="btn btn--ghost" href="/#projects" data-magnetic>Projects</a>
+					<a class="btn btn--ghost" href="/polaris.html" data-magnetic>Polaris</a>
+				</div>
 			</div>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Hardik Devrangadi. All rights reserved.</li><li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
-					</ul>
-				</div>
-			</footer>
+			<div class="scope" aria-hidden="true">
+				<div class="scope__grid"></div>
+				<div class="scope__target"></div>
+				<span class="scope__blip"></span>
+				<div class="scope__sweep"></div>
+				<span class="scope__c scope__c--tl"></span><span class="scope__c scope__c--tr"></span>
+				<span class="scope__c scope__c--bl"></span><span class="scope__c scope__c--br"></span>
+				<dl class="scope__hud mono">
+					<div><dt>status</dt><dd class="scope__warn">no fix</dd></div>
+					<div><dt>route</dt><dd data-lost-path>/unknown</dd></div>
+					<div><dt>code</dt><dd>HTTP 404</dd></div>
+				</dl>
+			</div>
+		</section>
+	</main>
 
-		<!-- Scripts -->
-			<script src="/assets/js/jquery.min.js"></script>
-			<script src="/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/assets/js/jquery.scrolly.min.js"></script>
-			<script src="/assets/js/browser.min.js"></script>
-			<script src="/assets/js/breakpoints.min.js"></script>
-			<script src="/assets/js/util.js"></script>
-			<script src="/assets/js/main.js"></script>
-			<script src="/assets/js/theme.js"></script>
-
-	</body>
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+	<script>
+		// Show the requested path in the HUD (text only, never HTML)
+		(function() {
+			var el = document.querySelector('[data-lost-path]');
+			if (!el) return;
+			var p = location.pathname;
+			try { p = decodeURI(p); } catch (e) {}
+			el.textContent = p || '/';
+		})();
+	</script>
+</body>
 </html>
