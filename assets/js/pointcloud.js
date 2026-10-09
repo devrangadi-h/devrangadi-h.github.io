@@ -1,9 +1,10 @@
 // Homepage point cloud: LiDAR terrain with a scan sweep that morphs into project shapes.
 // Hooks: [data-pointcloud] canvas, [data-hero], [data-shape]; sets html.pc-ready / html.pc-static.
+// Egg: window.site.pointcloud.egg (homepage) or mount(canvas) for a bare instance elsewhere.
 import * as THREE from '../vendor/three.module.min.js';
 
 const root = document.documentElement;
-const canvas = document.querySelector('[data-pointcloud]');
+const homeCanvas = document.querySelector('[data-pointcloud]');
 const debug = new URLSearchParams(location.search).get('pc');
 const site = window.site || {};
 const reduced = () => (site.reducedMotion ? site.reducedMotion() : matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -24,6 +25,7 @@ function giveUp() {
 	root.classList.add('pc-static');
 	root.classList.remove('pc-ready');
 	stop();
+	delete site.pointcloud;
 }
 
 
@@ -197,10 +199,45 @@ function shapes() {
 		}
 		S.research = build(parts, [0.3, 0]);
 	}
+	return Object.assign(S, HEART || (HEART = heart()));
+}
+
+// Heart (and the dust it dissolves into), the only shapes a bare instance needs.
+let HEART = null;
+function heart() {
+	const S = {};
+	// Heart: arc-length outline, an inner contour and a pillowy fill (rejection-sampled), tilted to face the camera.
+	{
+		const k = 0.1, P = [], L = [0];
+		for (let j = 0; j <= 400; j++) {
+			const t = j / 400 * 6.2832;
+			P.push([16 * Math.pow(Math.sin(t), 3) * k, (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t) + 2.5) * k]);
+			if (j) L.push(L[j - 1] + Math.hypot(P[j][0] - P[j - 1][0], P[j][1] - P[j - 1][1]));
+		}
+		const along = (u, v, s, dy) => {
+			const d = u * L[400]; let j = 1;
+			while (L[j] < d) j++;
+			const f = (d - L[j - 1]) / (L[j] - L[j - 1] || 1);
+			v[0] = (P[j - 1][0] + (P[j][0] - P[j - 1][0]) * f) * s; v[1] = (P[j - 1][1] + (P[j][1] - P[j - 1][1]) * f) * s + dy; v[2] = 0;
+		};
+		const inside = (x, y) => { let c = false; for (let a = 0, b = 399; a < 400; b = a++) if ((P[a][1] > y) !== (P[b][1] > y) && x < (P[b][0] - P[a][0]) * (y - P[a][1]) / (P[b][1] - P[a][1]) + P[a][0]) c = !c; return c; };
+		const edge = (x, y) => { let m = 9; for (let a = 0; a < 400; a += 4) m = Math.min(m, Math.hypot(P[a][0] - x, P[a][1] - y)); return m; };
+		const parts = [[11, (u, v) => along(u, v, 1, 0)], [4, (u, v) => along(u, v, 0.86, 0.02)],
+			[30, (u, v) => {
+				let x, y;
+				do { x = (rnd() * 2 - 1) * 1.6; y = rnd() * 2.95 - 1.48; } while (!inside(x, y));
+				v[0] = x; v[1] = y; v[2] = Math.sqrt(Math.min(1, edge(x, y) / 0.7)) * (rnd() < 0.5 ? -0.3 : 0.3);
+			}]];
+		S.heart = build(parts, [-0.21, 0], 0.014);
+		S.dust = new Float32Array(S.heart.length);
+		for (let i = 0; i < S.dust.length; i++) S.dust[i] = C.getComponent(i % 3) + (S.heart[i] - C.getComponent(i % 3)) * 2.6 + gauss() * 1.4;
+	}
 	return S;
 }
 
-function init() {
+let SHAPES = null;
+// bare: egg-only instance (no terrain, hover or touch cycle); starts as an unlit spark at the centre.
+function init(canvas, bare) {
 	const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance', preserveDrawingBuffer: !!debug });
 	renderer.setClearColor(0x000000, 0);
 	const dpr = Math.min(devicePixelRatio || 1, TOUCH ? 1 : 1.5);
@@ -212,10 +249,11 @@ function init() {
 	const size = () => [canvas.clientWidth || innerWidth, canvas.clientHeight || innerHeight];
 	let [w, h] = size();
 	const shapeScale = () => Math.min(1, Math.max(0.42, (w / h) / 1.45));
-	const S = shapes();
-	S.terrain = terrain(w / h);
+	const S = Object.assign({}, bare ? HEART || (HEART = heart()) : SHAPES || (SHAPES = shapes()));
+	if (!bare) S.terrain = terrain(w / h);
+	if (bare) { S.spark = new Float32Array(N * 3); for (let i = 0; i < S.spark.length; i++) S.spark[i] = C.getComponent(i % 3) + gauss() * 0.08; }
 	const scaled = (key) => {
-		const src = S[key], s = key === 'terrain' ? 1 : shapeScale();
+		const src = S[key], s = key === 'terrain' || key === 'spark' ? 1 : key === 'heart' || key === 'dust' ? Math.min(1, w / h * 1.3) : shapeScale();
 		if (s === 1) return src;
 		const out = new Float32Array(src.length);
 		for (let i = 0; i < src.length; i += 3) { out[i] = C.x + (src[i] - C.x) * s; out[i + 1] = C.y + (src[i + 1] - C.y) * s; out[i + 2] = C.z + (src[i + 2] - C.z) * s; }
@@ -223,7 +261,8 @@ function init() {
 	};
 
 	const geo = new THREE.BufferGeometry();
-	const pos = new Float32Array(S.terrain), tgt = new Float32Array(S.terrain), rndA = new Float32Array(N * 3);
+	const start = bare ? S.spark : S.terrain;
+	const pos = new Float32Array(start), tgt = new Float32Array(start), rndA = new Float32Array(N * 3);
 	for (let i = 0; i < rndA.length; i++) rndA[i] = rnd();
 	geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 	geo.setAttribute('aTarget', new THREE.BufferAttribute(tgt, 3));
@@ -233,17 +272,21 @@ function init() {
 	const U = {
 		uMorph: { value: 0 }, uTime: { value: 0 }, uScanR: { value: 0 }, uScanAmt: { value: 1 },
 		uPx: { value: dpr }, uSize: { value: 2.2 }, uBright: { value: 1 }, uPush: { value: 0 }, uAspect: { value: 1 },
-		uMouse: { value: new THREE.Vector2(9, 9) }, uColor: { value: new THREE.Color() }, uHi: { value: new THREE.Color() }, uLight: { value: 0 }
+		uMouse: { value: new THREE.Vector2(9, 9) }, uColor: { value: new THREE.Color() }, uHi: { value: new THREE.Color() }, uLight: { value: 0 },
+		uBurst: { value: 0 }, uBeat: { value: 1 }, uWarm: { value: 0 }, uRose: { value: new THREE.Color() }, uC: { value: C }
 	};
 	const mat = new THREE.ShaderMaterial({
 		uniforms: U, transparent: true, depthTest: false, depthWrite: false,
 		vertexShader: `
 attribute vec3 aTarget; attribute vec3 aRnd;
-uniform float uMorph, uTime, uScanR, uScanAmt, uPx, uSize, uBright, uPush, uAspect, uLight;
-uniform vec2 uMouse;
+uniform float uMorph, uTime, uScanR, uScanAmt, uPx, uSize, uBright, uPush, uAspect, uLight, uBurst, uBeat;
+uniform vec2 uMouse; uniform vec3 uC;
 varying float vA; varying float vHi;
 void main() {
-	vec3 p = mix(position, aTarget, uMorph) + (aRnd - 0.5) * sin(uMorph * 3.14159) * 0.9;
+	vec3 p = mix(position, aTarget, uMorph);
+	float sm = sin(uMorph * 3.14159);
+	p += (aRnd - 0.5) * sm * (0.9 + uBurst * 1.6) + normalize(p - uC + 1e-4) * sm * uBurst * 1.4;
+	p = uC + (p - uC) * uBeat;
 	vec4 mv = modelViewMatrix * vec4(p, 1.0);
 	float d = -mv.z;
 	gl_Position = projectionMatrix * mv;
@@ -258,13 +301,13 @@ void main() {
 	gl_PointSize = min(uSize * uPx * (0.7 + aRnd.y * 0.6) * (6.0 / d) * (1.0 + vHi * 0.7), 9.0 * uPx);
 }`,
 		fragmentShader: `
-uniform vec3 uColor, uHi; uniform float uLight;
+uniform vec3 uColor, uHi, uRose; uniform float uLight, uWarm;
 varying float vA; varying float vHi;
 void main() {
 	vec2 c = gl_PointCoord - 0.5; float d = dot(c, c);
 	if (d > 0.25) discard;
 	float a = smoothstep(0.25, mix(0.04, 0.12, uLight), d) * vA;
-	gl_FragColor = vec4(mix(uColor, uHi, clamp(vHi, 0.0, 1.0)), min(a, 1.0));
+	gl_FragColor = vec4(mix(mix(uColor, uHi, clamp(vHi, 0.0, 1.0)), uRose, uWarm), min(a, 1.0));
 }`
 	});
 	const points = new THREE.Points(geo, mat);
@@ -278,6 +321,7 @@ void main() {
 		const dark = (site.theme ? site.theme() : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
 		U.uColor.value.set(tok('--points', '#38bdf8'));
 		U.uHi.value.set(tok('--accent-strong', '#bae6fd'));
+		U.uRose.value.set(dark ? '#fb7185' : '#e11d48');
 		U.uLight.value = dark ? 0 : 1;
 		U.uSize.value = dark ? 2.2 : 2.6;
 		mat.blending = dark ? THREE.AdditiveBlending : THREE.NormalBlending;
@@ -294,7 +338,7 @@ void main() {
 		if (from === to) { tweens.delete(key); return; }
 		tweens.set(key, { from, to, t0: performance.now(), dur, done });
 	}
-	const state = { morph: 0, bright: 1, push: 0, scanFrom: 1, scanTo: 1 };
+	const state = { morph: 0, bright: bare ? 0 : 1, push: 0, scanFrom: 1, scanTo: 1, burst: 0, warm: 0 };
 	function stepTweens(now) {
 		tweens.forEach((tw, key) => {
 			const t = Math.min(1, (now - tw.t0) / tw.dur);
@@ -304,37 +348,44 @@ void main() {
 	}
 
 	// ---- morphing ----
-	let active = 'terrain';
+	let active = bare ? 'spark' : 'terrain';
 	function morphTo(key, dur = 1400) {
 		if (!S[key]) key = 'terrain';
 		if (key === active && !tweens.has('morph')) return;
-		const m = state.morph, k = Math.sin(m * Math.PI) * 0.9;
-		if (m > 0) for (let i = 0; i < pos.length; i++) pos[i] = pos[i] + (tgt[i] - pos[i]) * m + (rndA[i] - 0.5) * k;
+		const m = state.morph, sm = Math.sin(m * Math.PI), k = sm * (0.9 + state.burst * 1.6), kr = sm * state.burst * 1.4;
+		if (m > 0) for (let i = 0; i < pos.length; i += 3) {
+			const x = pos[i] + (tgt[i] - pos[i]) * m - C.x, y = pos[i + 1] + (tgt[i + 1] - pos[i + 1]) * m - C.y, z = pos[i + 2] + (tgt[i + 2] - pos[i + 2]) * m - C.z;
+			const r = kr / (Math.hypot(x, y, z) || 1);
+			pos[i] = C.x + x + x * r + (rndA[i] - 0.5) * k; pos[i + 1] = C.y + y + y * r + (rndA[i + 1] - 0.5) * k; pos[i + 2] = C.z + z + z * r + (rndA[i + 2] - 0.5) * k;
+		}
 		tgt.set(scaled(key));
 		geo.attributes.position.needsUpdate = geo.attributes.aTarget.needsUpdate = true;
 		state.scanFrom = state.scanFrom + (state.scanTo - state.scanFrom) * m;
-		state.scanTo = key === 'terrain' ? 1 : 0;
+		state.scanTo = key === 'terrain' && !bare ? 1 : 0;
 		state.morph = 0;
 		active = key;
 		tween('morph', 1, dur, () => {
 			pos.set(tgt); state.morph = 0; state.scanFrom = state.scanTo;
+			if (!egg) state.burst = 0;
 			geo.attributes.position.needsUpdate = true;
 		});
 	}
 
 	// ---- state: hero visibility, hovered shape, touch cycle ----
 	const hero = document.querySelector('[data-hero]');
-	let heroVisible = true, hoverKey = null, cycleKey = null, leaveT = 0;
-	function apply() {
+	let heroVisible = true, hoverKey = null, cycleKey = null, leaveT = 0, egg = false, beatT0 = 0;
+	function apply(dur) {
+		if (egg) return;
+		if (bare) { updateRunning(); return; }
 		const key = hoverKey || (TOUCH && cycleKey) || 'terrain';
-		if (key !== active) morphTo(key);
-		tween('bright', hoverKey ? 0.45 : heroVisible ? 1 : 0.25, 900);
+		if (key !== active) morphTo(key, dur);
+		tween('bright', hoverKey ? 0.45 : heroVisible ? 1 : 0.25, dur || 900);
 		updateRunning();
 	}
-	if (hero && 'IntersectionObserver' in window) {
+	if (hero && !bare && 'IntersectionObserver' in window) {
 		new IntersectionObserver((es) => { heroVisible = es[0].intersectionRatio > 0.35; apply(); }, { threshold: [0, 0.35, 0.6] }).observe(hero);
 	}
-	if (!TOUCH) {
+	if (!TOUCH && !bare) {
 		const shapeOf = (el) => el && el.closest && el.closest('[data-shape]');
 		const enter = (ev) => {
 			if (ev.pointerType === 'touch') return;
@@ -359,7 +410,7 @@ void main() {
 
 	// ---- pointer: parallax + push ----
 	const mouse = new THREE.Vector2(9, 9), par = new THREE.Vector2(), parT = new THREE.Vector2();
-	if (!TOUCH) {
+	if (!TOUCH && !bare) {
 		addEventListener('pointermove', (ev) => {
 			if (ev.pointerType === 'touch') return;
 			mouse.set(ev.clientX / innerWidth * 2 - 1, 1 - ev.clientY / innerHeight * 2);
@@ -376,11 +427,12 @@ void main() {
 		camera.aspect = w / h;
 		camera.updateProjectionMatrix();
 		U.uAspect.value = w / h;
-		if (active !== 'terrain') { const k = active; active = ''; morphTo(k, 500); }
+		if (active !== 'terrain' && active !== 'spark') { const k = active; active = ''; morphTo(k, 500); }
 	}
 	resize();
 	let rt = 0;
-	addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
+	const onResize = () => { clearTimeout(rt); rt = setTimeout(resize, 150); };
+	addEventListener('resize', onResize);
 
 	// ---- loop, perf guard, pausing ----
 	// Degradation levels: 1 half points, 2 DPR 1, 3 cap 30 fps, 4 no cursor push / scan glow.
@@ -389,10 +441,11 @@ void main() {
 		level = n;
 		if (n === 1) geo.setDrawRange(0, N >> 1);
 		if (n === 2) { renderer.setPixelRatio(1); U.uPx.value = 1; resize(); }
+		if (bare) return;
 		root.dataset.pcLevel = n;
 		console.info('pointcloud: level ' + n + ' (median frame ' + med.toFixed(1) + ' ms)');
 	}
-	root.dataset.pcLevel = 0;
+	if (!bare) root.dataset.pcLevel = 0;
 	const t0 = performance.now();
 	const force = debug === 'force';
 	function frame(now) {
@@ -402,7 +455,7 @@ void main() {
 		last = now;
 		stepTweens(now);
 		const t = (now - t0) / 1000;
-		if (TOUCH && t > cycleT) {
+		if (TOUCH && !bare && !egg && t > cycleT) {
 			cycleT = t + 6;
 			cycleKey = cycleKey ? null : cycleOrder[cycleI++ % cycleOrder.length];
 			apply();
@@ -417,8 +470,15 @@ void main() {
 		U.uMouse.value.copy(mouse);
 		U.uScanAmt.value = level >= 4 ? 0 : state.scanFrom + (state.scanTo - state.scanFrom) * state.morph;
 		U.uScanR.value = 2.4 * Math.pow(17, (t / 4) % 1); // geometric: even speed on screen
+		U.uBurst.value = state.burst;
+		U.uWarm.value = state.warm;
+		// Lub-dub at 1 Hz: two soft scale bumps per beat, two beats.
+		const bt = beatT0 ? (now - beatT0) / 1000 : 9, ph = bt % 1;
+		const beat = bt < 2 ? Math.exp(-Math.pow((ph - 0.12) / 0.08, 2)) * 0.075 + Math.exp(-Math.pow((ph - 0.4) / 0.09, 2)) * 0.045 : 0;
+		U.uBeat.value = 1 + beat;
+		U.uBright.value = state.bright * (1 + beat * 1.5);
 		renderer.render(scene, camera);
-		if (first) { first = false; root.classList.add('pc-ready'); }
+		if (first) { first = false; if (!bare) root.classList.add('pc-ready'); }
 		// Perf guard: median over 60 frames; step down one level per slow window, never off.
 		if (!force && level < 4 && frames && dt < 1000) {
 			frames.push(dt);
@@ -435,18 +495,48 @@ void main() {
 	}
 	const stats = [];
 	function updateRunning() {
-		const run = !document.hidden && onScreen && (!TOUCH || heroVisible);
+		const run = egg || bare || (!document.hidden && onScreen && (!TOUCH || heroVisible));
 		if (run && !raf) { last = 0; raf = requestAnimationFrame(frame); }
 		else if (!run && raf) { cancelAnimationFrame(raf); raf = 0; }
 	}
-	document.addEventListener('visibilitychange', updateRunning);
-	if ('IntersectionObserver' in window) new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; updateRunning(); }).observe(canvas);
-	canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); giveUp(); });
-	matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => { if (e.matches) giveUp(); });
-	stop = () => { cancelAnimationFrame(raf); raf = 1e9; renderer.dispose(); geo.dispose(); mat.dispose(); };
+	const dispose = () => { cancelAnimationFrame(raf); raf = 1e9; renderer.dispose(); geo.dispose(); mat.dispose(); };
+	const api = {};
+	if (bare) {
+		canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); api.lost = true; });
+		api.destroy = () => { dispose(); removeEventListener('resize', onResize); document.removeEventListener('themechange', theme); };
+	} else {
+		document.addEventListener('visibilitychange', updateRunning);
+		if ('IntersectionObserver' in window) new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; updateRunning(); }).observe(canvas);
+		canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); giveUp(); });
+		matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => { if (e.matches) giveUp(); });
+		stop = dispose;
+	}
+	// Egg: heart() bursts the current points into a rose heart, beat() pulses it twice,
+	// release(ms) sends it back (homepage: to whatever apply() wants; bare: drifts out and fades).
+	api.egg = {
+		heart(dur = 1900) {
+			egg = true; beatT0 = 0; clearTimeout(leaveT);
+			state.burst = 1;
+			tween('push', 0, 400);
+			tween('warm', 1, 1200);
+			tween('bright', U.uLight.value ? 1 : 0.6, bare ? 700 : 900); // additive glow saturates on dark
+			morphTo('heart', dur);
+			updateRunning();
+		},
+		beat() { beatT0 = performance.now(); },
+		release(dur = 1600) {
+			egg = false; beatT0 = 0;
+			tween('warm', 0, dur * 1.2);
+			// Set burst after the morph starts so the interrupted morph bakes with the old value.
+			if (bare) { morphTo('dust', dur * 1.4); tween('bright', 0, dur); state.burst = 0.5; return; }
+			active = '';
+			apply(dur);
+			state.burst = 0.6;
+		}
+	};
 	updateRunning();
 
-	if (debug) window.__pc = {
+	if (debug && !bare) window.__pc = {
 		morph: (k) => { hoverKey = k === 'terrain' ? null : k; apply(); },
 		bright: (b) => tween('bright', b, 10),
 		level: (n) => { while (level < n) setLevel(level + 1, 0); },
@@ -454,9 +544,16 @@ void main() {
 		reset: () => { stats.length = 0; },
 		png: (type, q) => canvas.toDataURL(type || 'image/png', q)
 	};
+	return api;
 }
 
-if (canvas) {
+if (homeCanvas) {
 	if (reduced()) giveUp();
-	else try { init(); } catch (e) { console.warn('pointcloud:', e); giveUp(); }
+	else try { site.pointcloud = init(homeCanvas, false); } catch (e) { console.warn('pointcloud:', e); giveUp(); }
+}
+
+
+// Bare instance on a caller-supplied canvas (egg on pages without the point cloud). Null if WebGL fails.
+export function mount(cv) {
+	try { return init(cv, true); } catch (e) { console.warn('pointcloud:', e); return null; }
 }

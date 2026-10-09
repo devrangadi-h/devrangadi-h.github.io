@@ -1,0 +1,276 @@
+/* Egg overlay: edge glow, scan sweep, dimming layer, fallback heart, note.
+   Injected by egg.js only when the egg runs. Depends on tokens.css.
+   Stack: dim 200 < point cloud 201 < fallback heart 202 < glow/scan 203 < note 204. */
+
+:root {
+	--egg-rose: #e11d48;
+	--egg-line: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--egg-rose: #fb7185;
+		--egg-line: var(--accent-strong);
+	}
+}
+
+:root[data-theme="dark"] {
+	--egg-rose: #fb7185;
+	--egg-line: var(--accent-strong);
+}
+
+.egg-dim,
+.egg-fx,
+.egg-stage,
+.egg-heart,
+.egg-note {
+	position: fixed;
+	pointer-events: none;
+}
+
+.egg-dim,
+.egg-fx,
+.egg-stage {
+	inset: 0;
+}
+
+/* Page dims to ~30%, faintly warmed */
+.egg-dim {
+	z-index: 200;
+	background: color-mix(in srgb, var(--bg) 93%, var(--egg-rose));
+	opacity: 0;
+	transition: opacity 900ms var(--ease);
+}
+
+.egg-dim.is-on {
+	opacity: 0.72;
+}
+
+/* Point cloud above the page: the homepage stage, or the temporary one */
+html.egg-active .pc-stage,
+.egg-stage {
+	z-index: 201;
+}
+
+.egg-stage canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* Edge glow: two layers so blue -> rose is an opacity crossfade */
+.egg-fx {
+	z-index: 203;
+	overflow: hidden;
+}
+
+.egg-glow {
+	--c: var(--points);
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	box-shadow:
+		inset 0 0 2vmin 0 color-mix(in srgb, var(--c) 55%, transparent),
+		inset 0 0 9vmin 1vmin color-mix(in srgb, var(--c) 38%, transparent),
+		inset 0 0 28vmin 4vmin color-mix(in srgb, var(--c) 18%, transparent);
+	background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--c) 12%, transparent) 100%);
+	transition: opacity 1000ms var(--ease);
+}
+
+.egg-glow--rose {
+	--c: var(--egg-rose);
+}
+
+.egg-fx.is-glow .egg-glow--blue {
+	opacity: 1;
+}
+
+.egg-fx.is-warm .egg-glow--blue {
+	opacity: 0;
+	transition-duration: 2200ms;
+	transition-timing-function: ease-in-out;
+}
+
+.egg-fx.is-warm .egg-glow--rose {
+	opacity: 1;
+	transition-duration: 2000ms;
+	transition-timing-function: ease-in-out;
+}
+
+.egg-fx.is-out .egg-glow {
+	opacity: 0;
+	transition-duration: 1500ms;
+}
+
+/* Scan sweep: soft trailing band, its right edge is the line (as on the 404 scope) */
+.egg-scan {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -40vw;
+	width: 40vw;
+	opacity: 0;
+	will-change: transform;
+}
+
+.egg-scan::before,
+.egg-scan::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--c) 6%, transparent) 65%, color-mix(in srgb, var(--c) 24%, transparent) 97%, var(--l) 99.6%, transparent);
+}
+
+.egg-scan::before {
+	--c: var(--points);
+	--l: var(--egg-line);
+}
+
+.egg-scan::after {
+	--c: var(--egg-rose);
+	--l: color-mix(in srgb, var(--egg-rose) 70%, #fff);
+	opacity: 0;
+}
+
+.egg-fx.is-scan .egg-scan {
+	animation: egg-sweep 2000ms cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.egg-fx.is-scan .egg-scan::after {
+	animation: egg-warm 2000ms ease-in-out forwards;
+}
+
+@keyframes egg-sweep {
+	0% { transform: translateX(0); opacity: 0; }
+	8% { opacity: 1; }
+	90% { opacity: 1; }
+	100% { transform: translateX(140vw); opacity: 0; }
+}
+
+@keyframes egg-warm {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* Fallback heart when there is no WebGL (or reduced motion) */
+.egg-heart {
+	z-index: 202;
+	top: 50%;
+	left: 50%;
+	width: min(52vmin, 340px);
+	margin-left: calc(min(52vmin, 340px) / -2);
+	margin-top: calc(min(52vmin, 340px) * -0.52);
+	opacity: 0;
+	transform: scale(0.7);
+	transition: opacity 1200ms var(--ease), transform 1600ms var(--ease);
+	filter: drop-shadow(0 0 1.5rem color-mix(in srgb, var(--egg-rose) 55%, transparent));
+}
+
+.egg-heart svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.egg-heart path {
+	fill: color-mix(in srgb, var(--egg-rose) 22%, transparent);
+	stroke: var(--egg-rose);
+	stroke-width: 0.8;
+}
+
+.egg-heart.is-on {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.egg-heart.is-beat svg {
+	animation: egg-beat 1000ms ease-in-out 2;
+}
+
+.egg-heart.is-out {
+	opacity: 0;
+	transform: scale(1.15);
+	transition-duration: 1500ms;
+}
+
+@keyframes egg-beat {
+	0%, 60%, 100% { transform: scale(1); }
+	12% { transform: scale(1.08); }
+	26% { transform: scale(1.01); }
+	40% { transform: scale(1.05); }
+}
+
+/* The note */
+.egg-note {
+	z-index: 204;
+	left: 50%;
+	bottom: calc(var(--sp-5) + env(safe-area-inset-bottom, 0px));
+	width: max-content;
+	max-width: calc(100vw - 2 * var(--gutter));
+	padding: var(--sp-3) var(--sp-4);
+	border: 1px solid color-mix(in srgb, var(--egg-rose) 45%, var(--border));
+	border-radius: var(--radius);
+	background: color-mix(in srgb, var(--surface) 90%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: var(--shadow), 0 0 2.5rem color-mix(in srgb, var(--egg-rose) 22%, transparent);
+	color: var(--text);
+	font: 500 var(--fs-md) / var(--lh-snug) var(--font-sans);
+	letter-spacing: -0.005em;
+	text-align: center;
+	text-wrap: balance;
+	opacity: 0;
+	transform: translate(-50%, 1.25rem);
+	transition: opacity 700ms var(--ease), transform 900ms var(--ease);
+}
+
+.egg-note.is-in {
+	opacity: 1;
+	transform: translate(-50%, 0);
+}
+
+.egg-note b,
+.egg-note__mark {
+	color: var(--egg-rose);
+	font-weight: 600;
+}
+
+.egg-note__mark {
+	margin-right: 0.35em;
+}
+
+/* Cancel: everything leaves in ~300ms */
+.egg-cancel .egg-dim,
+.egg-cancel .egg-glow,
+.egg-cancel .egg-heart,
+.egg-cancel .egg-note {
+	opacity: 0 !important;
+	transition: opacity 300ms ease-out !important;
+}
+
+.egg-cancel .egg-scan {
+	animation: none;
+	opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.egg-fx.is-scan .egg-scan {
+		animation: none;
+	}
+
+	.egg-heart,
+	.egg-heart.is-on,
+	.egg-heart.is-out {
+		transform: none;
+	}
+
+	.egg-heart.is-beat svg {
+		animation: none;
+	}
+
+	.egg-note,
+	.egg-note.is-in {
+		transform: translate(-50%, 0);
+	}
+}

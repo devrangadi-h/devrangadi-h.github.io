@@ -39,6 +39,37 @@
 		theme: effectiveTheme
 	};
 
+	// A small extra, loaded only on request: a typed word (kept as an FNV-1a hash) or five quick taps on the footer credit.
+	const eggSrc = document.currentScript && document.currentScript.src;
+	let eggBusy = false;
+	function egg() {
+		if (eggBusy || !eggSrc) return;
+		eggBusy = true;
+		import(new URL('egg.js', eggSrc).href).then(function(m) { return m.default(); })
+			.catch(function(e) { console.warn('egg:', e); })
+			.then(function() { eggBusy = false; });
+	}
+	function fnv(s) { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); return h >>> 0; }
+	let typed = '', typedAt = 0;
+	document.addEventListener('keydown', function(ev) {
+		const t = ev.target;
+		if (ev.key.length !== 1 || ev.ctrlKey || ev.metaKey || ev.altKey || t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+		if (ev.timeStamp - typedAt > 2000) typed = '';
+		typedAt = ev.timeStamp;
+		typed = (typed + ev.key.toLowerCase()).slice(-12);
+		for (let n = 4; n <= typed.length; n++) if (fnv(typed.slice(-n)) === 0xe3a38b41) { typed = ''; egg(); }
+	});
+	const credit = document.querySelector('.site-footer span');
+	if (credit) {
+		let taps = 0, tapAt = 0;
+		credit.addEventListener('mousedown', function(ev) { if (ev.detail > 1) ev.preventDefault(); });
+		credit.addEventListener('click', function(ev) {
+			taps = ev.timeStamp - tapAt < 600 ? taps + 1 : 1;
+			tapAt = ev.timeStamp;
+			if (taps >= 5) { taps = 0; egg(); }
+		});
+	}
+
 	const nav = document.querySelector('[data-nav]');
 	if (!nav) return;
 

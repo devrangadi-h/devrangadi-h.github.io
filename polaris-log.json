@@ -677,5 +677,18 @@
       "images/",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:45",
+    "summary": "Add a small hidden surprise",
+    "details": "Something for the curious. It loads only when found, so it costs regular visitors nothing.",
+    "files": [
+      "assets/js/site.js",
+      "assets/js/pointcloud.js",
+      "assets/js/egg.js",
+      "assets/css/egg.css",
+      "polaris-log.json"
+    ]
   }
 ]
