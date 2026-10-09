@@ -515,5 +515,106 @@
       "sitemap.xml",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "19:54",
+    "summary": "Redesign step 1: new design foundation",
+    "details": "Started the site redesign on a separate redesign branch. Added design tokens for a monochrome plus light-blue theme in light and dark (following the visitor's system setting, with a toggle that remembers the choice), self-hosted Inter and JetBrains Mono, a 12-column grid, and a new nav that hides on scroll with a mobile menu. A style guide page previews every component and is kept off the live site.",
+    "files": [
+      "assets/css/tokens.css",
+      "assets/css/base.css",
+      "assets/css/components.css",
+      "assets/js/site.js",
+      "assets/fonts/",
+      "_styleguide.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 2: bento-grid homepage",
+    "details": "Rewrote the homepage as a full-screen hero followed by a bento grid: About, Polaris live, Graduate Research, four project cards, At a glance counters with the mini projects, Skills and Contact. The text is condensed from the old page and marked as draft for review; the long project write-ups move to the project pages.",
+    "files": [
+      "index.html",
+      "assets/css/home.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 3: LiDAR point-cloud hero",
+    "details": "Added a Three.js point cloud behind the homepage: a LiDAR-style terrain with a sweeping scan line that dims as you scroll, and morphs into a shape for each project card on hover (bounding boxes, the Eclipse hexacopter, a flow field, a Raspberry Pi board, a flight path). Slow devices step down in quality instead of losing it, and reduced-motion or no-WebGL visitors see a still image.",
+    "files": [
+      "assets/js/pointcloud.js",
+      "images/pointcloud-static.webp",
+      "assets/vendor/three.module.min.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 4: motion and interaction layer",
+    "details": "Added scroll reveals, a soft spotlight glow on cards, a crosshair cursor that locks onto links and cards, magnetic buttons, smooth scrolling, count-up counters, a typed-out latest log line, and page-to-page view transitions. Everything switches off for touch devices or reduced motion where it should.",
+    "files": [
+      "assets/js/motion.js",
+      "assets/css/motion.css",
+      "assets/vendor/gsap.min.js",
+      "assets/vendor/ScrollTrigger.min.js",
+      "assets/vendor/lenis.min.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:17",
+    "summary": "Redesign step 5: Polaris live tile on the homepage",
+    "details": "The homepage now shows Polaris's status (online, stale or offline), CPU temperature, load, memory, disk, the latest change and how long ago it reported, refreshed every minute from the same status and log files the dashboard uses.",
+    "files": [
+      "assets/js/polaris-live.js",
+      "index.html",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:24",
+    "summary": "Redesign step 8: new 404 page",
+    "details": "Replaced the 404 page with a 'signal lost' scope panel: a scan line sweeping a faint point grid, the missing route in a readout, and links back home, to the projects and to Polaris.",
+    "files": [
+      "404.html",
+      "assets/css/404.css",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:31",
+    "summary": "Redesign step 6: shared project page template",
+    "details": "Rebuilt the Object Detection, Eclipse, Optical Flow and Polaris write-up pages on one template: a hero image that morphs in from its homepage card, a sticky key-facts sidebar, short numbered sections, click-to-play video grids and previous/next links. Every report, PDF and video from the old pages is kept.",
+    "files": [
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "assets/css/project.css",
+      "assets/js/project.js",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:35",
+    "summary": "Redesign step 7: new Polaris dashboard",
+    "details": "Redesigned this dashboard: a status card with online/stale/offline states, 24-hour CPU temperature and load sparklines (they fill in once the status file carries history), this log as a terminal-style timeline, the flower camera, and a restyled lighting panel that works exactly as before.",
+    "files": [
+      "polaris.html",
+      "assets/css/dashboard.css",
+      "assets/js/dashboard.js",
+      "polaris-log.json"
+    ]
   }
 ]
