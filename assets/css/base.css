@@ -1,0 +1,282 @@
+/* Base: reset, typography, layout primitives and utilities.
+   Depends on tokens.css. */
+
+/* Reset */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	scroll-padding-top: var(--nav-h);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html { scroll-behavior: smooth; }
+}
+
+body {
+	min-height: 100vh;
+	min-height: 100dvh;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: var(--fs-md);
+	line-height: var(--lh-body);
+	font-feature-settings: "cv11", "ss01";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	overflow-x: clip;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+img,
+video {
+	height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+ul[role="list"],
+ol[role="list"] {
+	list-style: none;
+	padding: 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+	font-weight: 650;
+	line-height: var(--lh-tight);
+	text-wrap: balance;
+}
+
+h1 {
+	font-size: var(--fs-3xl);
+	letter-spacing: -0.02em;
+}
+
+h2 {
+	font-size: var(--fs-2xl);
+	letter-spacing: -0.02em;
+}
+
+h3 {
+	font-size: var(--fs-xl);
+	line-height: var(--lh-snug);
+	letter-spacing: -0.01em;
+}
+
+h4 {
+	font-size: var(--fs-lg);
+	line-height: var(--lh-snug);
+}
+
+p {
+	max-width: 65ch;
+	text-wrap: pretty;
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: 1px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+}
+
+::selection {
+	background: var(--accent-glow);
+	color: var(--text);
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* Layout */
+.container {
+	width: min(100% - 2 * var(--gutter), var(--content-max));
+	margin-inline: auto;
+}
+
+/* 12-column grid; spans collapse to full width on phones */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--gutter);
+}
+
+.grid > * {
+	grid-column: 1 / -1;
+	min-width: 0;
+}
+
+@media (min-width: 768px) {
+	.grid > .span-1 { grid-column: span 1; }
+	.grid > .span-2 { grid-column: span 2; }
+	.grid > .span-3 { grid-column: span 3; }
+	.grid > .span-4 { grid-column: span 4; }
+	.grid > .span-5 { grid-column: span 5; }
+	.grid > .span-6 { grid-column: span 6; }
+	.grid > .span-7 { grid-column: span 7; }
+	.grid > .span-8 { grid-column: span 8; }
+	.grid > .span-9 { grid-column: span 9; }
+	.grid > .span-10 { grid-column: span 10; }
+	.grid > .span-11 { grid-column: span 11; }
+	.grid > .span-12 { grid-column: span 12; }
+}
+
+/* Tablet override: half width regardless of the desktop span */
+@media (min-width: 768px) and (max-width: 1023px) {
+	.grid > .md-span-6 { grid-column: span 6; }
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--sp-3);
+}
+
+.stack-lg {
+	display: flex;
+	flex-direction: column;
+	gap: var(--sp-5);
+}
+
+.cluster {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--sp-2);
+}
+
+.section {
+	padding-block: var(--sp-6);
+}
+
+@media (min-width: 768px) {
+	.section { padding-block: var(--sp-7); }
+}
+
+/* Text utilities */
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: var(--fs-xs);
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--muted);
+}
+
+.mono {
+	font-family: var(--font-mono);
+}
+
+.muted {
+	color: var(--muted);
+}
+
+.lead {
+	font-size: var(--fs-lg);
+	line-height: var(--lh-snug);
+	color: var(--muted);
+}
+
+/* Accessibility */
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link {
+	position: fixed;
+	top: var(--sp-2);
+	left: var(--sp-2);
+	z-index: 1000;
+	padding: var(--sp-2) var(--sp-3);
+	border-radius: 999px;
+	background: var(--accent);
+	color: var(--accent-contrast);
+	font-size: var(--fs-sm);
+	font-weight: 600;
+	transform: translateY(calc(-100% - var(--sp-3)));
+	transition: transform var(--dur-fast) var(--ease);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+	transform: none;
+	text-decoration: none;
+}
+
+/* Reduced motion: effectively disable all transitions and animations */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		transition-delay: 0s !important;
+		scroll-behavior: auto !important;
+	}
+}
