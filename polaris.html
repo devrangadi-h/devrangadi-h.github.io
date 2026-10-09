@@ -230,9 +230,9 @@
           const s = await res.json();
           if (!s) throw new Error('Empty status');
 
-          // The Pi pushes this file every 5 minutes; if it stops, treat the Pi as offline.
+          // The Pi pushes this file every 15 minutes; if it stops, treat the Pi as offline.
           const ageMin = s.lastUpdated ? (Date.now() - new Date(s.lastUpdated).getTime()) / 60000 : Infinity;
-          const online = !!s.piOnline && ageMin < 15;
+          const online = !!s.piOnline && ageMin < 35;
           statusEl.innerHTML = online
             ? '<span class="pi-status-indicator"><span class="pi-status-dot"></span><span class="pi-status-label">Online</span></span>'
             : '<span class="pi-status-indicator"><span class="pi-status-dot" style="background:#e74c3c; box-shadow:0 0 0 0 rgba(231,76,60,0.7);"></span><span class="pi-status-label">Offline</span></span>';

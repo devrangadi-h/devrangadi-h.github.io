@@ -434,5 +434,15 @@
       "index.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:29",
+    "summary": "Update Pi status every 15 minutes instead of 5",
+    "details": "The Pi's automatic status commits were most of this repo's 34,000+ commits. It now reports every 15 minutes, and the dashboard marks it offline after 35 minutes without a report.",
+    "files": [
+      "polaris.html",
+      "polaris-log.json"
+    ]
   }
 ]
