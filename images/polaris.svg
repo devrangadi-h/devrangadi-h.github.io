@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#7a1712"/>
+      <stop offset="1" stop-color="#2a0605"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.45" stroke-width="4" stroke-dasharray="10 12">
+    <line x1="600" y1="600" x2="600" y2="270"/>
+    <line x1="600" y1="600" x2="230" y2="850"/>
+    <line x1="600" y1="600" x2="970" y2="850"/>
+    <line x1="600" y1="600" x2="230" y2="420"/>
+    <line x1="600" y1="600" x2="970" y2="420"/>
+  </g>
+  <g fill="#ffffff" text-anchor="middle">
+    <rect x="455" y="500" width="290" height="200" rx="28" fill="#6a1510" stroke="#ffffff" stroke-width="5"/>
+    <text x="600" y="590" font-size="56" font-weight="bold">Polaris</text>
+    <text x="600" y="645" font-size="30" fill-opacity="0.8">Raspberry Pi 5</text>
+
+    <circle cx="600" cy="200" r="70" fill="#5a110d" stroke="#ffffff" stroke-width="4"/>
+    <text x="600" y="210" font-size="26">Website</text>
+    <text x="600" y="310" font-size="26" fill-opacity="0.75">GitHub Pages</text>
+
+    <circle cx="230" cy="420" r="70" fill="#5a110d" stroke="#ffffff" stroke-width="4"/>
+    <text x="230" y="430" font-size="26">Status</text>
+    <text x="230" y="530" font-size="26" fill-opacity="0.75">every 15 min</text>
+
+    <circle cx="970" cy="420" r="70" fill="#5a110d" stroke="#ffffff" stroke-width="4"/>
+    <text x="970" y="430" font-size="26">Log</text>
+    <text x="970" y="530" font-size="26" fill-opacity="0.75">changelog</text>
+
+    <circle cx="230" cy="850" r="70" fill="#5a110d" stroke="#ffffff" stroke-width="4"/>
+    <text x="230" y="860" font-size="26">Lights</text>
+    <text x="230" y="960" font-size="26" fill-opacity="0.75">Govee lamps</text>
+
+    <circle cx="970" cy="850" r="70" fill="#5a110d" stroke="#ffffff" stroke-width="4"/>
+    <text x="970" y="860" font-size="26">Camera</text>
+    <text x="970" y="960" font-size="26" fill-opacity="0.75">flower tracker</text>
+  </g>
+</svg>

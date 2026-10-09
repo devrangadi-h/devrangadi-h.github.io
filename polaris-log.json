@@ -502,5 +502,18 @@
       "assets/css/site.css",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:58",
+    "summary": "Add a Polaris project write-up",
+    "details": "New page polaris-project.html explains how Polaris works: the Raspberry Pi 5 hardware, an architecture diagram, how it edits the site, reports its health, controls the lights over a private network and runs the flower tracker, plus lessons learned. The homepage has a new Polaris project card linking to it.",
+    "files": [
+      "polaris-project.html",
+      "images/polaris.svg",
+      "index.html",
+      "sitemap.xml",
+      "polaris-log.json"
+    ]
   }
 ]
