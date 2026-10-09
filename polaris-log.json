@@ -658,5 +658,24 @@
       "README.md",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:20",
+    "summary": "Redesign step 10: faster first paint and lighter images",
+    "details": "Hero text now animates in with CSS instead of waiting for scripts, cutting the homepage's mobile load time from about 7.5 s to 3.3 s. Added smaller WebP versions of the project photos, headshot and logo with responsive srcsets, stopped downloading the hidden fallback image, removed a mobile layout shift in the nav, and added a 1200x630 link-preview image.",
+    "files": [
+      "index.html",
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "polaris.html",
+      "404.html",
+      "assets/css/motion.css",
+      "assets/vendor/lenis.min.js",
+      "images/",
+      "polaris-log.json"
+    ]
   }
 ]

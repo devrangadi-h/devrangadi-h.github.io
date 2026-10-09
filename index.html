@@ -11,10 +11,13 @@
 	<meta property="og:title" content="Hardik Devrangadi — Robotics Engineer" />
 	<meta property="og:description" content="Robotics Systems Engineer at Amazon Robotics. Portfolio of autonomous UAV research, computer vision projects, and Polaris, a Raspberry Pi assistant." />
 	<meta property="og:url" content="https://devrobotics.dev/" />
-	<meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="assets/css/tokens.css" />
 	<link rel="stylesheet" href="assets/css/base.css" />
 	<link rel="stylesheet" href="assets/css/components.css" />
@@ -33,7 +36,7 @@
 	<a class="skip-link" href="#main">Skip to content</a>
 	<header class="site-nav" data-nav>
 		<div class="site-nav__inner container">
-			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
 			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
 				<a href="/#projects">Projects</a>
 				<a href="/#research">Research</a>
@@ -54,12 +57,12 @@
 
 	<div class="pc-stage" aria-hidden="true">
 		<canvas class="pc-canvas" data-pointcloud></canvas>
-		<img class="pc-fallback" src="images/pointcloud-static.webp" alt="" width="1600" height="900" />
+		<img class="pc-fallback" src="images/pointcloud-static.webp" alt="" width="1600" height="900" loading="lazy" />
 	</div>
 
 	<main id="main">
 		<section class="hero" id="top" data-hero aria-labelledby="hero-title">
-			<div class="hero__inner container" data-reveal-group>
+			<div class="hero__inner container" data-intro>
 				<p class="eyebrow hero__eyebrow">Robotics Systems Engineer · Amazon Robotics · Seattle</p>
 				<h1 class="hero__title" id="hero-title">Hardik Devrangadi</h1>
 				<p class="hero__tagline">Robotics · computer vision · autonomous UAVs · photography &amp; videography</p>
@@ -80,7 +83,7 @@
 			<article class="tile span-6 about" id="about" aria-labelledby="about-title" data-reveal>
 				<div class="tile__head">
 					<p class="eyebrow">01 · About</p>
-					<img class="about__photo" src="images/headshot.png" alt="Hardik Devrangadi" width="240" height="240" loading="lazy" />
+					<img class="about__photo" src="images/headshot-120.webp" alt="Hardik Devrangadi" width="120" height="120" loading="lazy" />
 				</div>
 				<h2 class="tile__title" id="about-title">From hexacopters to fulfilment-scale robots</h2>
 				<p class="muted">I started in electronics and communication engineering in Bangalore, where I helped build <a href="eclipse.html">The Eclipse</a>, an autonomous hexacopter we flew at AUVSI SUAS 2019. Since then I&rsquo;ve trained on-device vision models at Samsung R&amp;D, shipped software at PwC and earned a master&rsquo;s in Robotics at Northeastern. Today I deploy robotic systems at fulfilment-network scale at <strong>Amazon Robotics</strong>.</p>
@@ -136,19 +139,19 @@
 			</div>
 
 			<a class="tile tile--link span-3 md-span-6 project" href="objectdetection.html" data-shape="detection" data-reveal>
-				<img class="project__thumb" src="images/pic03.jpg" alt="" width="1600" height="1600" loading="lazy" style="view-transition-name: proj-detection" />
+				<img class="project__thumb" src="images/pic03-800.webp" srcset="images/pic03-400.webp 400w, images/pic03-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-detection" />
 				<h3 class="project__title">Realtime 2D object detection</h3>
 				<p class="project__hook muted">Classifies 15 objects from a live webcam stream with KNN at 95% accuracy.</p>
 				<ul class="cluster project__tags" role="list"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">XCode</li></ul>
 			</a>
 			<a class="tile tile--link span-3 md-span-6 project" href="eclipse.html" data-shape="eclipse" data-reveal>
-				<img class="project__thumb" src="images/pic01.jpg" alt="" width="1200" height="1200" loading="lazy" style="view-transition-name: proj-eclipse; object-position: top center" />
+				<img class="project__thumb" src="images/pic01-800.webp" srcset="images/pic01-400.webp 400w, images/pic01-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-eclipse; object-position: top center" />
 				<h3 class="project__title">The Eclipse hexacopter</h3>
 				<p class="project__hook muted">A 1000 mm disaster-response UAV with 22 lbs of thrust, built for AUVSI SUAS 2019.</p>
 				<ul class="cluster project__tags" role="list"><li class="tag">PX4</li><li class="tag">MAVROS</li><li class="tag">OpenCV</li></ul>
 			</a>
 			<a class="tile tile--link span-3 md-span-6 project" href="opticalflow.html" data-shape="flow" data-reveal>
-				<img class="project__thumb" src="images/pic02.jpg" alt="" width="1600" height="1600" loading="lazy" style="view-transition-name: proj-flow; object-position: 25% 25%" />
+				<img class="project__thumb" src="images/pic02-800.webp" srcset="images/pic02-400.webp 400w, images/pic02-800.webp 800w" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" alt="" width="800" height="800" loading="lazy" style="view-transition-name: proj-flow; object-position: 25% 25%" />
 				<h3 class="project__title">Optical flow: classical vs deep</h3>
 				<p class="project__hook muted">Farneback against FlowNet 2.0 on endpoint error, angular error and tracking.</p>
 				<ul class="cluster project__tags" role="list"><li class="tag">C++</li><li class="tag">OpenCV</li><li class="tag">PyTorch</li></ul>

@@ -11,10 +11,13 @@
 	<meta property="og:title" content="Polaris: A Raspberry Pi Assistant — Hardik Devrangadi" />
 	<meta property="og:description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
 	<meta property="og:url" content="https://devrobotics.dev/polaris-project.html" />
-	<meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="assets/css/tokens.css" />
 	<link rel="stylesheet" href="assets/css/base.css" />
 	<link rel="stylesheet" href="assets/css/components.css" />
@@ -32,7 +35,7 @@
 	<a class="skip-link" href="#main">Skip to content</a>
 	<header class="site-nav" data-nav>
 		<div class="site-nav__inner container">
-			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
 			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
 				<a href="/#projects">Projects</a>
 				<a href="/#research">Research</a>
@@ -53,9 +56,9 @@
 
 	<main id="main">
 		<section class="proj-hero" id="top" aria-labelledby="proj-title">
-			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static.webp" alt="" width="1600" height="900" /></div>
+			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static-800.webp" srcset="images/pointcloud-static-800.webp 800w, images/pointcloud-static.webp 1600w" sizes="100vw" alt="" width="1600" height="900" /></div>
 			<div class="proj-hero__inner container grid">
-				<div class="proj-hero__text span-7" data-reveal-group>
+				<div class="proj-hero__text span-7" data-intro>
 					<p class="eyebrow proj-hero__crumb"><a href="/#projects">Projects</a> / 04 of 04</p>
 					<h1 class="proj-hero__title" id="proj-title">Polaris</h1>
 					<p class="proj-hero__hook">A Raspberry Pi assistant that maintains this website, reports its own health and keeps a public log of every change it makes.</p>
@@ -170,11 +173,11 @@
 
 		<nav class="proj-pager container grid" aria-label="More projects">
 			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--prev" href="opticalflow.html" rel="prev">
-				<img src="images/pic02.jpg" alt="" width="1600" height="1600" loading="lazy" data-vt="proj-flow" style="object-position: 25% 25%" />
+				<img src="images/pic02-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-flow" style="object-position: 25% 25%" />
 				<span class="proj-pager__text"><span class="eyebrow">&larr; Previous</span><span class="proj-pager__title">Optical flow: classical vs deep</span></span>
 			</a>
 			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--next" href="objectdetection.html" rel="next">
-				<img src="images/pic03.jpg" alt="" width="1600" height="1600" loading="lazy" data-vt="proj-detection" />
+				<img src="images/pic03-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-detection" />
 				<span class="proj-pager__text"><span class="eyebrow">Next &rarr;</span><span class="proj-pager__title">Realtime 2D object detection</span></span>
 			</a>
 			<a class="btn btn--ghost proj-pager__all span-12" href="/#projects">All projects</a>

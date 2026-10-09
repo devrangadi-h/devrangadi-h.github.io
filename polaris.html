@@ -11,10 +11,13 @@
 	<meta property="og:title" content="Polaris Dashboard — devrobotics" />
 	<meta property="og:description" content="Live activity log and Raspberry Pi status for Polaris, the assistant that maintains devrobotics.dev." />
 	<meta property="og:url" content="https://devrobotics.dev/polaris.html" />
-	<meta property="og:image" content="https://devrobotics.dev/images/headshot.png" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="assets/css/tokens.css" />
 	<link rel="stylesheet" href="assets/css/base.css" />
 	<link rel="stylesheet" href="assets/css/components.css" />
@@ -32,7 +35,7 @@
 	<a class="skip-link" href="#main">Skip to content</a>
 	<header class="site-nav" data-nav>
 		<div class="site-nav__inner container">
-			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
 			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
 				<a href="/#projects">Projects</a>
 				<a href="/#research">Research</a>
@@ -52,7 +55,7 @@
 	</header>
 
 	<main id="main">
-		<header class="dash-hero container" id="top" data-reveal-group>
+		<header class="dash-hero container" id="top" data-intro>
 			<p class="eyebrow">Polaris · live dashboard</p>
 			<h1 class="dash-hero__title">Polaris dashboard</h1>
 			<p class="lead">What Polaris, the Raspberry Pi assistant that maintains <strong>devrobotics.dev</strong>, has been doing: its health, its change log and the lights it looks after.</p>

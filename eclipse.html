@@ -13,8 +13,9 @@
 	<meta property="og:url" content="https://devrobotics.dev/eclipse.html" />
 	<meta property="og:image" content="https://devrobotics.dev/images/pic01.jpg" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="assets/css/tokens.css" />
 	<link rel="stylesheet" href="assets/css/base.css" />
 	<link rel="stylesheet" href="assets/css/components.css" />
@@ -32,7 +33,7 @@
 	<a class="skip-link" href="#main">Skip to content</a>
 	<header class="site-nav" data-nav>
 		<div class="site-nav__inner container">
-			<a class="site-nav__brand" href="/"><img src="images/icon.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
 			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
 				<a href="/#projects">Projects</a>
 				<a href="/#research">Research</a>
@@ -53,16 +54,16 @@
 
 	<main id="main">
 		<section class="proj-hero" id="top" aria-labelledby="proj-title">
-			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static.webp" alt="" width="1600" height="900" /></div>
+			<div class="proj-hero__bg" aria-hidden="true"><img src="images/pointcloud-static-800.webp" srcset="images/pointcloud-static-800.webp 800w, images/pointcloud-static.webp 1600w" sizes="100vw" alt="" width="1600" height="900" /></div>
 			<div class="proj-hero__inner container grid">
-				<div class="proj-hero__text span-7" data-reveal-group>
+				<div class="proj-hero__text span-7" data-intro>
 					<p class="eyebrow proj-hero__crumb"><a href="/#projects">Projects</a> / 02 of 04</p>
 					<h1 class="proj-hero__title" id="proj-title">The Eclipse</h1>
 					<p class="proj-hero__hook">A disaster-response autonomous hexacopter, built by Project Jatayu and flown at AUVSI SUAS 2019.</p>
 					<ul class="cluster proj-hero__tags" role="list" aria-label="Stack"><li class="tag">C++</li><li class="tag">Python</li><li class="tag">OpenCV</li><li class="tag">PX4</li><li class="tag">MavLink</li><li class="tag">MavProxy</li><li class="tag">MavROS</li><li class="tag">Pixhawk 2.4</li></ul>
 				</div>
 				<figure class="proj-hero__media span-5">
-					<img src="images/pic01.jpg" alt="The Eclipse hexacopter held up on an airfield" width="1200" height="1200" fetchpriority="high" style="view-transition-name: proj-eclipse; object-position: top center" />
+					<img src="images/pic01-800.webp" srcset="images/pic01-400.webp 400w, images/pic01-800.webp 800w, images/pic01.jpg 1200w" sizes="(min-width: 1024px) 40vw, 100vw" alt="The Eclipse hexacopter held up on an airfield" width="1200" height="1200" fetchpriority="high" style="view-transition-name: proj-eclipse; object-position: top center" />
 				</figure>
 			</div>
 		</section>
@@ -142,11 +143,11 @@
 
 		<nav class="proj-pager container grid" aria-label="More projects">
 			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--prev" href="objectdetection.html" rel="prev">
-				<img src="images/pic03.jpg" alt="" width="1600" height="1600" loading="lazy" data-vt="proj-detection" />
+				<img src="images/pic03-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-detection" />
 				<span class="proj-pager__text"><span class="eyebrow">&larr; Previous</span><span class="proj-pager__title">Realtime 2D object detection</span></span>
 			</a>
 			<a class="tile tile--link span-6 proj-pager__link proj-pager__link--next" href="opticalflow.html" rel="next">
-				<img src="images/pic02.jpg" alt="" width="1600" height="1600" loading="lazy" data-vt="proj-flow" style="object-position: 25% 25%" />
+				<img src="images/pic02-400.webp" alt="" width="400" height="400" loading="lazy" data-vt="proj-flow" style="object-position: 25% 25%" />
 				<span class="proj-pager__text"><span class="eyebrow">Next &rarr;</span><span class="proj-pager__title">Optical flow: classical vs deep</span></span>
 			</a>
 			<a class="btn btn--ghost proj-pager__all span-12" href="/#projects">All projects</a>
