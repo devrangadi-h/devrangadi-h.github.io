@@ -422,5 +422,17 @@
       "index.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:29",
+    "summary": "Fix missing icons with a single self-hosted Font Awesome 6",
+    "details": "Icons on the Polaris dashboard and project pages were blank because the site mixed an old Font Awesome 5 copy with an account-specific kit that only the homepage loaded. Replaced both with one self-hosted Font Awesome 6 Free, loaded the same way on every page.",
+    "files": [
+      "assets/css/fontawesome-all.min.css",
+      "assets/webfonts",
+      "index.html",
+      "polaris-log.json"
+    ]
   }
 ]
