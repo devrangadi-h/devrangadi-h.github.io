@@ -643,5 +643,20 @@
       "assets/css/home.css",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:15",
+    "summary": "Remove the old HTML5 UP template",
+    "details": "Deleted the HTML5 UP Hyperspace theme now that every page uses the new design: its CSS, Sass, jQuery plugins, scripts, Font Awesome files and the template licence. Since none of the template remains, its footer credit is no longer needed. The README describes the new file layout.",
+    "files": [
+      "assets/css/",
+      "assets/js/",
+      "assets/sass/",
+      "assets/webfonts/",
+      "LICENSE.txt",
+      "README.md",
+      "polaris-log.json"
+    ]
   }
 ]

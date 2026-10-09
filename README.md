@@ -29,8 +29,9 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 
 ## Structure Overview
 
-- `index.html` — main portfolio landing page (robotics background, projects, contact)
-- `eclipse.html`, `objectdetection.html`, `opticalflow.html` — detailed project pages
+- `index.html` — portfolio homepage: point-cloud hero plus a bento grid (about, Polaris live, research, projects, at a glance, skills, contact)
+- `eclipse.html`, `objectdetection.html`, `opticalflow.html`, `polaris-project.html` — project pages on one shared template
+- `404.html` — not-found page (absolute asset paths so it works at any depth)
 - `polaris.html` — **public Polaris dashboard**
   - Shows the activity log of changes made by Polaris via `polaris-log.json`
   - Includes an overview section (latest change, Pi status widget, repo info)
@@ -39,7 +40,12 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 - `polaris-log.json` — machine-readable log of changes Polaris makes to this repo
 - `polaris-pi-status.json` — snapshot of Pi health (hostname, CPU temp/load, disk, memory)
 - `flower-tracker.json` + `images/flower-latest.jpg` — latest webcam snapshot + metadata
-- `assets/` & `images/` — styling, scripts, and media
+- `assets/css/` — `tokens.css` (colours, type, spacing for light and dark), `base.css`, `components.css`, plus one file per page type (`home`, `project`, `dashboard`, `404`, `motion`)
+- `assets/js/` — `site.js` (theme, nav), `motion.js` (reveals, cursor, smooth scroll), `pointcloud.js` (Three.js hero), `polaris-live.js`, `project.js`, `dashboard.js`
+- `assets/vendor/` — pinned copies of Three.js, GSAP + ScrollTrigger and Lenis (no CDN, no build step)
+- `assets/fonts/` — self-hosted Inter and JetBrains Mono (OFL)
+- `images/` — photos, the Polaris diagram and the point-cloud fallback image
+- `_styleguide.html` — internal component preview (Jekyll skips `_` files, so it isn't published)
 
 ## System Design: Site + Pi + Polaris (Simplified)
 
