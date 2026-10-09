@@ -714,5 +714,25 @@
       "(merge of the redesign branch)",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-09",
+    "time": "02:30",
+    "summary": "Build Frames, a photography section",
+    "details": "Added Frames: a square three-column photo grid with a Note and Place on hover, a lightbox with a camera-viewfinder overlay and full Shot details, long-form Story pages with photos, clips and videos, and a publishing pipeline that strips photo metadata without touching the pixels, keeps HDR, and makes sharp web sizes. Frames is linked from the navigation; photos go live once the image host is set up.",
+    "files": [
+      "frames.html",
+      "frames.json",
+      "assets/css/frames.css",
+      "assets/css/lightbox.css",
+      "assets/css/story.css",
+      "assets/js/frames.js",
+      "assets/js/lightbox.js",
+      "assets/js/story.js",
+      "_tools/frames/",
+      "_docs/",
+      "index.html",
+      "polaris-log.json"
+    ]
   }
 ]

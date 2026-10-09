@@ -1,0 +1,203 @@
+/* Frames page: header and the Tile grid (markup from _tools/frames).
+   Depends on tokens.css, base.css, components.css. The lightbox lives in lightbox.css. */
+
+/* Header */
+.frames-hero {
+	display: flex;
+	flex-direction: column;
+	gap: var(--sp-3);
+	padding-block: var(--sp-6) var(--sp-5);
+}
+
+.frames-hero__row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--sp-3) var(--sp-5);
+}
+
+.frames-hero__text {
+	display: flex;
+	flex-direction: column;
+	gap: var(--sp-3);
+	max-width: 40rem;
+}
+
+.frames-hero__title {
+	font-size: var(--fs-3xl);
+}
+
+.frames-hero__meta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: var(--sp-1);
+	color: var(--muted);
+	font-size: var(--fs-xs);
+	letter-spacing: 0.02em;
+	text-align: right;
+}
+
+.frames-stats {
+	color: var(--text);
+	font-size: var(--fs-sm);
+}
+
+@media (max-width: 599.98px) {
+	.frames-hero { padding-block: var(--sp-5) var(--sp-4); }
+	.frames-hero__meta { align-items: flex-start; text-align: left; }
+}
+
+/* Grid: always three square columns, 8px gaps */
+.frames {
+	padding-bottom: var(--sp-7);
+}
+
+.frames-grid {
+	--tile-r: clamp(6px, 1.25vw, var(--radius));
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	padding: 0;
+	list-style: none;
+}
+
+.frames-grid > li {
+	min-width: 0;
+}
+
+/* Tile */
+.frame-tile {
+	position: relative;
+	display: block;
+	aspect-ratio: 1;
+	overflow: hidden;
+	isolation: isolate;
+	border-radius: var(--tile-r);
+	background: var(--surface-2);
+	color: #fff;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.frame-tile:hover {
+	text-decoration: none;
+}
+
+.frame-tile img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: inherit;
+	transition: transform 600ms var(--ease);
+	view-transition-class: frame-tile;
+}
+
+.frame-tile:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* Hover meta: Note and Place over a gradient that rises from the bottom */
+.frame-tile__meta {
+	position: absolute;
+	inset: auto 0 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 48px clamp(10px, 1.6vw, 20px) clamp(10px, 1.4vw, 18px);
+	background: linear-gradient(to top, rgb(0 0 0 / 0.72), rgb(0 0 0 / 0.38) 55%, transparent);
+	opacity: 0;
+	transform: translateY(12px);
+	transition:
+		opacity 400ms var(--ease),
+		transform 600ms var(--ease);
+	pointer-events: none;
+}
+
+.frame-tile__note {
+	display: -webkit-box;
+	overflow: hidden;
+	font-size: clamp(0.8125rem, 0.7rem + 0.35vw, 1rem);
+	font-weight: 500;
+	line-height: var(--lh-snug);
+	letter-spacing: -0.005em;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	text-wrap: pretty;
+}
+
+.frame-tile__note:empty {
+	display: none;
+}
+
+.frame-tile__place {
+	overflow: hidden;
+	color: rgb(255 255 255 / 0.78);
+	font-size: var(--fs-xs);
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+@media (hover: hover) {
+	.frame-tile:hover img { transform: scale(1.06); }
+	.frame-tile:hover .frame-tile__meta,
+	.frame-tile:focus-visible .frame-tile__meta {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Keyboard focus shows the meta on any device */
+.frame-tile:focus-visible .frame-tile__meta {
+	opacity: 1;
+	transform: none;
+}
+
+/* Phones: tiles are ~120px, too small for text; the lightbox carries Note and Place */
+@media (max-width: 599.98px) {
+	.frame-tile__meta { display: none; }
+}
+
+/* Story badge: stacked pages, always visible */
+.frame-tile__badge {
+	position: absolute;
+	top: clamp(6px, 1vw, 12px);
+	right: clamp(6px, 1vw, 12px);
+	display: grid;
+	place-items: center;
+	width: clamp(26px, 2.6vw, 36px);
+	height: clamp(26px, 2.6vw, 36px);
+	border-radius: 999px;
+	background: rgb(10 11 13 / 0.5);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	color: #fff;
+}
+
+.frame-tile__badge svg {
+	width: 58%;
+	height: 58%;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.75;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+/* Grid <-> Story: snapshots keep their crop while the square Tile and wide hero morph
+   (story.css has the same rule) */
+::view-transition-old(*),
+::view-transition-new(*) {
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.frame-tile img,
+	.frame-tile__meta { transition: none; }
+	.frame-tile:hover img { transform: none; }
+}

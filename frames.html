@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Frames — Hardik Devrangadi</title>
+	<meta name="description" content="Frames: photos by Hardik Devrangadi, each with the Note he had when he took it, its Place and its Shot details." />
+	<link rel="canonical" href="https://devrobotics.dev/frames.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="Frames — Hardik Devrangadi" />
+	<meta property="og:description" content="Photos by Hardik Devrangadi, each with the Note he had when he took it." />
+	<meta property="og:url" content="https://devrobotics.dev/frames.html" />
+	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+	<link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="/frames.json" as="fetch" crossorigin />
+	<link rel="stylesheet" href="assets/css/tokens.css" />
+	<link rel="stylesheet" href="assets/css/base.css" />
+	<link rel="stylesheet" href="assets/css/components.css" />
+	<link rel="stylesheet" href="assets/css/frames.css" />
+	<link rel="stylesheet" href="assets/css/lightbox.css" />
+	<link rel="stylesheet" href="assets/css/motion.css" />
+	<link rel="icon" href="/images/icon.png" type="image/png" />
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/vendor/gsap.min.js" defer></script>
+	<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+	<script src="assets/vendor/lenis.min.js" defer></script>
+	<script src="assets/js/motion.js" defer></script>
+	<script src="assets/js/lightbox.js" defer></script>
+	<script src="assets/js/frames.js" defer></script>
+</head>
+<body class="page-frames">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<header class="site-nav" data-nav>
+		<div class="site-nav__inner container">
+			<a class="site-nav__brand" href="/"><img src="images/icon-84.png" alt="" width="28" height="28" /><span>devrobotics</span></a>
+			<nav class="site-nav__links" id="site-nav-links" aria-label="Primary">
+				<a href="/#projects">Projects</a>
+				<a href="/#research">Research</a>
+				<a href="/polaris.html">Polaris</a>
+				<a href="/frames.html">Frames</a>
+				<a href="/#contact">Contact</a>
+			</nav>
+			<div class="site-nav__actions">
+				<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+					<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+					<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+				</button>
+				<button class="site-nav__menu" type="button" data-nav-toggle aria-controls="site-nav-links" aria-expanded="false" aria-label="Open menu">
+					<span class="site-nav__menu-bar"></span><span class="site-nav__menu-bar"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<main id="main">
+		<header class="frames-hero container" id="top" data-intro>
+			<p class="eyebrow">Frames</p>
+			<div class="frames-hero__row">
+				<div class="frames-hero__text">
+					<h1 class="frames-hero__title">Frames</h1>
+					<!-- DRAFT COPY -->
+					<p class="lead frames-hero__intro">Photos from wherever I happen to be, each with the thought I had when I took it.</p>
+				</div>
+				<div class="frames-hero__meta">
+					<!-- Filled by the Frames pipeline (_tools/frames); leave empty here. -->
+					<!-- frames:stats -->
+					<p class="frames-stats mono">0 photos · 0 stories</p>
+					<!-- /frames:stats -->
+					<p class="frames-hero__copy mono">&copy; Hardik Devrangadi</p>
+				</div>
+			</div>
+		</header>
+
+		<section class="frames container" aria-label="Photos and Stories">
+			<!-- Filled by the Frames pipeline (_tools/frames) with <ul class="frames-grid">; leave empty here. -->
+			<!-- frames:grid -->
+			<ul class="frames-grid" role="list">
+			</ul>
+			<!-- /frames:grid -->
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container cluster site-footer__inner">
+			<span>&copy; 2026 Hardik Devrangadi. All rights reserved.</span>
+			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
+			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/polaris.html">Polaris log</a>
+			<a href="#top">Back to top</a>
+			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
+		</div>
+	</footer>
+	<script>
+		// Back from a Story: keep only the matching Tile's view-transition-name so the
+		// cover morphs into its Tile and the rest of the grid isn't captured.
+		addEventListener('pagereveal', function(ev) {
+			if (!ev.viewTransition || !window.navigation || !navigation.activation || !navigation.activation.from) return;
+			var m = /\/frames\/([^/]+)\.html$/.exec(new URL(navigation.activation.from.url).pathname);
+			document.querySelectorAll('.frame-tile img').forEach(function(img) {
+				if (!m || img.closest('.frame-tile').dataset.slug !== m[1]) img.style.viewTransitionName = 'none';
+			});
+		});
+	</script>
+</body>
+</html>
