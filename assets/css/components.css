@@ -518,3 +518,20 @@
 .site-footer a:hover {
 	color: var(--text);
 }
+
+/* Shared tile heading and footer note (home, dashboard, project pages) */
+.tile__title {
+	font-size: var(--fs-xl);
+	line-height: var(--lh-snug);
+	letter-spacing: -0.015em;
+}
+
+.site-footer__note {
+	margin-left: auto;
+	font-family: var(--font-mono);
+	font-size: var(--fs-xs);
+}
+
+@media (max-width: 599.98px) {
+	.site-footer__note { margin-left: 0; flex-basis: 100%; }
+}

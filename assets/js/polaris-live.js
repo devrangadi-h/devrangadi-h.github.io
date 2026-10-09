@@ -7,7 +7,7 @@
 
 	const STATUS_URL = 'polaris-pi-status.json';
 	const LOG_URL = 'polaris-log.json';
-	// The Pi pushes every 15 min; polaris.html treats > 35 min without a push as stale.
+	// The Pi pushes every 15 min; like polaris.html, online needs a push under 35 min old.
 	const STALE_MIN = 35;
 	const REFRESH_MS = 60000;
 
@@ -65,7 +65,7 @@
 			const t = s.lastUpdated ? new Date(s.lastUpdated).getTime() : NaN;
 			const age = isNaN(t) ? Infinity : Date.now() - t;
 			if (!s.piOnline) state = 'Offline';
-			else if (age > STALE_MIN * 60000) state = 'Stale';
+			else if (age >= STALE_MIN * 60000) state = 'Stale';
 			else { state = 'Online'; ok = true; }
 			setText(root, 'host', s.hostname || '—');
 			setText(root, 'temp', s.cpuTempC != null ? s.cpuTempC.toFixed(1) + ' °C' : '—');

@@ -166,12 +166,6 @@ html:not(.js) .pc-fallback {
 	min-height: 2.5rem;
 }
 
-.tile__title {
-	font-size: var(--fs-xl);
-	line-height: var(--lh-snug);
-	letter-spacing: -0.015em;
-}
-
 .bento__heading {
 	display: flex;
 	flex-direction: column;
@@ -474,16 +468,6 @@ html:not(.js) .pc-fallback {
 /* Footer */
 .page-home .site-footer {
 	background: var(--bg);
-}
-
-.site-footer__note {
-	margin-left: auto;
-	font-family: var(--font-mono);
-	font-size: var(--fs-xs);
-}
-
-@media (max-width: 599.98px) {
-	.site-footer__note { margin-left: 0; flex-basis: 100%; }
 }
 
 /* Phones: copy spans the full width, so the scrim covers it all */
