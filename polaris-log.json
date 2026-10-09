@@ -394,5 +394,20 @@
       "polaris.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:27",
+    "summary": "Consistent theme, favicons and pinch-zoom across all pages",
+    "details": "All pages now share one theme script (assets/js/theme.js), so the dark/light choice no longer flips when moving between the homepage and project pages. Every page now has the site favicon, and pinch-to-zoom is allowed on phones.",
+    "files": [
+      "assets/js/theme.js",
+      "index.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   }
 ]

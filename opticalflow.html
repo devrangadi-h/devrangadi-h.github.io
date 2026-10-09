@@ -8,9 +8,10 @@
 	<head>
 		<title>Comparative Analysis of Optical Flow Techniques: Classical Computer Vision vs Deep Learning Approach</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/site.css" />
+		<link rel="icon" href="/images/icon.png" type="image/png">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -86,27 +87,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script>
-				(function() {
-					const body = document.body;
-					const stored = localStorage.getItem('theme');
-					if (stored === 'dark') body.classList.add('theme-dark');
-					const btn = document.getElementById('theme-toggle');
-					if (!btn) return;
-					const icon = btn.querySelector('.theme-icon');
-					function refresh() {
-						const dark = body.classList.contains('theme-dark');
-						if (icon) icon.textContent = dark ? '☀︎' : '☾';
-					}
-					btn.addEventListener('click', function() {
-						body.classList.toggle('theme-dark');
-						const dark = body.classList.contains('theme-dark');
-						localStorage.setItem('theme', dark ? 'dark' : 'light');
-						refresh();
-					});
-					refresh();
-				})();
-			</script>
+			<script src="assets/js/theme.js"></script>
 
 	</body>
 </html>
