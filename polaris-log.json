@@ -339,5 +339,18 @@
       "polaris.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:21",
+    "summary": "Remove theme template leftovers and an 11.7 MB junk file",
+    "details": "Deleted the unused HTML5 UP demo pages (elements.html, generic.html), a stray Font Awesome.webarchive from images/, and the commented-out demo contact form with placeholder address from index.html.",
+    "files": [
+      "index.html",
+      "elements.html",
+      "generic.html",
+      "images/Font Awesome.webarchive",
+      "polaris-log.json"
+    ]
   }
 ]
