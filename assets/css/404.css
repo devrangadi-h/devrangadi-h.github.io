@@ -1,0 +1,212 @@
+/* 404 page: message + a CSS-only scope (dot grid with a sweeping scan line).
+   Depends on tokens.css, base.css, components.css. */
+
+.page-404 {
+	display: flex;
+	flex-direction: column;
+}
+
+.page-404 main {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+.lost {
+	display: grid;
+	gap: var(--sp-6);
+	align-items: center;
+	padding-block: var(--sp-6);
+}
+
+@media (min-width: 900px) {
+	.lost {
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+		gap: var(--sp-7);
+		padding-block: var(--sp-7);
+	}
+}
+
+.lost__copy {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--sp-3);
+}
+
+.lost__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--sp-2);
+	color: var(--warn);
+}
+
+.lost__code {
+	font-size: clamp(4.5rem, 3rem + 8vw, 8rem);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	color: var(--accent);
+}
+
+.lost__title {
+	font-size: var(--fs-2xl);
+	line-height: var(--lh-tight);
+	letter-spacing: -0.02em;
+}
+
+.lost .lead {
+	max-width: 34rem;
+}
+
+.lost__ctas {
+	gap: var(--sp-2) var(--sp-3);
+	margin-top: var(--sp-3);
+}
+
+/* Scope */
+.scope {
+	position: relative;
+	aspect-ratio: 4 / 3;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.scope__grid {
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle, var(--points) 1px, transparent 1.5px);
+	background-size: 18px 18px;
+	background-position: center;
+	opacity: 0.35;
+	-webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+	mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* Scan band: 40% wide, its right edge is the line; travels linearly from the
+   left edge (0) to the right edge (250% of its own width = 100% of the scope) */
+.scope__sweep {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -40%;
+	width: 40%;
+	background: linear-gradient(90deg, transparent 45%, var(--accent-glow) 96%, var(--accent) 99.5%, transparent);
+	animation: scope-sweep 4s linear infinite;
+	will-change: transform;
+}
+
+@keyframes scope-sweep {
+	0% { transform: translateX(0); opacity: 1; }
+	88% { opacity: 1; }
+	100% { transform: translateX(250%); opacity: 0; }
+}
+
+/* Lost-contact marker at the centre: dashed ring with crosshairs */
+.scope__target {
+	position: absolute;
+	top: 42%;
+	left: 50%;
+	width: 88px;
+	height: 88px;
+	margin: -44px 0 0 -44px;
+	border: 1px dashed var(--border-strong);
+	border-radius: 50%;
+}
+
+.scope__target::before,
+.scope__target::after {
+	content: "";
+	position: absolute;
+	background: var(--border-strong);
+}
+
+.scope__target::before { left: 50%; top: -14px; bottom: -14px; width: 1px; }
+.scope__target::after { top: 50%; left: -14px; right: -14px; height: 1px; }
+
+/* Faint return that flares as the line passes (68% across = 68% of the cycle) */
+.scope__blip {
+	position: absolute;
+	top: 30%;
+	left: 68%;
+	width: 8px;
+	height: 8px;
+	margin: -4px 0 0 -4px;
+	border-radius: 50%;
+	background: var(--accent);
+	box-shadow: 0 0 0 6px var(--accent-glow);
+	opacity: 0.12;
+	animation: scope-blip 4s linear infinite;
+}
+
+@keyframes scope-blip {
+	0%, 66% { opacity: 0.12; transform: scale(1); }
+	68% { opacity: 1; transform: scale(1.4); }
+	95%, 100% { opacity: 0.12; transform: scale(1); }
+}
+
+/* Corner brackets */
+.scope__c {
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border: 0 solid var(--border-strong);
+}
+
+.scope__c--tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
+.scope__c--tr { top: 14px; right: 14px; border-top-width: 2px; border-right-width: 2px; }
+.scope__c--bl { bottom: 14px; left: 14px; border-bottom-width: 2px; border-left-width: 2px; }
+.scope__c--br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* Telemetry readout */
+.scope__hud {
+	position: absolute;
+	left: var(--sp-5);
+	right: var(--sp-5);
+	bottom: var(--sp-4);
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	gap: 2px var(--sp-3);
+	font-size: var(--fs-xs);
+	color: var(--muted);
+}
+
+.scope__hud div {
+	display: contents;
+}
+
+.scope__hud dt {
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.scope__hud dd {
+	margin: 0;
+	color: var(--text);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.scope__hud .scope__warn {
+	color: var(--warn);
+}
+
+/* Phones: shorter scope, tighter section */
+@media (max-width: 599.98px) {
+	.lost { gap: var(--sp-5); padding-block: var(--sp-5) var(--sp-6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.scope__sweep {
+		animation: none;
+		transform: translateX(150%);
+		opacity: 0.6;
+	}
+
+	.scope__blip { animation: none; opacity: 0.6; }
+}
