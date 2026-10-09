@@ -279,7 +279,8 @@ if ! rclone listremotes 2>/dev/null | grep -qx "${REMOTE}:"; then
 		access_key_id="$R2_ACCESS_KEY_ID" \
 		secret_access_key="$R2_SECRET_ACCESS_KEY" \
 		endpoint="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
-		acl=private \
+		# R2 returns object versions that rclone 1.60's post-upload check can't query (501)
+		no_head=true \
 		no_check_bucket=true >/dev/null
 	printf '  %s✓ created%s rclone remote %s\n' "$GREEN" "$RESET" "$REMOTE"
 fi
