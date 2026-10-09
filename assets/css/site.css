@@ -138,3 +138,114 @@
 body.theme-dark .glance-title a {
 	color: #ffffff;
 }
+
+/* About: career path + toolbox */
+ol.path {
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0.4em;
+	border-left: 2px solid rgba(81, 13, 10, 0.35);
+}
+
+ol.path li {
+	position: relative;
+	padding: 0 0 0.9em 1.4em;
+}
+
+ol.path li:before {
+	content: '';
+	position: absolute;
+	left: -0.45em;
+	top: 0.55em;
+	width: 0.8em;
+	height: 0.8em;
+	border-radius: 50%;
+	background: #510d0a;
+}
+
+body.theme-dark ol.path {
+	border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+body.theme-dark ol.path li:before {
+	background: #ffffff;
+}
+
+ul.toolbox {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+ul.toolbox li {
+	padding: 0.15em 0.8em;
+	border: 1px solid rgba(81, 13, 10, 0.4);
+	border-radius: 999px;
+	font-size: 0.85em;
+}
+
+body.theme-dark ul.toolbox li {
+	border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Architecture diagram (polaris-project.html) */
+figure.diagram {
+	margin: 0 0 2em;
+}
+
+figure.diagram svg {
+	width: 100%;
+	height: auto;
+	max-width: 760px;
+	display: block;
+	margin: 0 auto;
+}
+
+.diagram .dg-box rect {
+	fill: rgba(81, 13, 10, 0.08);
+	stroke: #510d0a;
+	stroke-width: 2;
+}
+
+.diagram .dg-line path {
+	fill: none;
+	stroke: #510d0a;
+	stroke-width: 2;
+	stroke-dasharray: 6 6;
+}
+
+.diagram text {
+	fill: #222;
+	text-anchor: middle;
+	font-family: inherit;
+}
+
+.diagram .dg-strong {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.diagram .dg-sub {
+	font-size: 13px;
+	opacity: 0.75;
+}
+
+body.theme-dark .diagram .dg-box rect {
+	fill: rgba(255, 255, 255, 0.08);
+	stroke: rgba(255, 255, 255, 0.8);
+}
+
+body.theme-dark .diagram .dg-line path {
+	stroke: rgba(255, 255, 255, 0.6);
+}
+
+body.theme-dark .diagram text {
+	fill: #ffffff;
+}
+
+#desc ol.path,
+#desc ul.toolbox {
+	font-size: 0.8em;
+}

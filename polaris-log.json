@@ -491,5 +491,16 @@
       "assets/css/site.css",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:58",
+    "summary": "Rewrite the About section",
+    "details": "Replaced the bullet list with a short story of how I got into robotics, from Project Jatayu at RV College to an M.S. in Robotics at Northeastern and Amazon Robotics, plus a Path timeline and a Toolbox of the tools I use.",
+    "files": [
+      "index.html",
+      "assets/css/site.css",
+      "polaris-log.json"
+    ]
   }
 ]
