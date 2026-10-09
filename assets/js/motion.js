@@ -46,6 +46,17 @@
 		}, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
 		singles.forEach(function(el) { if (!el.parentElement.hasAttribute('data-reveal-group')) io.observe(el); });
 		groups.forEach(function(g) { io.observe(g); });
+		// Keyboard users can Tab ahead of the scroll: show anything that takes focus at once
+		document.addEventListener('focusin', function(ev) {
+			const single = ev.target.closest('[data-reveal]');
+			const group = ev.target.closest('[data-reveal-group]');
+			const els = [];
+			if (single && !single.classList.contains('is-revealed')) { els.push(single); io.unobserve(single); }
+			if (group) { io.unobserve(group); Array.from(group.children).forEach(function(c) { if (!c.classList.contains('is-revealed')) els.push(c); }); }
+			if (!els.length) return;
+			if (gsap) gsap.killTweensOf(els);
+			done(els);
+		});
 	})();
 
 	// Counters: 0 → n once when half visible
@@ -76,7 +87,12 @@
 		}
 		els.forEach(function(el) {
 			if (isNaN(parseFloat(el.dataset.counter))) return;
-			el.setAttribute('aria-label', el.textContent.trim());
+			// Screen readers get the final value; the animating digits are hidden from them
+			const final = document.createElement('span');
+			final.className = 'visually-hidden';
+			final.textContent = el.textContent.trim();
+			el.after(final);
+			el.setAttribute('aria-hidden', 'true');
 			fmt(el, 0);
 			io.observe(el);
 		});
@@ -93,7 +109,15 @@
 			if (!text.trim()) return;
 			const step = Math.max(1, Math.round(text.length / 60)); // cap ≈1.2s total
 			let i = 0;
-			el.setAttribute('aria-label', text);
+			// Full text for screen readers while the visible copy types out
+			const prev = el.nextElementSibling;
+			if (prev && prev.hasAttribute('data-tw-twin')) prev.remove();
+			const twin = document.createElement('span');
+			twin.className = 'visually-hidden';
+			twin.setAttribute('data-tw-twin', '');
+			twin.textContent = text;
+			el.after(twin);
+			el.setAttribute('aria-hidden', 'true');
 			el.classList.add('is-typing');
 			el.textContent = '';
 			timers.set(el, setInterval(function() {
@@ -102,7 +126,8 @@
 				if (i >= text.length) {
 					clearInterval(timers.get(el));
 					el.classList.remove('is-typing');
-					el.removeAttribute('aria-label');
+					el.removeAttribute('aria-hidden');
+					twin.remove();
 				}
 			}, 20));
 		});

@@ -690,5 +690,19 @@
       "assets/css/egg.css",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "22:00",
+    "summary": "Redesign step 10: accessibility fixes",
+    "details": "From the accessibility audit: the mobile menu now moves keyboard focus into its links and closes when focus leaves it, small hero text keeps its contrast over the point cloud on phones, the Polaris architecture diagram stays legible on phones by scrolling sideways, cards reveal instantly when reached by keyboard, and animated counters and the typed log line read their final text to screen readers.",
+    "files": [
+      "assets/js/site.js",
+      "assets/js/motion.js",
+      "assets/css/home.css",
+      "assets/css/project.css",
+      "polaris-project.html",
+      "polaris-log.json"
+    ]
   }
 ]

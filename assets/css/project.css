@@ -334,6 +334,17 @@
 	font-family: var(--font-mono);
 	font-size: 12px;
 	fill: var(--muted);
+	/* Knock out the dashed lines behind labels */
+	paint-order: stroke;
+	stroke: var(--surface);
+	stroke-width: 5px;
+	stroke-linejoin: round;
+}
+
+/* Phones: keep the diagram legible and let it scroll sideways */
+@media (max-width: 639.98px) {
+	.diagram { overflow-x: auto; }
+	.diagram svg { min-width: 600px; }
 }
 
 .diagram figcaption {

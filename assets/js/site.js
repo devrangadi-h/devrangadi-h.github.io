@@ -93,7 +93,19 @@
 		if (!open && returnFocus) menuBtn.focus();
 	}
 	if (menuBtn) {
-		menuBtn.addEventListener('click', function() { setOpen(!isOpen()); });
+		menuBtn.addEventListener('click', function() {
+			const open = !isOpen();
+			setOpen(open);
+			// The links sit before the button in the DOM, so take focus into the menu
+			if (open) requestAnimationFrame(function() {
+				const first = nav.querySelector('.site-nav__links a');
+				if (first) first.focus();
+			});
+		});
+		// Close when keyboard focus leaves the nav so it never covers the focused element
+		nav.addEventListener('focusout', function(ev) {
+			if (isOpen() && ev.relatedTarget && !nav.contains(ev.relatedTarget)) setOpen(false);
+		});
 		document.addEventListener('keydown', function(ev) {
 			if (ev.key === 'Escape' && isOpen()) setOpen(false, true);
 		});

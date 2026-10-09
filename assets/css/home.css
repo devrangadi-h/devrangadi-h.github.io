@@ -473,6 +473,8 @@ html:not(.js) .pc-fallback {
 
 /* Phones: copy spans the full width, so the scrim covers it all */
 @media (max-width: 767.98px) {
+	/* Halo so the moving points behind can't drop the small hero text below 4.5:1 */
+	.hero__eyebrow, .hero__tagline, .hero__pitch { text-shadow: 0 0 6px var(--bg), 0 0 14px var(--bg), 0 0 24px var(--bg); }
 	.hero::before {
 		background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--bg) 62%, transparent) 30%, color-mix(in srgb, var(--bg) 62%, transparent) 75%, transparent 100%);
 	}
