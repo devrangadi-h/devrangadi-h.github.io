@@ -1,0 +1,70 @@
+/* Site-wide fixes layered on top of the HTML5 UP theme (main.css). */
+
+/* Video embeds scale with the page instead of a fixed 1008px width */
+#main iframe {
+	display: block;
+	width: 100%;
+	max-width: 1008px;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	margin: 0 auto 1rem;
+}
+
+/* Phones: one compact header row + a swipeable nav row, so the header no longer covers the page */
+@media screen and (max-width: 736px) {
+	#header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		padding: 0.5rem 1rem 0;
+		text-align: left;
+	}
+
+	#header > .title,
+	#header .title {
+		flex: 1;
+		font-size: 1.1em;
+		padding: 0.25em 0;
+	}
+
+	#header > nav {
+		flex-basis: 100%;
+		text-align: left;
+		border-top: solid 1px rgba(255, 255, 255, 0.15);
+		overflow-x: auto;
+		white-space: nowrap;
+		scrollbar-width: none;
+	}
+
+	#header > nav::-webkit-scrollbar {
+		display: none;
+	}
+
+	#header > nav > ul > li {
+		margin-left: 1.25em;
+	}
+
+	#header > nav > ul > li a {
+		height: auto;
+		line-height: 3em;
+		letter-spacing: 0.15em;
+	}
+
+	#header > nav > ul > li button.theme-toggle {
+		height: auto;
+		line-height: 1.6;
+		padding: 0.1rem 0.7rem;
+	}
+
+	#wrapper {
+		margin-top: 6.75rem !important;
+	}
+
+	.round-image {
+		float: none;
+		width: 200px;
+		height: 200px;
+		margin: 0 auto 1.5em;
+		padding: 0;
+	}
+}

@@ -379,5 +379,20 @@
       "polaris.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:27",
+    "summary": "Fix the mobile layout",
+    "details": "On phones the header is now a compact bar with a swipeable nav row, so it no longer covers the top of each page. YouTube videos scale to the screen instead of a fixed 1008px width, and the homepage headshot is centered. Shared fixes live in a new assets/css/site.css.",
+    "files": [
+      "assets/css/site.css",
+      "index.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris.html",
+      "polaris-log.json"
+    ]
   }
 ]
