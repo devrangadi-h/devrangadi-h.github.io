@@ -127,3 +127,14 @@
 	border: 0;
 	margin: 0;
 }
+
+/* "At a Glance" project titles */
+.glance-title a {
+	color: #510d0a;
+	text-decoration: underline;
+	font-style: italic;
+}
+
+body.theme-dark .glance-title a {
+	color: #ffffff;
+}

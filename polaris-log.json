@@ -475,5 +475,21 @@
       "404.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:30",
+    "summary": "Clean up project heading markup and credit the theme",
+    "details": "The At a Glance project titles used headings nested inside italic/underline tags with a hardcoded dark red color that was hard to read in dark mode; they're now proper headings styled per theme. Added the HTML5 UP design credit to every footer, as the theme's CC BY 3.0 license requires.",
+    "files": [
+      "index.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris.html",
+      "404.html",
+      "assets/css/site.css",
+      "polaris-log.json"
+    ]
   }
 ]
