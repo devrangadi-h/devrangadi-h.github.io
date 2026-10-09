@@ -626,5 +626,22 @@
       "polaris-pi-status.json",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "21:05",
+    "summary": "Redesign step 9: final copy approved",
+    "details": "Applied the owner's copy review: the hero tagline now includes photography and videography, the research summary and its sensing and flight facts are more precise, and the At a glance section keeps two counters (featured and mini projects). All other condensed text was approved as drafted.",
+    "files": [
+      "index.html",
+      "objectdetection.html",
+      "eclipse.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "polaris.html",
+      "404.html",
+      "assets/css/home.css",
+      "polaris-log.json"
+    ]
   }
 ]

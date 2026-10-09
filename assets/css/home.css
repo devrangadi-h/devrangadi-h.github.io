@@ -361,7 +361,8 @@ html:not(.js) .pc-fallback {
 /* At a glance */
 .glance__stats {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	/* Sizes to however many counters there are */
+	grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
 	gap: var(--sp-3);
 	padding-block: var(--sp-3);
 	border-block: 1px solid var(--border);
