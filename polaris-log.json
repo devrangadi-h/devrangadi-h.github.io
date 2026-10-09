@@ -458,5 +458,22 @@
       "opticalflow.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:30",
+    "summary": "Add search and link-preview basics",
+    "details": "Every page now has a description, canonical URL and Open Graph/Twitter tags, so links shared on LinkedIn, iMessage or Slack show a proper title, summary and image. Added robots.txt, a sitemap, and a custom 404 page that matches the site.",
+    "files": [
+      "index.html",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris.html",
+      "robots.txt",
+      "sitemap.xml",
+      "404.html",
+      "polaris-log.json"
+    ]
   }
 ]
