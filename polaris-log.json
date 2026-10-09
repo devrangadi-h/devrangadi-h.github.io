@@ -444,5 +444,19 @@
       "polaris.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "18:29",
+    "summary": "Load project videos only when played",
+    "details": "Project pages showed up to five full YouTube players at once. Each video is now a lightweight thumbnail labeled with its real title; the player loads (privacy-enhanced youtube-nocookie) only when you press play. Without JavaScript the thumbnail links to YouTube.",
+    "files": [
+      "assets/js/video.js",
+      "assets/css/site.css",
+      "eclipse.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-log.json"
+    ]
   }
 ]
