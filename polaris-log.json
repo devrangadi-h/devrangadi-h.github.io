@@ -616,5 +616,15 @@
       "assets/js/dashboard.js",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-08",
+    "time": "20:45",
+    "summary": "Keep 24 hours of Pi status history",
+    "details": "The Pi status updater now keeps a rolling 24-hour history (one sample every 15 minutes, up to 96) of CPU temperature and load in polaris-pi-status.json, which feeds the new dashboard's sparklines. Existing status fields are unchanged.",
+    "files": [
+      "polaris-pi-status.json",
+      "polaris-log.json"
+    ]
   }
 ]
