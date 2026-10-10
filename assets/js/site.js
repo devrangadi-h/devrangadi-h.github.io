@@ -143,4 +143,45 @@
 	// Keyboard users tabbing into a hidden nav should see it.
 	nav.addEventListener('focusin', function() { nav.classList.remove('is-hidden'); });
 	onScroll();
+
+	// Copy-to-clipboard buttons: <button data-copy="text">. Falls back to execCommand
+	// where the Clipboard API isn't available (plain-http previews, older browsers).
+	const live = document.createElement('span');
+	live.className = 'visually-hidden';
+	live.setAttribute('aria-live', 'polite');
+	document.body.appendChild(live);
+	function copyText(text) {
+		if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+		return new Promise(function(resolve, reject) {
+			const ta = document.createElement('textarea');
+			ta.value = text;
+			ta.setAttribute('readonly', '');
+			ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+			document.body.appendChild(ta);
+			ta.select();
+			const ok = document.execCommand('copy');
+			ta.remove();
+			ok ? resolve() : reject(new Error('copy failed'));
+		});
+	}
+	document.querySelectorAll('[data-copy]').forEach(function(btn) {
+		const label = btn.querySelector('.copy-btn__label');
+		let t = 0;
+		btn.addEventListener('click', function() {
+			copyText(btn.dataset.copy).then(function() {
+				btn.classList.add('is-copied');
+				if (label) label.textContent = 'Copied';
+				live.textContent = 'Email address copied';
+			}, function() {
+				if (label) label.textContent = 'Press ⌘C';
+				live.textContent = 'Copy failed';
+			});
+			clearTimeout(t);
+			t = setTimeout(function() {
+				btn.classList.remove('is-copied');
+				if (label) label.textContent = 'Copy';
+				live.textContent = '';
+			}, 2000);
+		});
+	});
 })();

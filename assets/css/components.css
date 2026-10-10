@@ -545,3 +545,34 @@
 	vertical-align: -0.15em;
 	flex: none;
 }
+
+/* Copy-to-clipboard button (contact tile) */
+.copy-btn__icon {
+	width: 16px;
+	height: 16px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.75;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.copy-btn.is-copied {
+	border-color: var(--ok);
+	color: var(--ok);
+}
+
+
+/* Narrow phones: icon-only so it stays on the same line as the email button */
+@media (max-width: 479.98px) {
+	.copy-btn { padding-inline: var(--sp-3); }
+	.copy-btn .copy-btn__label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+	.copy-btn.is-copied .copy-btn__icon { stroke-width: 2.25; }
+}

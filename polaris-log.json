@@ -746,5 +746,17 @@
       "frames/pumpkintime.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-09",
+    "time": "20:43",
+    "summary": "Add a copy-email button to the contact section",
+    "details": "Next to the email button there's now a Copy button that puts hello@devrobotics.dev on the clipboard and confirms with a green \"Copied\", for visitors without a mail app set up. On narrow phones it shows as an icon beside the email button.",
+    "files": [
+      "index.html",
+      "assets/js/site.js",
+      "assets/css/components.css",
+      "polaris-log.json"
+    ]
   }
 ]
