@@ -1,12 +1,493 @@
 {
 	"version": 1,
-	"mediaBase": "/_media/frames",
-	"generated": "2026-10-09T01:59:46-07:00",
+	"mediaBase": "https://frames.devrobotics.dev",
+	"generated": "2026-10-09T20:23:06-07:00",
 	"counts": {
-		"photos": 0,
-		"stories": 0,
-		"places": 0,
-		"years": []
+		"photos": 8,
+		"stories": 1,
+		"places": 9,
+		"years": [
+			2025,
+			2026
+		]
 	},
-	"items": []
+	"items": [
+		{
+			"type": "photo",
+			"slug": "cremewaffle",
+			"date": "2026-09-30T19:03:31-07:00",
+			"year": 2026,
+			"place": "Carmel-by-the-Sea, California",
+			"note": "The best Creme Brulee Waffle I've ever had",
+			"alt": "A waffle with cream on a café table",
+			"width": 3024,
+			"height": 4032,
+			"src": {
+				"sq480": "cremewaffle/sq480-e3b4363aa6.webp",
+				"sq960": "cremewaffle/sq960-510fadb33b.webp",
+				"w1280": "cremewaffle/w1280-961488b8b1.webp",
+				"w2560": "cremewaffle/w2560-c5e8fbe112.webp",
+				"full": "cremewaffle/full-b5ba826d14.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 18 Pro Max",
+				"lens": "Main camera f/1.48",
+				"focalLength": "6.9 mm",
+				"focal35": "48 mm",
+				"aperture": "f/1.8",
+				"shutter": "1/60 s",
+				"iso": 125,
+				"exposureComp": "0 EV",
+				"megapixels": 12.2,
+				"taken": "2026-09-30T19:03:31-07:00",
+				"gps": {
+					"lat": 36.55432,
+					"lon": -121.92209,
+					"altitude": 70
+				}
+			}
+		},
+		{
+			"type": "story",
+			"slug": "pumpkintime",
+			"title": "Pumpkin Season 2026, student days",
+			"place": "Monterey, California",
+			"summary": "Pumpkins outside Trader Joe's, and a trip back to my student days in Boston",
+			"date": "2026-09-28T18:37:56-07:00",
+			"year": 2026,
+			"readMinutes": 2,
+			"url": "frames/pumpkintime.html",
+			"cover": {
+				"type": "photo",
+				"slug": "pumpkintime/img-0132",
+				"date": "2026-09-28T18:37:56-07:00",
+				"year": 2026,
+				"place": "Monterey, California",
+				"note": "",
+				"alt": "bunch of pumpkins",
+				"width": 5712,
+				"height": 4284,
+				"src": {
+					"sq480": "pumpkintime/img-0132/sq480-a5318ebb68.webp",
+					"sq960": "pumpkintime/img-0132/sq960-53df19015e.webp",
+					"w1280": "pumpkintime/img-0132/w1280-bde585a2dd.webp",
+					"w2560": "pumpkintime/img-0132/w2560-eeae7f7ddf.webp",
+					"full": "pumpkintime/img-0132/full-2cbe27e93b.jpg"
+				},
+				"hdr": true,
+				"shot": {
+					"camera": "Apple iPhone 18 Pro Max",
+					"lens": "Main camera f/1.48",
+					"focalLength": "6.9 mm",
+					"focal35": "24 mm",
+					"aperture": "f/1.8",
+					"shutter": "1/121 s",
+					"iso": 100,
+					"exposureComp": "0 EV",
+					"megapixels": 24.5,
+					"taken": "2026-09-28T18:37:56-07:00",
+					"gps": {
+						"lat": 36.59661,
+						"lon": -121.89496,
+						"altitude": 14
+					}
+				}
+			},
+			"photos": [
+				{
+					"type": "photo",
+					"slug": "pumpkintime/img-0132",
+					"date": "2026-09-28T18:37:56-07:00",
+					"year": 2026,
+					"place": "Monterey, California",
+					"note": "",
+					"alt": "bunch of pumpkins",
+					"width": 5712,
+					"height": 4284,
+					"src": {
+						"sq480": "pumpkintime/img-0132/sq480-a5318ebb68.webp",
+						"sq960": "pumpkintime/img-0132/sq960-53df19015e.webp",
+						"w1280": "pumpkintime/img-0132/w1280-bde585a2dd.webp",
+						"w2560": "pumpkintime/img-0132/w2560-eeae7f7ddf.webp",
+						"full": "pumpkintime/img-0132/full-2cbe27e93b.jpg"
+					},
+					"hdr": true,
+					"shot": {
+						"camera": "Apple iPhone 18 Pro Max",
+						"lens": "Main camera f/1.48",
+						"focalLength": "6.9 mm",
+						"focal35": "24 mm",
+						"aperture": "f/1.8",
+						"shutter": "1/121 s",
+						"iso": 100,
+						"exposureComp": "0 EV",
+						"megapixels": 24.5,
+						"taken": "2026-09-28T18:37:56-07:00",
+						"gps": {
+							"lat": 36.59661,
+							"lon": -121.89496,
+							"altitude": 14
+						}
+					}
+				},
+				{
+					"type": "photo",
+					"slug": "pumpkintime/img-3919",
+					"date": "2023-07-31T19:07:36-04:00",
+					"year": 2023,
+					"place": "Boston, Massachusetts",
+					"note": "From the Boston store at 899 Boylston Street",
+					"alt": "Photo taken in Boston, Massachusetts",
+					"width": 3024,
+					"height": 4032,
+					"src": {
+						"sq480": "pumpkintime/img-3919/sq480-c7ef61edea.webp",
+						"sq960": "pumpkintime/img-3919/sq960-ce909925df.webp",
+						"w1280": "pumpkintime/img-3919/w1280-a8908db714.webp",
+						"w2560": "pumpkintime/img-3919/w2560-c3c84d69e2.webp",
+						"full": "pumpkintime/img-3919/full-91ac985714.jpg"
+					},
+					"hdr": true,
+					"shot": {
+						"camera": "Apple iPhone 14 Pro Max",
+						"lens": "Main camera f/1.78",
+						"focalLength": "6.9 mm",
+						"focal35": "24 mm",
+						"aperture": "f/1.8",
+						"shutter": "1/120 s",
+						"iso": 125,
+						"exposureComp": "0 EV",
+						"megapixels": 12.2,
+						"taken": "2023-07-31T19:07:36-04:00",
+						"gps": {
+							"lat": 42.34824,
+							"lon": -71.0839,
+							"altitude": 4
+						}
+					}
+				},
+				{
+					"type": "photo",
+					"slug": "pumpkintime/img-0133",
+					"date": "2026-09-28T18:38:02-07:00",
+					"year": 2026,
+					"place": "Monterey, California",
+					"note": "The classic orange ones, scuffed and dusty and perfectly imperfect",
+					"alt": "Close-up pile of orange pumpkins",
+					"width": 3024,
+					"height": 4032,
+					"src": {
+						"sq480": "pumpkintime/img-0133/sq480-04983f4655.webp",
+						"sq960": "pumpkintime/img-0133/sq960-a4907cde56.webp",
+						"w1280": "pumpkintime/img-0133/w1280-0d22b657a0.webp",
+						"w2560": "pumpkintime/img-0133/w2560-677a419bdd.webp",
+						"full": "pumpkintime/img-0133/full-800b9bd4f6.jpg"
+					},
+					"hdr": true,
+					"shot": {
+						"camera": "Apple iPhone 18 Pro Max",
+						"lens": "Main camera f/1.48",
+						"focalLength": "6.9 mm",
+						"focal35": "48 mm",
+						"aperture": "f/1.8",
+						"shutter": "1/113 s",
+						"iso": 100,
+						"exposureComp": "0 EV",
+						"megapixels": 12.2,
+						"taken": "2026-09-28T18:38:02-07:00",
+						"gps": {
+							"lat": 36.59661,
+							"lon": -121.8947,
+							"altitude": 12
+						}
+					}
+				},
+				{
+					"type": "photo",
+					"slug": "pumpkintime/img-0134",
+					"date": "2026-09-28T18:38:07-07:00",
+					"year": 2026,
+					"place": "Monterey, California",
+					"note": "Pumpkins of all shapes and sizes",
+					"alt": "Photo taken in Monterey, California",
+					"width": 3024,
+					"height": 4032,
+					"src": {
+						"sq480": "pumpkintime/img-0134/sq480-9a4c7ad7fd.webp",
+						"sq960": "pumpkintime/img-0134/sq960-5831fd35d9.webp",
+						"w1280": "pumpkintime/img-0134/w1280-941b5c2b22.webp",
+						"w2560": "pumpkintime/img-0134/w2560-0c1b8847ff.webp",
+						"full": "pumpkintime/img-0134/full-ea2f18647c.jpg"
+					},
+					"hdr": true,
+					"shot": {
+						"camera": "Apple iPhone 18 Pro Max",
+						"lens": "Main camera f/1.48",
+						"focalLength": "6.9 mm",
+						"focal35": "48 mm",
+						"aperture": "f/1.8",
+						"shutter": "1/121 s",
+						"iso": 80,
+						"exposureComp": "0 EV",
+						"megapixels": 12.2,
+						"taken": "2026-09-28T18:38:07-07:00",
+						"gps": {
+							"lat": 36.5966,
+							"lon": -121.89466,
+							"altitude": 10
+						}
+					}
+				}
+			]
+		},
+		{
+			"type": "photo",
+			"slug": "strangerskies",
+			"date": "2026-08-23T19:51:36-06:00",
+			"year": 2026,
+			"place": "Denver, Colorado",
+			"note": "Strange skies at the Denver Airport",
+			"alt": "Unusual clouds over the plains at dusk",
+			"width": 4032,
+			"height": 3024,
+			"src": {
+				"sq480": "strangerskies/sq480-5113c617e3.webp",
+				"sq960": "strangerskies/sq960-69e18ed4a6.webp",
+				"w1280": "strangerskies/w1280-45ff66645d.webp",
+				"w2560": "strangerskies/w2560-d15c0d2276.webp",
+				"full": "strangerskies/full-cf975415d4.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Main camera f/1.78",
+				"focalLength": "6.9 mm",
+				"focal35": "48 mm",
+				"aperture": "f/1.8",
+				"shutter": "1/60 s",
+				"iso": 100,
+				"exposureComp": "0 EV",
+				"megapixels": 12.2,
+				"taken": "2026-08-23T19:51:36-06:00",
+				"gps": {
+					"lat": 39.85996,
+					"lon": -104.66816,
+					"altitude": 1637
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "coloradostars",
+			"date": "2026-07-18T22:13:34-06:00",
+			"year": 2026,
+			"place": "Rocky Mountain National Park, Colorado",
+			"note": "Stars and a hint of the milky way. My first viewing experience, and it was life changing.",
+			"alt": "Night sky full of stars above the mountains",
+			"width": 4032,
+			"height": 3024,
+			"src": {
+				"sq480": "coloradostars/sq480-dfd037c296.webp",
+				"sq960": "coloradostars/sq960-b3b0b21502.webp",
+				"w1280": "coloradostars/w1280-426977785b.webp",
+				"w2560": "coloradostars/w2560-d1aef8a758.webp",
+				"full": "coloradostars/full-9dfe517b6e.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Main camera f/1.78",
+				"focalLength": "6.9 mm",
+				"focal35": "24 mm",
+				"aperture": "f/1.8",
+				"shutter": "2 s",
+				"iso": 8000,
+				"exposureComp": "+1.1 EV",
+				"megapixels": 12.2,
+				"taken": "2026-07-18T22:13:34-06:00",
+				"gps": {
+					"lat": 40.33053,
+					"lon": -105.60077,
+					"altitude": 2626
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "rainersky",
+			"date": "2026-03-20T18:47:45-06:00",
+			"year": 2026,
+			"place": "In flight, Mt. Rainier",
+			"note": "When I see this beautiful mountain, I know I'm home",
+			"alt": "Sky at dusk",
+			"width": 4032,
+			"height": 3024,
+			"src": {
+				"sq480": "rainersky/sq480-d3d42f907b.webp",
+				"sq960": "rainersky/sq960-8a1fe55884.webp",
+				"w1280": "rainersky/w1280-8254b3857d.webp",
+				"w2560": "rainersky/w2560-f70068a8fb.webp",
+				"full": "rainersky/full-8767c5b5cd.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Main camera f/1.78",
+				"focalLength": "6.9 mm",
+				"focal35": "24 mm",
+				"aperture": "f/1.8",
+				"shutter": "1/18519 s",
+				"iso": 80,
+				"exposureComp": "0 EV",
+				"megapixels": 12.2,
+				"taken": "2026-03-20T18:47:45-06:00",
+				"gps": null
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "adalajstepwell",
+			"date": "2026-01-01T12:41:11+05:30",
+			"year": 2026,
+			"place": "Adalaj Stepwell, Gujarat, India",
+			"note": "Does the beauty of this stepwell come from its age or its craftsmanship?",
+			"alt": "Carved stone stepwell descending into shade",
+			"width": 3024,
+			"height": 4032,
+			"src": {
+				"sq480": "adalajstepwell/sq480-3de579ac43.webp",
+				"sq960": "adalajstepwell/sq960-87e56b0cd0.webp",
+				"w1280": "adalajstepwell/w1280-2a86484779.webp",
+				"w2560": "adalajstepwell/w2560-26b9eddb8a.webp",
+				"full": "adalajstepwell/full-f25f026e6c.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Ultra Wide camera f/2.2",
+				"focalLength": "2.2 mm",
+				"focal35": "14 mm",
+				"aperture": "f/2.2",
+				"shutter": "1/99 s",
+				"iso": 125,
+				"exposureComp": "-1.3 EV",
+				"megapixels": 12.2,
+				"taken": "2026-01-01T12:41:11+05:30",
+				"gps": {
+					"lat": 23.167,
+					"lon": 72.58032,
+					"altitude": 54
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "jaipurfort",
+			"date": "2025-12-26T13:01:42+05:30",
+			"year": 2025,
+			"place": "Amer Fort, Jaipur, India",
+			"note": "Every corner of Amer Fort is a sight to behold.",
+			"alt": "Sandstone walls and arches of Amer Fort",
+			"width": 3024,
+			"height": 4032,
+			"src": {
+				"sq480": "jaipurfort/sq480-5c49addcc6.webp",
+				"sq960": "jaipurfort/sq960-1e03d4dc3f.webp",
+				"w1280": "jaipurfort/w1280-ad20a64aa4.webp",
+				"w2560": "jaipurfort/w2560-7a56a9fe09.webp",
+				"full": "jaipurfort/full-3df96e8b6e.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Telephoto camera f/2.8",
+				"focalLength": "9 mm",
+				"focal35": "141 mm",
+				"aperture": "f/2.8",
+				"shutter": "1/180 s",
+				"iso": 32,
+				"exposureComp": "0 EV",
+				"megapixels": 12.2,
+				"taken": "2025-12-26T13:01:42+05:30",
+				"gps": {
+					"lat": 26.98628,
+					"lon": 75.85096,
+					"altitude": 461
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "airplanewing",
+			"date": "2025-10-19T18:55:16-06:00",
+			"year": 2025,
+			"place": "Above Colorado",
+			"note": "Sunset on my wings, I wish I could fly",
+			"alt": "Airplane wing over the land below at dusk",
+			"width": 4032,
+			"height": 3024,
+			"src": {
+				"sq480": "airplanewing/sq480-c82018fa75.webp",
+				"sq960": "airplanewing/sq960-7307910989.webp",
+				"w1280": "airplanewing/w1280-d2c2046db5.webp",
+				"w2560": "airplanewing/w2560-415fd2c319.webp",
+				"full": "airplanewing/full-c2fbdaab59.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Main camera f/1.78",
+				"focalLength": "6.9 mm",
+				"focal35": "24 mm",
+				"aperture": "f/1.8",
+				"shutter": "1/22 s",
+				"iso": 1000,
+				"exposureComp": "-1.8 EV",
+				"megapixels": 12.2,
+				"taken": "2025-10-19T18:55:16-06:00",
+				"gps": {
+					"lat": 40.31213,
+					"lon": -104.80119,
+					"altitude": 3930
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "bigdambridge",
+			"date": "2025-06-21T20:19:50-05:00",
+			"year": 2025,
+			"place": "Big Dam Bridge, Little Rock, Arkansas",
+			"note": "The brightest orange, and all shades of red",
+			"alt": "Big Dam Bridge over the Arkansas River at sunset",
+			"width": 3024,
+			"height": 4032,
+			"src": {
+				"sq480": "bigdambridge/sq480-be79c573d8.webp",
+				"sq960": "bigdambridge/sq960-d87994d07b.webp",
+				"w1280": "bigdambridge/w1280-75d7cfefb0.webp",
+				"w2560": "bigdambridge/w2560-c18b19b823.webp",
+				"full": "bigdambridge/full-00ee359944.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Telephoto camera f/2.8",
+				"focalLength": "9 mm",
+				"focal35": "224 mm",
+				"aperture": "f/2.8",
+				"shutter": "1/301 s",
+				"iso": 32,
+				"exposureComp": "0 EV",
+				"megapixels": 12.2,
+				"taken": "2025-06-21T20:19:50-05:00",
+				"gps": {
+					"lat": 34.79238,
+					"lon": -92.35861,
+					"altitude": 109
+				}
+			}
+		}
+	]
 }

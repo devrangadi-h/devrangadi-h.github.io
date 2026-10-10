@@ -734,5 +734,17 @@
       "index.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-09",
+    "time": "20:26",
+    "summary": "Publish Frames with the first photos and story",
+    "details": "Frames is live: eight photos from Gujarat, Jaipur, Colorado, Arkansas, California and a flight past Mount Rainier, and the first story, about pumpkin season and student days at the smallest Trader Joe's. Photos are served in high quality from frames.devrobotics.dev, with Shot details for each.",
+    "files": [
+      "frames.html",
+      "frames.json",
+      "frames/pumpkintime.html",
+      "polaris-log.json"
+    ]
   }
 ]
