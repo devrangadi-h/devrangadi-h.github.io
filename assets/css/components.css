@@ -535,3 +535,13 @@
 @media (max-width: 599.98px) {
 	.site-footer__note { margin-left: 0; flex-basis: 100%; }
 }
+
+/* Small inline map pin used before a Place (Frames tiles and captions) */
+.pin {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	margin-right: 0.3em;
+	vertical-align: -0.15em;
+	flex: none;
+}

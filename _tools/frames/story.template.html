@@ -3,26 +3,39 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Page not found — devrobotics</title>
-	<meta name="description" content="This page doesn't exist or has moved." />
-	<meta name="robots" content="noindex" />
+	<title>{{title}} · Frames — Hardik Devrangadi</title>
+	<meta name="description" content="{{meta_description}}" />
+	<meta name="author" content="Hardik Devrangadi" />
+	<link rel="canonical" href="{{canonical}}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="devrobotics" />
+	<meta property="og:title" content="{{title}} · Frames — Hardik Devrangadi" />
+	<meta property="og:description" content="{{meta_description}}" />
+	<meta property="og:url" content="{{canonical}}" />
+	<meta property="og:image" content="{{og_image}}" />
+	<meta property="article:published_time" content="{{date_iso}}" />
+	<meta property="article:author" content="Hardik Devrangadi" />
+	<meta name="twitter:card" content="summary_large_image" />
 	<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
-	<!-- Absolute paths throughout: GitHub Pages serves this file at any depth -->
+	<link rel="preconnect" href="{{media_base}}" />
 	<link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="/assets/css/tokens.css" />
 	<link rel="stylesheet" href="/assets/css/base.css" />
 	<link rel="stylesheet" href="/assets/css/components.css" />
+	<link rel="stylesheet" href="/assets/css/story.css" />
+	<link rel="stylesheet" href="/assets/css/lightbox.css" />
 	<link rel="stylesheet" href="/assets/css/motion.css" />
-	<link rel="stylesheet" href="/assets/css/404.css" />
 	<link rel="icon" href="/images/icon.png" type="image/png" />
 	<script src="/assets/js/site.js" defer></script>
 	<script src="/assets/vendor/gsap.min.js" defer></script>
 	<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 	<script src="/assets/vendor/lenis.min.js" defer></script>
 	<script src="/assets/js/motion.js" defer></script>
+	<script src="/assets/js/lightbox.js" defer></script>
+	<script src="/assets/js/story.js" defer></script>
 </head>
-<body class="page-404">
+<body class="page-story" id="top">
 	<a class="skip-link" href="#main">Skip to content</a>
 	<header class="site-nav" data-nav>
 		<div class="site-nav__inner container">
@@ -31,7 +44,7 @@
 				<a href="/#projects">Projects</a>
 				<a href="/#research">Research</a>
 				<a href="/polaris.html">Polaris</a>
-				<a href="/frames.html">Frames</a>
+				<a href="/frames.html" aria-current="page">Frames</a>
 				<a href="/#contact">Contact</a>
 			</nav>
 			<div class="site-nav__actions">
@@ -44,57 +57,45 @@
 				</button>
 			</div>
 		</div>
+		<span class="story-progress" aria-hidden="true"></span>
 	</header>
 
 	<main id="main">
-		<section class="lost container" id="top" aria-labelledby="lost-title">
-			<div class="lost__copy" data-intro>
-				<p class="eyebrow lost__eyebrow"><span class="status-dot status-dot--warn" aria-hidden="true"></span>Signal lost</p>
-				<p class="lost__code mono" aria-hidden="true">404</p>
-				<h1 class="lost__title" id="lost-title">No return from this sector.</h1>
-				<p class="lead">The page you were looking for doesn't exist, or it has moved. Re-plan the route from one of these waypoints.</p>
-				<div class="cluster lost__ctas">
-					<a class="btn btn--primary" href="/" data-magnetic>Back to home</a>
-					<a class="btn btn--ghost" href="/#projects" data-magnetic>Projects</a>
-					<a class="btn btn--ghost" href="/polaris.html" data-magnetic>Polaris</a>
+		<article class="story" aria-labelledby="story-title" data-slug="{{slug}}" data-media-base="{{media_base}}">
+			<header class="story-hero">
+				<div class="story-hero__media">{{cover_html}}</div>
+				<div class="story-hero__text">
+					<div class="story-hero__inner container" data-intro>
+						<p class="eyebrow story-hero__crumb"><a href="/frames.html">Frames</a> / Story</p>
+						<h1 class="story-hero__title" id="story-title">{{title}}</h1>
+						<p class="story-hero__meta mono"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>{{place}}</span><span><time datetime="{{date_iso}}">{{date_display}}</time></span><span>{{read_minutes}} min read</span></p>
+					</div>
 				</div>
-			</div>
+			</header>
 
-			<div class="scope" aria-hidden="true">
-				<div class="scope__grid"></div>
-				<div class="scope__target"></div>
-				<span class="scope__blip"></span>
-				<div class="scope__sweep"></div>
-				<span class="scope__c scope__c--tl"></span><span class="scope__c scope__c--tr"></span>
-				<span class="scope__c scope__c--bl"></span><span class="scope__c scope__c--br"></span>
-				<dl class="scope__hud mono">
-					<div><dt>status</dt><dd class="scope__warn">no fix</dd></div>
-					<div><dt>route</dt><dd data-lost-path>/unknown</dd></div>
-					<div><dt>code</dt><dd>HTTP 404</dd></div>
-				</dl>
+			<p class="story-lead">{{summary}}</p>
+
+			<div class="story-body">
+{{body_html}}
 			</div>
-		</section>
+			<script>(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.querySelectorAll('.story-body > :is(figure, blockquote)').forEach(function(el){el.setAttribute('data-reveal','')});document.querySelectorAll('.story-body > .story-row').forEach(function(el){el.setAttribute('data-reveal-group','')})})()</script>
+
+			<p class="story-sign mono">Words and photographs · © Hardik Devrangadi</p><!-- DRAFT COPY -->
+
+			{{pager_html}}
+		</article>
+		<script type="application/json" id="story-photos">{{photos_json}}</script>
 	</main>
 
 	<footer class="site-footer">
 		<div class="container cluster site-footer__inner">
-			<span>&copy; 2026 Hardik Devrangadi</span>
+			<span>&copy; 2026 Hardik Devrangadi. All rights reserved.</span>
 			<a href="https://github.com/devrangadi-h" target="_blank" rel="noopener">GitHub</a>
 			<a href="https://www.linkedin.com/in/hardikdev/" target="_blank" rel="noopener">LinkedIn</a>
-			<a href="/polaris.html">Polaris log</a>
+			<a href="/frames.html">All Frames</a>
 			<a href="#top">Back to top</a>
 			<span class="site-footer__note">Built by hand; Polaris keeps it running.</span>
 		</div>
 	</footer>
-	<script>
-		// Show the requested path in the HUD (text only, never HTML)
-		(function() {
-			var el = document.querySelector('[data-lost-path]');
-			if (!el) return;
-			var p = location.pathname;
-			try { p = decodeURI(p); } catch (e) {}
-			el.textContent = p || '/';
-		})();
-	</script>
 </body>
 </html>
