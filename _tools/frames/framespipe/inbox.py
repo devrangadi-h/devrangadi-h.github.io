@@ -58,6 +58,8 @@ class Marker:
 	full: bool = False
 	url: str = ''
 	yt_id: str = ''
+	items: list = field(default_factory=list)  # images: [(file, note, alt|None, place|None)] in order
+	place: str | None = None  # image: this photo's own Place
 
 
 @dataclass
@@ -280,20 +282,21 @@ def _close_quote(s, start):
 
 
 def tokenize_marker(s):
-	"""Split the inside of <insert ...> into tokens: ('word', x), ('quoted', x), ('alt', x)."""
+	"""Split the inside of <insert ...> into tokens: ('word', x), ('quoted', x), ('alt', x), ('place', x)."""
 	toks, i, n = [], 0, len(s)
 	while i < n:
 		c = s[i]
 		if c.isspace():
 			i += 1
 			continue
-		m = re.match(r'alt\s*=\s*', s[i:], re.I)
+		m = re.match(r'(alt|place)\s*=\s*', s[i:], re.I)
 		if m and i + m.end() < n and s[i + m.end()] in QUOTES:
 			j = i + m.end()
 			k = _close_quote(s, j + 1)
+			name = m.group(1).lower()
 			if k < 0:
-				raise ValueError('alt="…" is missing its closing quote')
-			toks.append(('alt', s[j + 1:k].strip()))
+				raise ValueError(f'{name}="…" is missing its closing quote')
+			toks.append((name, s[j + 1:k].strip()))
 			i = k + 1
 			continue
 		if c in QUOTES:
@@ -329,6 +332,7 @@ def parse_marker(line_no, line):
 	words = [v for t, v in rest if t == 'word']
 	quoted = [v for t, v in rest if t == 'quoted']
 	alts = [v for t, v in rest if t == 'alt']
+	places = [v for t, v in rest if t == 'place']
 	if kind == 'image':
 		files = [w for w in words if w.lower() != 'full']
 		flags = [w for w in words if w.lower() == 'full']
@@ -342,26 +346,54 @@ def parse_marker(line_no, line):
 			return None, 'the file name comes first: <insert image file.jpg "Note" alt="…" full>'
 		mk.files, mk.note, mk.full = files, quoted[0] if quoted else '', bool(flags)
 		mk.alt = alts[0] if alts else None
+		if len(places) > 1:
+			return None, 'place= may appear once'
+		mk.place = places[0] if places else None
+		if places and not places[0]:
+			return None, 'place="" is empty'
 		if alts and not alts[0]:
 			return None, 'alt="" is empty'
 	elif kind == 'images':
-		if quoted or alts:
-			return None, '"insert images" takes only 2 or 3 file names (notes and alt text go on single images)'
+		# Each file may be followed by its own "Note" and alt="…":
+		# <insert images a.jpg "Note A" alt="…" b.jpg "Note B">
 		if any(w.lower() == 'full' for w in words):
 			return None, '"full" only works with "insert image"'
-		if not 2 <= len(words) <= 3:
-			return None, f'"insert images" takes 2 or 3 file names (got {len(words)})'
-		mk.files = words
+		if rest and rest[0][0] != 'word':
+			return None, 'the first file name comes first: <insert images a.jpg "Note" b.jpg "Note">'
+		items = []
+		for t, v in rest:
+			if t == 'word':
+				items.append([v, '', None, None])
+			elif t == 'quoted':
+				if items[-1][1]:
+					return None, f'{items[-1][0]} has two quoted notes'
+				items[-1][1] = v
+			elif t == 'alt':
+				if items[-1][2] is not None:
+					return None, f'{items[-1][0]} has two alt= values'
+				if not v:
+					return None, 'alt="" is empty'
+				items[-1][2] = v
+			elif t == 'place':
+				if items[-1][3] is not None:
+					return None, f'{items[-1][0]} has two place= values'
+				if not v:
+					return None, 'place="" is empty'
+				items[-1][3] = v
+		if not 2 <= len(items) <= 3:
+			return None, f'"insert images" takes 2 or 3 file names (got {len(items)}); use "insert image" for one'
+		mk.items = [tuple(i) for i in items]
+		mk.files = [i[0] for i in items]
 	elif kind == 'clip':
-		if alts:
-			return None, 'clips take a quoted note, not alt='
+		if alts or places:
+			return None, 'clips take a quoted note, not alt= or place='
 		if len(words) != 1:
 			return None, f'"insert clip" takes exactly one file name (got {len(words)})'
 		if len(quoted) > 1:
 			return None, 'only one quoted note is allowed'
 		mk.files, mk.note = words, quoted[0] if quoted else ''
 	elif kind == 'youtube':
-		if alts or len(words) != 1 or len(quoted) > 1:
+		if alts or places or len(words) != 1 or len(quoted) > 1:
 			return None, 'use <insert youtube https://youtu.be/ID "Title"> (one link, optional quoted title)'
 		url = words[0]
 		for pat in YT_PATTERNS:

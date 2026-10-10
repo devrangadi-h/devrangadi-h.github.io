@@ -260,14 +260,14 @@ def build(repo: Path, inbox_dir: Path, media_base: str, media_dir: Path, log=pri
 		show_gps = f.get('gps', 'show') != 'hide'
 		photos, index = [], {}
 
-		def add(name, note='', alt=None):
+		def add(name, note='', alt=None, place=None):
 			if name in index:
 				if note and not photos[index[name]]['note']:
 					photos[index[name]]['note'] = note
 				return index[name]
 			key = f'{s.slug}/{stem_slug(name)}'
 			path = s.files[name]
-			ph = photo_object(key, f['place'], note, alt, None, res[key], rows.get(path, {}), show_gps)
+			ph = photo_object(key, place or f['place'], note, alt, None, res[key], rows.get(path, {}), show_gps)
 			index[name] = len(photos)
 			photos.append(ph)
 			return index[name]
@@ -285,10 +285,10 @@ def build(repo: Path, inbox_dir: Path, media_base: str, media_dir: Path, log=pri
 					first_text = ' '.join(w)
 			else:
 				if b.kind == 'image':
-					add(b.files[0], b.note, b.alt)
+					add(b.files[0], b.note, b.alt, b.place)
 				elif b.kind == 'images':
-					for fn in b.files:
-						add(fn)
+					for fn, note, alt, place in (b.items or [(fn, '', None, None) for fn in b.files]):
+						add(fn, note, alt, place)
 				elif b.kind == 'clip':
 					key = f'{s.slug}/{stem_slug(b.files[0])}'
 					r = res[key]
