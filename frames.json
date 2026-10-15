@@ -1,13 +1,13 @@
 {
 	"version": 1,
 	"mediaBase": "https://frames.devrobotics.dev",
-	"generated": "2026-10-15T01:35:16-07:00",
+	"generated": "2026-10-15T01:44:52-07:00",
 	"counts": {
-		"photos": 9,
+		"photos": 10,
 		"stories": 1,
-		"places": 10,
+		"places": 11,
 		"years": [
-			2025,
+			2022,
 			2026
 		]
 	},
@@ -522,6 +522,42 @@
 					"lat": 34.79238,
 					"lon": -92.35861,
 					"altitude": 109
+				}
+			}
+		},
+		{
+			"type": "photo",
+			"slug": "northeastern-university-boston",
+			"date": "2022-11-01T22:34:49-04:00",
+			"year": 2022,
+			"place": "Northeastern University, Boston",
+			"note": "Some walks you take for the second time, years later",
+			"alt": "Photo taken in Northeastern University, Boston",
+			"width": 3024,
+			"height": 4032,
+			"src": {
+				"sq480": "northeastern-university-boston/sq480-93fb01cce1.webp",
+				"sq960": "northeastern-university-boston/sq960-09dec2a9ae.webp",
+				"w1280": "northeastern-university-boston/w1280-57721002b4.webp",
+				"w2560": "northeastern-university-boston/w2560-c19b6a806f.webp",
+				"full": "northeastern-university-boston/full-86975aef41.jpg"
+			},
+			"hdr": true,
+			"shot": {
+				"camera": "Apple iPhone 14 Pro Max",
+				"lens": "Main camera f/1.78",
+				"focalLength": "6.9 mm",
+				"focal35": "24 mm",
+				"aperture": "f/1.8",
+				"shutter": "1/9 s",
+				"iso": 2000,
+				"exposureComp": "+0.1 EV",
+				"megapixels": 12.2,
+				"taken": "2022-11-01T22:34:49-04:00",
+				"gps": {
+					"lat": 42.3379,
+					"lon": -71.08887,
+					"altitude": 6
 				}
 			}
 		}
