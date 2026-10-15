@@ -479,3 +479,12 @@ html:not(.js) .pc-fallback {
 		background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--bg) 62%, transparent) 30%, color-mix(in srgb, var(--bg) 62%, transparent) 75%, transparent 100%);
 	}
 }
+
+/* Link row under the project tiles */
+.projects__more {
+	margin: 0;
+	font-size: var(--fs-md);
+}
+.projects__more a {
+	font-weight: 600;
+}

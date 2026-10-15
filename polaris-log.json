@@ -808,5 +808,26 @@
       "frames.json",
       "frames.html"
     ]
+  },
+  {
+    "date": "2026-10-15",
+    "time": "10:28",
+    "summary": "Add a phone app section to the Polaris page",
+    "details": "Added a phone app section and an interactive system design (tabs and diagrams) to the Polaris page, with demo-data screenshots and a link from the home page. Removed the Lessons learned section and replaced references to the retired coding agent.",
+    "files": [
+      "polaris-project.html",
+      "polaris.html",
+      "README.md",
+      "assets/css/project.css",
+      "images/app-status-400.webp",
+      "images/app-lights-400.webp",
+      "images/app-frames-400.webp",
+      "index.html",
+      "assets/css/home.css",
+      "assets/js/system-design.js",
+      "images/app-status-800.webp",
+      "images/app-lights-800.webp",
+      "images/app-frames-800.webp"
+    ]
   }
 ]

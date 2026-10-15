@@ -6,12 +6,12 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 - **Purpose:** Personal robotics portfolio site and Polaris activity dashboard
 - **Hosting:** GitHub Pages
 - **DNS / Edge:** Cloudflare
-- **Automation / Assistant:** [OpenClaw](https://docs.openclaw.ai) running on a Raspberry Pi (agent name: **Polaris**)
+- **Automation:** **Polaris**, a Raspberry Pi 5 that publishes and monitors the site (changes are authored with an AI coding assistant)
 
 ## Polaris & Hardware Setup (High Level)
 
-- **Raspberry Pi** (OpenClaw gateway host)
-  - Runs the OpenClaw gateway and the *Polaris* agent
+- **Raspberry Pi** (Polaris host)
+  - Runs the Polaris services (status, lights API, app API, Frames publishing)
   - Has a local clone of this repo at `/home/polaris/devrobotics-site`
   - Can read and edit the site (HTML/CSS/JS) directly
   - Uses SSH keys + Git to commit and push changes back to GitHub
@@ -52,7 +52,7 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 ```text
 Hardik ──(edits / approvals)─────────────────────────────┐
                                                          │
-Raspberry Pi (OpenClaw + Polaris)                       │
+Raspberry Pi (Polaris services)                         │
   - Clone of repo: /home/polaris/devrobotics-site       │
   - Edits HTML/CSS/JS & polaris-log.json                │
   - Runs Pi status + flower snapshot + lights API       │
@@ -72,8 +72,8 @@ Visitors                                                │
 
 In words:
 
-1. **Polaris** (OpenClaw agent on the Pi) edits this repo when instructed (e.g., update copy, add dashboards, wire integrations).
-2. It logs its own changes into `polaris-log.json` and commits/pushes via SSH.
+1. **Changes** are authored with an AI coding assistant (or published from the iPhone app's Frames editor) and committed to this repo; Polaris builds media, commits, pushes and logs them.
+2. Polaris logs each change in `polaris-log.json` and commits and pushes via SSH.
 3. GitHub Pages rebuilds and publishes the updated site.
 4. Cloudflare fronts the domain(s).
 
@@ -136,9 +136,9 @@ Key properties:
 - The snapshot pipeline is hardened: temp-file handling, explicit PATH, and clear logging.
 - The public site shows the latest snapshot and timestamp without exposing internal paths.
 
-## System Design: Govee H607C Floor Lamps (Cloud + LAN)
+## System Design: Govee H607C Floor Lamps (Cloud)
 
-Two Govee H607C floor lamps are integrated via both Govee’s cloud API and local LAN control.
+Two Govee H607C floor lamps are integrated through Govee’s cloud API.
 
 ```text
                ┌───────────────────────────────┐
@@ -169,8 +169,6 @@ Capabilities Polaris can drive:
   - Set brightness (1–100).
   - Set RGB color (`colorRgb`).
   - Set color temperature (`colorTemperatureK`, e.g. 6500K for bright cool white, 3000K for warm white).
-- **LAN (fallback)**
-  - Direct UDP control to the lamps on the home LAN (port 4003) for on/off, brightness, and RGB.
 
 ## System Design: Polaris Lighting Control Panel (Dashboard)
 
@@ -199,18 +197,15 @@ Notes:
 
 ## Current TODOs / Future Work
 
-- **Lighting scenes**
-  - Add named scenes (focus, chill, movie mode, night) with specific brightness + color temperature presets.
+- Nothing queued.
 
-## Process Flow for Changes Managed by Polaris
+## Process Flow for Changes
 
-1. Hardik requests a change (e.g., “tweak hero copy”, “add lighting control”, “tune Pi status panel”).
-2. Polaris edits the relevant files in `/home/polaris/devrobotics-site` on the Pi.
-3. Polaris updates `polaris-log.json` with a new entry describing the change.
-4. Polaris commits the change with a descriptive message and pushes to `main`.
-5. GitHub Pages deploys; Polaris sanity-checks the live site (layout, functionality).
-6. The public Polaris dashboard (`polaris.html`) reflects the new log entry and updated behavior.
+1. I make a change with an AI coding assistant on my laptop, or write a photo story in the iPhone app.
+2. Polaris publishes it: it builds media, updates `polaris-log.json` with an entry describing the change, commits and pushes to `main`.
+3. GitHub Pages deploys, and the change is checked on the live site.
+4. The public Polaris dashboard (`polaris.html`) shows the new log entry.
 
 ---
 
-⚠️ **Note:** This README was drafted and is maintained by the **Polaris** agent running on the Raspberry Pi via OpenClaw, based on instructions from Hardik.
+⚠️ **Note:** This README was originally drafted by the Polaris agent and has since been updated by hand and with an AI coding assistant.

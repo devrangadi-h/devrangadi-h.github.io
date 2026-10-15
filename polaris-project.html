@@ -4,12 +4,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Polaris: A Raspberry Pi Assistant — Hardik Devrangadi</title>
-	<meta name="description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
+	<meta name="description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, has an iPhone app, and keeps a public changelog." />
 	<link rel="canonical" href="https://devrobotics.dev/polaris-project.html" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="devrobotics" />
 	<meta property="og:title" content="Polaris: A Raspberry Pi Assistant — Hardik Devrangadi" />
-	<meta property="og:description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, and keeps a public changelog." />
+	<meta property="og:description" content="How Polaris works: a Raspberry Pi 5 that maintains this website, reports its own health, controls the lights over a private network, has an iPhone app, and keeps a public changelog." />
 	<meta property="og:url" content="https://devrobotics.dev/polaris-project.html" />
 	<meta property="og:image" content="https://devrobotics.dev/images/og-card.jpg" />
 	<meta property="og:image:width" content="1200" />
@@ -30,6 +30,7 @@
 	<script src="assets/vendor/lenis.min.js" defer></script>
 	<script src="assets/js/motion.js" defer></script>
 	<script src="assets/js/project.js" defer></script>
+	<script src="assets/js/system-design.js" defer></script>
 </head>
 <body class="page-project">
 	<a class="skip-link" href="#main">Skip to content</a>
@@ -75,10 +76,11 @@
 			<aside class="facts tile" aria-labelledby="facts-title">
 				<h2 class="visually-hidden" id="facts-title">Key facts</h2>
 				<dl class="facts__list">
-						<div><dt class="eyebrow">Agent</dt><dd>OpenClaw, plus a few small services I wrote around it</dd></div>
+						<div><dt class="eyebrow">Services</dt><dd>A few small Python services I wrote: site and status automation, a lights API and an app API</dd></div>
+						<div><dt class="eyebrow">Client</dt><dd>An iPhone app (SwiftUI, iOS 26) over a private Tailscale network</dd></div>
 						<div><dt class="eyebrow">Hardware</dt><dd>Raspberry Pi 5 (16 GB), USB webcam, two Govee H607C floor lamps</dd></div>
 						<div class="facts__stack"><dt class="eyebrow">Stack</dt><dd><ul class="cluster" role="list"><li class="tag">Raspberry Pi</li><li class="tag">Python</li><li class="tag">Flask</li><li class="tag">systemd</li><li class="tag">Tailscale</li><li class="tag">GitHub Pages</li><li class="tag">Cloudflare</li></ul></dd></div>
-						<div><dt class="eyebrow">Links</dt><dd><div class="facts__links"><a href="/polaris.html">Live dashboard</a><a href="/polaris.html#log">Change log</a><a href="#s-lessons">Lessons learned</a></div></dd></div>
+						<div><dt class="eyebrow">Links</dt><dd><div class="facts__links"><a href="/polaris.html">Live dashboard</a><a href="/polaris.html#log">Change log</a><a href="#s-app">The phone app</a><a href="#s-system">System design</a><a href="https://github.com/devrangadi-h/devrobotics-ios" target="_blank" rel="noopener">App source</a></div></dd></div>
 				</dl>
 			</aside>
 
@@ -86,7 +88,7 @@
 				<section class="proj-section" aria-labelledby="s-overview" data-reveal>
 					<p class="eyebrow">01 · Overview</p>
 					<h2 id="s-overview">A small system you can trust</h2>
-					<p>Polaris is a personal assistant that runs on a Raspberry Pi 5 at home. It maintains this website, reports its own health, runs my floor lamps, and writes a public log of every change it makes. It runs an <strong>OpenClaw</strong> agent, plus a few small services I wrote around it.</p>
+					<p>Polaris is a personal assistant that runs on a Raspberry Pi 5 at home. It maintains this website, reports its own health, runs my floor lamps, and writes a public log of every change it makes. I make changes with an AI coding assistant on my laptop; Polaris publishes them, reports its health and logs every change. A few small services I wrote run on it, and an iPhone app talks to them over a private network.</p>
 					<p>I built it to find out what it takes to make a small, always-on system that you can trust: one that tells you when it&rsquo;s broken instead of quietly failing.</p>
 					<div class="cluster proj-docs"><a class="btn btn--primary" href="/polaris.html" data-magnetic>Open the live dashboard</a><a class="btn btn--ghost" href="/polaris.html#log" data-magnetic>Read the change log</a></div>
 				</section>
@@ -104,50 +106,16 @@
 				<section class="proj-section" aria-labelledby="s-how" data-reveal>
 					<p class="eyebrow">03 · Architecture</p>
 					<h2 id="s-how">How it works</h2>
-					<figure class="diagram" tabindex="0">
-						<svg viewBox="0 0 760 330" role="img" aria-labelledby="dg-title">
-							<title id="dg-title">Polaris architecture: the Pi pushes to GitHub Pages behind Cloudflare, and serves the lights API over a private Tailscale network</title>
-							<g class="dg-line">
-								<path d="M280 150 L220 70"/>
-								<path d="M120 90 L120 240"/>
-								<path d="M480 150 L540 70"/>
-								<path d="M480 180 L540 270"/>
-							</g>
-							<g class="dg-box dg-box--core"><rect x="280" y="125" width="200" height="80" rx="12"/></g>
-							<text x="380" y="160" class="dg-strong">Raspberry Pi 5</text>
-							<text x="380" y="184" class="dg-sub">Polaris + services</text>
-
-							<g class="dg-box"><rect x="20" y="20" width="200" height="70" rx="12"/></g>
-							<text x="120" y="50" class="dg-strong">GitHub</text>
-							<text x="120" y="72" class="dg-sub">repo + Pages</text>
-
-							<g class="dg-box"><rect x="20" y="240" width="200" height="70" rx="12"/></g>
-							<text x="120" y="270" class="dg-strong">Cloudflare</text>
-							<text x="120" y="292" class="dg-sub">HTTPS, DNS</text>
-
-							<g class="dg-box"><rect x="540" y="20" width="200" height="70" rx="12"/></g>
-							<text x="640" y="50" class="dg-strong">Tailscale</text>
-							<text x="640" y="72" class="dg-sub">private HTTPS</text>
-
-							<g class="dg-box"><rect x="540" y="240" width="200" height="70" rx="12"/></g>
-							<text x="640" y="270" class="dg-strong">Govee cloud</text>
-							<text x="640" y="292" class="dg-sub">two floor lamps</text>
-
-							<text x="235" y="118" class="dg-sub" text-anchor="end">git push</text>
-							<text x="130" y="170" class="dg-sub" text-anchor="start">serves site</text>
-							<text x="525" y="118" class="dg-sub" text-anchor="start">lights API</text>
-							<text x="525" y="232" class="dg-sub" text-anchor="start">commands</text>
-						</svg>
-					</figure>
+					<figure class="diagram sd-flow sd-fit"><div class="sd-scroll"><svg viewBox="0 0 760 330" role="group" aria-label="Polaris architecture: the Pi pushes to GitHub Pages behind Cloudflare, serves the lights API over a private Tailscale network, and an iPhone app talks to it over that same network"><g class="dg-line"><path class="sd-line" data-ends="pi gh" d="M280 150 L220 70"/><path class="sd-line" data-ends="gh cf" d="M120 90 L120 240"/><path class="sd-line" data-ends="pi ts" d="M480 150 L540 70"/><path class="sd-line" data-ends="pi govee" d="M480 180 L540 270"/><path class="sd-line" data-ends="app pi" d="M380 85 L380 125"/></g><g class="sd-node" data-id="app" data-rel="pi" tabindex="0" role="button" aria-label="iPhone app" data-detail="The iPhone app talks to Polaris over the private network with a token. It shows status and fan control, lights and the Frames editor."><rect x="280" y="15" width="200" height="70" rx="12"/><text x="380" y="45" class="dg-strong">iPhone app</text><text x="380" y="67" class="dg-sub">SwiftUI, iOS 26</text></g><g class="sd-node sd-node--core" data-id="pi" data-rel="app gh cf ts govee" tabindex="0" role="button" aria-label="Raspberry Pi 5" data-detail="Polaris: an always-on Raspberry Pi 5 that builds and publishes the site, reports its own health and controls the lamps and fan."><rect x="280" y="125" width="200" height="80" rx="12"/><text x="380" y="160" class="dg-strong">Raspberry Pi 5</text><text x="380" y="184" class="dg-sub">Polaris + services</text></g><g class="sd-node" data-id="gh" data-rel="pi cf" tabindex="0" role="button" aria-label="GitHub" data-detail="The repository and GitHub Pages host the static site. Every change is a commit, so history doubles as the change log."><rect x="20" y="20" width="200" height="70" rx="12"/><text x="120" y="50" class="dg-strong">GitHub</text><text x="120" y="72" class="dg-sub">repo + Pages</text></g><g class="sd-node" data-id="cf" data-rel="pi gh" tabindex="0" role="button" aria-label="Cloudflare" data-detail="Cloudflare provides HTTPS and DNS in front of the site, and R2 storage for full-size photography."><rect x="20" y="240" width="200" height="70" rx="12"/><text x="120" y="270" class="dg-strong">Cloudflare</text><text x="120" y="292" class="dg-sub">HTTPS, DNS</text></g><g class="sd-node" data-id="ts" data-rel="pi" tabindex="0" role="button" aria-label="Tailscale" data-detail="Tailscale is the private network. The phone reaches Polaris only through it, so nothing is exposed publicly."><rect x="540" y="20" width="200" height="70" rx="12"/><text x="640" y="50" class="dg-strong">Tailscale</text><text x="640" y="72" class="dg-sub">private HTTPS</text></g><g class="sd-node" data-id="govee" data-rel="pi" tabindex="0" role="button" aria-label="Govee cloud" data-detail="Govee relays lamp commands to the two floor lamps. The API key never leaves the Pi."><rect x="540" y="240" width="200" height="70" rx="12"/><text x="640" y="270" class="dg-strong">Govee cloud</text><text x="640" y="292" class="dg-sub">two floor lamps</text></g><text x="235" y="118" class="dg-sub" text-anchor="end">git push</text><text x="130" y="170" class="dg-sub" text-anchor="start">serves site</text><text x="525" y="118" class="dg-sub" text-anchor="start">lights API</text><text x="525" y="232" class="dg-sub" text-anchor="start">commands</text></svg></div><figcaption class="sd-detail">Hover or focus a part to see what it does.</figcaption></figure>
 
 					<h3>1. Editing the website</h3>
-					<p>This site is a static site on GitHub Pages, with Cloudflare in front for HTTPS. The Pi keeps a clone of the repository. When I ask Polaris for a change, it edits the files, adds an entry to <code>polaris-log.json</code>, and commits and pushes. GitHub Pages redeploys within a minute or two, and the dashboard shows the new log entry.</p>
+					<p>This site is a static site on GitHub Pages, with Cloudflare in front for HTTPS. The Pi keeps a clone of the repository. I make changes with an AI coding assistant on my laptop, or publish photography stories from the iPhone app. Polaris builds the media, commits and pushes, and adds an entry to <code>polaris-log.json</code> for every change. GitHub Pages redeploys within a minute or two, and the dashboard shows the new log entry.</p>
 
 					<h3>2. Reporting its own health</h3>
 					<p>Every 15 minutes a small Python script collects the Pi&rsquo;s CPU temperature, load, memory and disk usage, writes them to a JSON file and pushes it. The dashboard reads that file. If the latest report is more than 35 minutes old, it shows the Pi as <strong>offline</strong>, along with when it was last seen.</p>
 
 					<h3>3. Controlling the lights</h3>
-					<p>A tiny Flask API on the Pi turns the lamps on and off, sets brightness and switches between warm and cool white. Since it controls something physical, I locked it down:</p>
+					<p>A tiny Flask API on the Pi turns the lamps on and off, sets brightness, colour temperature and colour, and runs a sleep timer. Since it controls something physical, I locked it down:</p>
 					<ul>
 						<li>It only listens on the Pi itself. <strong>Tailscale Serve</strong> gives it an HTTPS address that only my own devices can reach, so it isn&rsquo;t on the public internet.</li>
 						<li>Every request needs an access token, which the Pi checks. The page stores nothing secret.</li>
@@ -158,16 +126,279 @@
 					<p>A systemd timer grabs a webcam frame every five minutes with <code>ffmpeg</code> and publishes it to the dashboard. If the camera is unplugged, the job skips quietly and the dashboard hides the section until fresh snapshots arrive.</p>
 				</section>
 
-				<section class="proj-section" aria-labelledby="s-lessons" data-reveal>
-					<p class="eyebrow">04 · Lessons learned</p>
-					<h2 id="s-lessons">Lessons learned</h2>
-					<h3>&ldquo;Online&rdquo; isn&rsquo;t a status, it&rsquo;s a claim</h3>
-					<p>In July 2026 a few objects in the Pi&rsquo;s local git repository were corrupted. Every status push after that failed silently. The dashboard kept showing <em>Online</em>, because the status file said so, with a timestamp from early July, for three months. I repaired the repository and changed the dashboard to judge freshness itself. Now a missed report shows up as offline within 35 minutes.</p>
-					<h3>Security in a static site lives somewhere else</h3>
-					<p>The first version of the lights panel was gated by a password checked in the browser, so anyone could read it in the page source. The repository also published the Pi&rsquo;s backend scripts, since GitHub Pages serves everything in a repo. Both are fixed: the backend now lives outside the website, and the server checks the token.</p>
-					<h3>Small automations need housekeeping</h3>
-					<p>Pushing a status update every five minutes added more than 34,000 commits to the repository. Reporting every 15 minutes cuts that down a lot, and the dashboard is still fresh enough to be useful.</p>
-					<div class="cluster proj-docs"><a class="btn btn--primary" href="/polaris.html" data-magnetic>Open the live dashboard</a></div>
+				<section class="proj-section" aria-labelledby="s-app" data-reveal>
+					<p class="eyebrow">04 &middot; The phone app</p>
+					<h2 id="s-app">There&rsquo;s an app for it</h2>
+					<p>Polaris has an iPhone app, <strong>DevRobotics</strong>, so I can run it from my pocket. It&rsquo;s written in SwiftUI for iOS 26 and talks to the Pi over the same private Tailscale network, with its token kept in the iOS Keychain. None of Polaris&rsquo;s controls are reachable from the public internet.</p>
+					<div class="app-shots">
+						<figure><img src="images/app-status-400.webp" srcset="images/app-status-400.webp 400w, images/app-status-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The Status tab of the DevRobotics app: CPU temperature, load, memory and disk tiles, and the fan control card" /><figcaption>Status and fan control</figcaption></figure>
+						<figure><img src="images/app-lights-400.webp" srcset="images/app-lights-400.webp 400w, images/app-lights-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The Lights tab of the app: a status card, a power toggle, a brightness slider and warm and cool presets" /><figcaption>Lights</figcaption></figure>
+						<figure><img src="images/app-frames-400.webp" srcset="images/app-frames-400.webp 400w, images/app-frames-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The story editor in the app, with a cover, text blocks and photo blocks" /><figcaption>Frames editor</figcaption></figure>
+					</div>
+					<p class="app-note">Screenshots use demo data.</p>
+					<ul>
+						<li><strong>Status.</strong> CPU temperature history, load, memory, disk and services, plus <strong>fan control</strong>: automatic, a manual speed, or Max. Every override expires on its own, and a timer owned by root on the Pi returns the fan to automatic even if the phone disconnects.</li>
+						<li><strong>Lights.</strong> The real state of both lamps, a power toggle, brightness, colour temperature and colour, a sleep timer.</li>
+						<li><strong>Frames.</strong> The photography section of this site. I write photos and stories offline, preview the exact page before it exists, review every change, listed, and publish. The Pi builds the media and pushes the site.</li>
+						<li><strong>Staying installed.</strong> A free Apple ID expires an app after seven days, so a small agent on my Mac reinstalls it whenever I plug the phone in.</li>
+					</ul>
+					<h3>Design choices</h3>
+					<ul>
+						<li><strong>The preview is the real page.</strong> The Pi renders an unsent draft with the same template and styles as the live site, so what I review is what ships.</li>
+						<li><strong>Hardware gets a way back.</strong> Anything that moves or heats something has a limit and a timer that undoes it on its own.</li>
+						<li><strong>The Pi cleans up after itself.</strong> Previews and uploads share a 2&nbsp;GB cache that evicts the oldest first.</li>
+					</ul>
+					<div class="cluster proj-docs"><a class="btn btn--primary" href="#s-system" data-magnetic>See the system design</a><a class="btn btn--ghost" href="/polaris.html" data-magnetic>Open the live dashboard</a></div>
+				</section>
+				<section class="proj-section sd" id="s-system" aria-labelledby="s-system-title" data-reveal>
+					<p class="eyebrow">05 &middot; System design</p>
+					<h2 id="s-system-title">How the whole system fits together</h2>
+					<p class="sd__lede">Polaris, the phone app and my Mac form one small private system. Pick a view.</p>
+
+					<div class="sd-tabs" role="tablist" aria-label="System design views">
+						<button class="sd-tab" role="tab" id="sd-tab-arch" aria-controls="sd-arch" aria-selected="true" type="button">Architecture</button>
+						<button class="sd-tab" role="tab" id="sd-tab-publish" aria-controls="sd-publish" aria-selected="false" tabindex="-1" type="button">Publishing</button>
+						<button class="sd-tab" role="tab" id="sd-tab-fan" aria-controls="sd-fan" aria-selected="false" tabindex="-1" type="button">Fan safety</button>
+						<button class="sd-tab" role="tab" id="sd-tab-install" aria-controls="sd-install" aria-selected="false" tabindex="-1" type="button">Staying installed</button>
+						<button class="sd-tab" role="tab" id="sd-tab-health" aria-controls="sd-health" aria-selected="false" tabindex="-1" type="button">Health</button>
+						<button class="sd-tab" role="tab" id="sd-tab-parts" aria-controls="sd-parts" aria-selected="false" tabindex="-1" type="button">Components</button>
+						<button class="sd-tab" role="tab" id="sd-tab-why" aria-controls="sd-why" aria-selected="false" tabindex="-1" type="button">Why this way</button>
+					</div>
+
+					<div class="sd-panels">
+						<!-- Architecture -->
+						<div class="sd-panel" role="tabpanel" id="sd-arch" aria-labelledby="sd-tab-arch">
+							<h3 class="sd-panel__title">Architecture</h3>
+							<p class="sd-summary">Everything private sits inside one network boundary. Only the finished website and the lamp commands leave it.</p>
+							<figure class="diagram sd-diagram">
+								<div class="sd-svgwrap">
+									<svg viewBox="0 0 960 440" role="group" aria-label="System architecture: the iPhone app and a MacBook sit inside a private network with Polaris, a Raspberry Pi 5 that runs the app API, lights API, Frames pipeline and fan helper. Polaris pushes the site to GitHub Pages, uploads media to Cloudflare, and sends lamp commands to Govee.">
+										<rect class="sd-zone" x="16" y="16" width="640" height="408" rx="20"/>
+										<text class="sd-zone-label" x="40" y="46">PRIVATE NETWORK</text>
+										<g class="dg-line">
+											<path class="sd-line" data-ends="phone pi" d="M258 132 C 312 132, 312 190, 360 190"/>
+											<path class="sd-line" data-ends="mac phone" d="M153 272 L153 180"/>
+											<path class="sd-line" data-ends="pi github" d="M616 120 C 680 120, 690 90, 744 90"/>
+											<path class="sd-line" data-ends="pi cf" d="M616 220 L744 220"/>
+											<path class="sd-line" data-ends="pi govee" d="M616 320 C 680 320, 690 350, 744 350"/>
+										</g>
+										<text x="300" y="150" class="dg-sub" text-anchor="middle">app API</text>
+										<text x="171" y="232" class="dg-sub" text-anchor="start">USB install</text>
+										<text x="684" y="94" class="dg-sub" text-anchor="middle">push</text>
+										<text x="684" y="212" class="dg-sub" text-anchor="middle">media</text>
+										<text x="684" y="342" class="dg-sub" text-anchor="middle">commands</text>
+
+										<g class="sd-node" data-id="phone" data-rel="pi mac" tabindex="0" role="button" aria-label="iPhone app" data-detail="The iPhone app: status and fan control, lights, and an offline-first editor for the Frames photography section. Its access token is kept in the iOS Keychain.">
+											<rect x="48" y="84" width="210" height="96" rx="14"/>
+											<text x="153" y="126" class="dg-strong">iPhone app</text>
+											<text x="153" y="150" class="dg-sub">SwiftUI &middot; iOS 26</text>
+										</g>
+										<g class="sd-node" data-id="mac" data-rel="phone" tabindex="0" role="button" aria-label="MacBook" data-detail="Two small background agents. One reinstalls the app whenever the phone is plugged in; the other serves the app&rsquo;s Reinstall button. They exist because a free Apple ID only signs an app for seven days.">
+											<rect x="48" y="272" width="210" height="96" rx="14"/>
+											<text x="153" y="314" class="dg-strong">MacBook</text>
+											<text x="153" y="338" class="dg-sub">install agents</text>
+										</g>
+
+										<g class="sd-node sd-node--core" data-id="pi" data-rel="phone github cf govee pi-app pi-lights pi-frames pi-fan" tabindex="0" role="button" aria-label="Polaris, the Raspberry Pi" data-detail="Polaris: an always-on Raspberry Pi 5. Everything runs here as small services under systemd and cron, reachable only on the private network.">
+											<rect x="360" y="64" width="256" height="312" rx="16"/>
+											<text x="488" y="98" class="dg-strong">Polaris</text>
+											<text x="488" y="120" class="dg-sub">Raspberry Pi 5</text>
+										</g>
+										<g class="sd-node sd-chip" data-id="pi-app" data-rel="pi phone" tabindex="0" role="button" aria-label="App API" data-detail="App API: status, the Frames inbox, previews, uploads, clip previews and fan control. Every request needs a token.">
+											<rect x="376" y="140" width="104" height="64" rx="10"/>
+											<text x="428" y="168" class="sd-chip__t">App API</text>
+											<text x="428" y="188" class="dg-sub sd-chip__s">status, inbox</text>
+										</g>
+										<g class="sd-node sd-chip" data-id="pi-lights" data-rel="pi govee" tabindex="0" role="button" aria-label="Lights API" data-detail="Lights API: state, power, brightness, colour and a sleep timer for two floor lamps, relayed through Govee&rsquo;s cloud.">
+											<rect x="496" y="140" width="104" height="64" rx="10"/>
+											<text x="548" y="168" class="sd-chip__t">Lights API</text>
+											<text x="548" y="188" class="dg-sub sd-chip__s">two lamps</text>
+										</g>
+										<g class="sd-node sd-chip" data-id="pi-frames" data-rel="pi github cf" tabindex="0" role="button" aria-label="Frames pipeline" data-detail="Frames pipeline: turns originals into web sizes, strips metadata, builds the story pages, uploads the media and commits the site.">
+											<rect x="376" y="224" width="104" height="64" rx="10"/>
+											<text x="428" y="252" class="sd-chip__t">Frames</text>
+											<text x="428" y="272" class="dg-sub sd-chip__s">media, pages</text>
+										</g>
+										<g class="sd-node sd-chip" data-id="pi-fan" data-rel="pi" tabindex="0" role="button" aria-label="Fan helper" data-detail="Fan helper: the only code allowed to touch the fan. It has its own safety limits and a timer that always hands control back to automatic.">
+											<rect x="496" y="224" width="104" height="64" rx="10"/>
+											<text x="548" y="252" class="sd-chip__t">Fan helper</text>
+											<text x="548" y="272" class="dg-sub sd-chip__s">safe limits</text>
+										</g>
+										<text x="488" y="332" class="dg-sub">small services</text>
+
+										<g class="sd-node" data-id="github" data-rel="pi" tabindex="0" role="button" aria-label="GitHub Pages" data-detail="GitHub Pages hosts the static site. Every change is a commit, so the history doubles as the change log.">
+											<rect x="744" y="48" width="190" height="84" rx="14"/>
+											<text x="839" y="86" class="dg-strong">GitHub Pages</text>
+											<text x="839" y="108" class="dg-sub">the static site</text>
+										</g>
+										<g class="sd-node" data-id="cf" data-rel="pi" tabindex="0" role="button" aria-label="Cloudflare" data-detail="Cloudflare provides HTTPS and DNS, and its R2 storage holds the full-size photography media.">
+											<rect x="744" y="178" width="190" height="84" rx="14"/>
+											<text x="839" y="216" class="dg-strong">Cloudflare</text>
+											<text x="839" y="238" class="dg-sub">HTTPS &middot; R2 media</text>
+										</g>
+										<g class="sd-node" data-id="govee" data-rel="pi" tabindex="0" role="button" aria-label="Govee cloud" data-detail="Govee&rsquo;s cloud API relays commands to the two floor lamps. The API key never leaves the Pi.">
+											<rect x="744" y="308" width="190" height="84" rx="14"/>
+											<text x="839" y="346" class="dg-strong">Govee cloud</text>
+											<text x="839" y="368" class="dg-sub">two floor lamps</text>
+										</g>
+									</svg>
+								</div>
+
+								<!-- Phone layout: the same architecture as stacked cards -->
+								<div class="sd-stack">
+									<div class="sd-group">
+										<p class="eyebrow">Private network</p>
+										<div class="sd-mini"><strong>iPhone app</strong><span>SwiftUI &middot; iOS 26. Status, lights, Frames editor.</span></div>
+										<p class="sd-arrow" aria-hidden="true">&darr; app API, token required</p>
+										<div class="sd-mini sd-mini--core"><strong>Polaris</strong><span>Raspberry Pi 5, small services</span>
+											<ul class="cluster" role="list"><li class="tag">App API</li><li class="tag">Lights API</li><li class="tag">Frames pipeline</li><li class="tag">Fan helper</li></ul>
+										</div>
+										<div class="sd-mini"><strong>MacBook</strong><span>Install agents; reinstalls the app over USB.</span></div>
+									</div>
+									<p class="sd-arrow" aria-hidden="true">&darr; Polaris reaches out to</p>
+									<div class="sd-group">
+										<p class="eyebrow">Outside services</p>
+										<div class="sd-mini"><strong>GitHub Pages</strong><span>The static site. Every change is a commit.</span></div>
+										<div class="sd-mini"><strong>Cloudflare</strong><span>HTTPS, DNS and R2 media storage.</span></div>
+										<div class="sd-mini"><strong>Govee cloud</strong><span>Relays commands to two floor lamps.</span></div>
+									</div>
+								</div>
+								<figcaption class="sd-detail" id="sd-arch-detail">Hover or focus a part to see what it does.</figcaption>
+							</figure>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 150" role="group" aria-label="One request end to end: the phone sends a toggle with a token to Polaris, which relays it through Govee's cloud to the lamp and returns the confirmed state."><defs><marker id="d-ex" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker></defs><g class="dg-line"><path class="sd-line" data-ends="ex-phone ex-pi" d="M182 70 L283 70" marker-end="url(#d-ex)"/><path class="sd-line" data-ends="ex-pi ex-govee" d="M437 70 L538 70" marker-end="url(#d-ex)"/><path class="sd-line" data-ends="ex-govee ex-lamp" d="M692 70 L793 70" marker-end="url(#d-ex)"/><path class="sd-line sd-line--ret" data-ends="ex-phone ex-pi" d="M283 100 L182 100" marker-end="url(#d-ex)"/><path class="sd-line sd-line--ret" data-ends="ex-pi ex-govee" d="M538 100 L437 100" marker-end="url(#d-ex)"/><path class="sd-line sd-line--ret" data-ends="ex-govee ex-lamp" d="M793 100 L692 100" marker-end="url(#d-ex)"/></g><text x="232" y="60" class="dg-sub" text-anchor="middle">toggle + token</text><text x="487" y="60" class="dg-sub" text-anchor="middle">relay command</text><text x="742" y="60" class="dg-sub" text-anchor="middle">turn on</text><text x="232" y="122" class="dg-sub" text-anchor="middle">new state</text><text x="487" y="122" class="dg-sub" text-anchor="middle">state</text><text x="742" y="122" class="dg-sub" text-anchor="middle">state</text><g class="sd-node" data-id="ex-phone" data-rel="ex-pi" tabindex="0" role="button" aria-label="iPhone app" data-detail="iPhone app: tapping the toggle sends the request with a token that is kept in the iOS Keychain."><rect x="30" y="36" width="150" height="92" rx="14"/><text x="105" y="80" class="dg-strong">iPhone app</text><text x="105" y="100" class="dg-sub">the toggle</text></g><g class="sd-node" data-id="ex-pi" data-rel="ex-phone ex-govee" tabindex="0" role="button" aria-label="Polaris" data-detail="Polaris: checks the token, then relays the command. The lamp API key lives only on the Pi."><rect x="285" y="36" width="150" height="92" rx="14"/><text x="360" y="80" class="dg-strong">Polaris</text><text x="360" y="100" class="dg-sub">app + lights API</text></g><g class="sd-node" data-id="ex-govee" data-rel="ex-pi ex-lamp" tabindex="0" role="button" aria-label="Govee cloud" data-detail="Govee's cloud API: relays the command to the lamp and reports its state back."><rect x="540" y="36" width="150" height="92" rx="14"/><text x="615" y="80" class="dg-strong">Govee cloud</text><text x="615" y="100" class="dg-sub">relay</text></g><g class="sd-node" data-id="ex-lamp" data-rel="ex-govee" tabindex="0" role="button" aria-label="Floor lamp" data-detail="The lamp turns on and reports its state. The app then shows the state the Pi reports, refreshed from Govee."><rect x="795" y="36" width="150" height="92" rx="14"/><text x="870" y="80" class="dg-strong">Floor lamp</text><text x="870" y="100" class="dg-sub">the device</text></g></svg></div><figcaption class="sd-detail">One request, end to end: toggling a lamp from the phone. Hover or focus a part to see what it does.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>Everything private stays inside the boundary.</strong> The phone, the Mac and Polaris talk over one private network, and every request carries a token that is checked on the receiving machine.</li>
+									<li><strong>Only three things leave it:</strong> the finished website (pushed to GitHub Pages), full-size media (uploaded to Cloudflare) and lamp commands (relayed through Govee&rsquo;s cloud).</li>
+									<li><strong>Secrets stay out of the website and the repositories.</strong> The lamp API key lives only on the Pi. The access token lives on the Pi, in the phone&rsquo;s Keychain and on my Mac.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Publishing -->
+						<div class="sd-panel" role="tabpanel" id="sd-publish" aria-labelledby="sd-tab-publish" hidden>
+							<h3 class="sd-panel__title">Publishing</h3>
+							<p class="sd-summary">A story goes from an offline draft on my phone to the live site, with a real preview and a review step in between.</p>
+							<ol class="sd-steps">
+								<li class="sd-step"><span class="sd-step__n">1</span><strong>Write offline</strong><span>Blocks of text and photos, saved on the phone.</span></li>
+								<li class="sd-step"><span class="sd-step__n">2</span><strong>Upload</strong><span>Only the photos the Pi doesn&rsquo;t already have.</span></li>
+								<li class="sd-step"><span class="sd-step__n">3</span><strong>Preview</strong><span>The Pi builds the real page from the draft.</span></li>
+								<li class="sd-step"><span class="sd-step__n">4</span><strong>Review</strong><span>Everything that will change, listed.</span></li>
+								<li class="sd-step"><span class="sd-step__n">5</span><strong>Approve</strong><span>One confirmation publishes the whole inbox.</span></li>
+								<li class="sd-step"><span class="sd-step__n">6</span><strong>Live</strong><span>Media first, then the commit. About two minutes.</span></li>
+							</ol>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 404" role="group" aria-label="Publishing flow: write offline, upload only missing photos, preview the real page, send to the inbox, review the changes, then publish media to Cloudflare and pages to GitHub Pages."><defs><marker id="d-pub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker></defs><rect class="sd-zone" x="16" y="16" width="668" height="372" rx="20"/><text class="sd-zone-label" x="40" y="46">PRIVATE NETWORK</text><g class="dg-line"><path class="sd-line" data-ends="p1 p2" d="M214 126 L254 126" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p2 p3" d="M414 126 L454 126" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p3 p4" d="M534 164 L534 214 L124 214 L124 256" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p4 p5" d="M204 292 L254 292" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p5 p6" d="M414 292 L454 292" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p6 r2" d="M614 282 C 690 282, 690 322, 744 322" marker-end="url(#d-pub)"/><path class="sd-line" data-ends="p6 gh" d="M614 262 C 700 240, 700 140, 744 132" marker-end="url(#d-pub)"/></g><text x="330" y="206" class="dg-sub" text-anchor="middle">then, when I send</text><text x="714" y="296" class="dg-sub" text-anchor="middle">media</text><text x="714" y="196" class="dg-sub" text-anchor="middle">push</text><g class="sd-node" data-id="p1" data-rel="p2" tabindex="0" role="button" aria-label="1. Write offline" data-detail="Write offline: a story is blocks of text and photos, saved on the phone. Nothing leaves the phone yet."><rect x="44" y="90" width="160" height="72" rx="14"/><text x="124" y="124" class="dg-strong">1  Write offline</text><text x="124" y="144" class="dg-sub">iPhone app</text></g><g class="sd-node" data-id="p2" data-rel="p1 p3" tabindex="0" role="button" aria-label="2. Upload" data-detail="Upload: each photo is identified by its hash, so only the photos the Pi doesn't already have are sent."><rect x="254" y="90" width="160" height="72" rx="14"/><text x="334" y="124" class="dg-strong">2  Upload</text><text x="334" y="144" class="dg-sub">only missing photos</text></g><g class="sd-node" data-id="p3" data-rel="p2 p4" tabindex="0" role="button" aria-label="3. Preview" data-detail="Preview: the Pi builds the real page from the draft in a throwaway copy, so what I review is what ships. Missing dates and files come back as problems with a line number."><rect x="454" y="90" width="160" height="72" rx="14"/><text x="534" y="124" class="dg-strong">3  Preview</text><text x="534" y="144" class="dg-sub">built on the Pi</text></g><g class="sd-node" data-id="p4" data-rel="p3 p5" tabindex="0" role="button" aria-label="4. Send" data-detail="Send: the draft is written to the inbox. Until this step it never touched the real inbox, so a half-written story can't be published by accident."><rect x="44" y="256" width="160" height="72" rx="14"/><text x="124" y="290" class="dg-strong">4  Send</text><text x="124" y="310" class="dg-sub">to the inbox</text></g><g class="sd-node" data-id="p5" data-rel="p4 p6" tabindex="0" role="button" aria-label="5. Review" data-detail="Review: every change that will go live is listed as new, changed or removed. Publishing covers the whole inbox, so I approve it all at once."><rect x="254" y="256" width="160" height="72" rx="14"/><text x="334" y="290" class="dg-strong">5  Review</text><text x="334" y="310" class="dg-sub">everything that will change</text></g><g class="sd-node" data-id="p6" data-rel="p5 r2 gh" tabindex="0" role="button" aria-label="6. Publish" data-detail="Publish: media is built and uploaded first, then the pages are committed and pushed. If a step fails before the commit, the working copy is restored."><rect x="454" y="256" width="160" height="72" rx="14"/><text x="534" y="290" class="dg-strong">6  Publish</text><text x="534" y="310" class="dg-sub">build media + pages</text></g><g class="sd-node" data-id="r2" data-rel="p6" tabindex="0" role="button" aria-label="Cloudflare R2" data-detail="Cloudflare R2: full-size and resized photos under content-hashed names, uploaded before the commit so a page never points at a file that isn't there."><rect x="744" y="280" width="190" height="84" rx="14"/><text x="839" y="320" class="dg-strong">Cloudflare R2</text><text x="839" y="340" class="dg-sub">media</text></g><g class="sd-node" data-id="gh" data-rel="p6" tabindex="0" role="button" aria-label="GitHub Pages" data-detail="GitHub Pages: the static site. The push redeploys it, and the change is live in about two minutes. Every change is a commit, so the history is the change log."><rect x="744" y="92" width="190" height="84" rx="14"/><text x="839" y="132" class="dg-strong">GitHub Pages</text><text x="839" y="152" class="dg-sub">live in about 2 min</text></g></svg></div><figcaption class="sd-detail">Who does what, in order. Hover or focus a step to see exactly what happens there.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>Drafts never touch the real inbox</strong> until I send them. Previews build in a throwaway folder, so a half-written story can&rsquo;t be published by accident.</li>
+									<li><strong>Uploads are content-addressed.</strong> Each photo is identified by its hash, so a re-preview sends only what changed.</li>
+									<li><strong>Problems are caught early.</strong> A missing date or a missing file is flagged in plain English on the block it belongs to, with a one-tap fix.</li>
+									<li><strong>Publishing covers the whole inbox</strong>, because the site grid is rebuilt from the whole inbox. That is why the review step lists every change first.</li>
+									<li><strong>Media goes up before the commit</strong>, so a page never points at a file that isn&rsquo;t there. If anything fails, the working copy is restored.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Fan safety -->
+						<div class="sd-panel" role="tabpanel" id="sd-fan" aria-labelledby="sd-tab-fan" hidden>
+							<h3 class="sd-panel__title">Fan safety</h3>
+							<p class="sd-summary">A fan override can never outlive its reason. Every one expires on its own, and a few hard limits can&rsquo;t be argued with.</p>
+							<ol class="sd-steps">
+								<li class="sd-step"><span class="sd-step__n">1</span><strong>Request</strong><span>Auto, Manual or Max from the app.</span></li>
+								<li class="sd-step"><span class="sd-step__n">2</span><strong>Check</strong><span>The server compares it with the temperature and clamps it.</span></li>
+								<li class="sd-step"><span class="sd-step__n">3</span><strong>Hand over</strong><span>A tiny root-owned helper writes the speed, nothing else.</span></li>
+								<li class="sd-step"><span class="sd-step__n">4</span><strong>Arm the timer</strong><span>A separate timer returns the fan to automatic.</span></li>
+							</ol>
+							<ul class="cluster sd-rules" role="list" aria-label="Limits">
+								<li class="tag">Max: 15 minutes</li><li class="tag">Manual: 30 minutes</li><li class="tag">Minimum speed when warm</li><li class="tag">Forced automatic at 75&nbsp;&deg;C</li><li class="tag">Resets on every restart</li>
+							</ul>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 350" role="group" aria-label="Fan states: Automatic can go to Manual or Max, and any override ends on a timer, a cool-down, 75 degrees, a tap on Back to Auto, a restart or a dropped phone, returning to Automatic."><defs><marker id="d-fan2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker><marker id="d-fan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker></defs><g class="dg-line"><path class="sd-line" data-ends="fa fm" d="M250 140 C 330 140, 350 64, 430 64" marker-end="url(#d-fan)"/><path class="sd-line" data-ends="fa fx" d="M250 176 C 330 176, 350 272, 430 272" marker-end="url(#d-fan)"/><path class="sd-line" data-ends="fm fx" d="M530 112 L530 230" marker-end="url(#d-fan)" marker-start="url(#d-fan2)"/><path class="sd-line" data-ends="fm fe" d="M630 64 C 668 64, 668 100, 700 100" marker-end="url(#d-fan)"/><path class="sd-line" data-ends="fx fe" d="M630 272 C 668 272, 668 232, 700 232" marker-end="url(#d-fan)"/><path class="sd-line" data-ends="fe fa" d="M820 274 L820 322 L155 322 L155 200" marker-end="url(#d-fan)"/></g><text x="340" y="86" class="dg-sub" text-anchor="middle">pick a speed</text><text x="340" y="262" class="dg-sub" text-anchor="middle">tap Max</text><text x="560" y="172" class="dg-sub" text-anchor="start">switch</text><text x="490" y="340" class="dg-sub" text-anchor="middle">back to Automatic</text><g class="sd-node sd-node--good" data-id="fa" data-rel="fm fx fe" tabindex="0" role="button" aria-label="Automatic" data-detail="Automatic: the Pi's own fan curve. The fan stays off until the CPU reaches 50 °C, then ramps with temperature."><rect x="60" y="115" width="190" height="84" rx="14"/><text x="155" y="155" class="dg-strong">Automatic</text><text x="155" y="175" class="dg-sub">the Pi's own fan curve</text></g><g class="sd-node" data-id="fm" data-rel="fa fx fe" tabindex="0" role="button" aria-label="Manual" data-detail="Manual: a chosen speed, never below the minimum for the current temperature. It lasts 30 minutes unless I end it sooner."><rect x="430" y="24" width="200" height="82" rx="14"/><text x="530" y="63" class="dg-strong">Manual</text><text x="530" y="83" class="dg-sub">a chosen speed</text></g><g class="sd-node" data-id="fx" data-rel="fa fm fe" tabindex="0" role="button" aria-label="Max" data-detail="Max: full speed to cool the Pi down. It lasts 15 minutes, and ends early once the Pi has stayed cool for a while."><rect x="430" y="230" width="200" height="82" rx="14"/><text x="530" y="269" class="dg-strong">Max</text><text x="530" y="289" class="dg-sub">full speed</text></g><g class="sd-node sd-node--warn" data-id="fe" data-rel="fa fm fx" tabindex="0" role="button" aria-label="When an override ends" data-detail="An override ends on its timer, after a cool-down (Max), at 75 °C, on Back to Auto, on a service restart, or if the phone drops, because the timer lives on the Pi."><rect x="700" y="56" width="240" height="220" rx="14"/><text x="820" y="86" class="dg-strong">An override ends when</text><text x="716" y="116" class="sq-li">the timer runs out (15 / 30 min)</text><text x="716" y="142" class="sq-li">Max has stayed cool for a while</text><text x="716" y="168" class="sq-li">the temperature reaches 75 °C</text><text x="716" y="194" class="sq-li">I tap Back to Auto</text><text x="716" y="220" class="sq-li">the service restarts</text><text x="716" y="246" class="sq-li">the phone drops (the timer still fires)</text></g></svg></div><figcaption class="sd-detail">The three states and exactly what ends an override. Hover or focus a part for the detail.</figcaption></figure>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 300" role="group" aria-label="Layers of protection around a fan request: the server, the root helper, a root-owned timer and the firmware."><g class="sd-node sd-ringnode" data-id="l-fw" data-rel="*" tabindex="0" role="button" aria-label="Firmware throttling: always on, whatever software does" data-detail="Firmware throttling: the Pi's own firmware slows the CPU if it gets too hot, whatever the software above it is doing."><rect class="sq-ring" x="20" y="16" width="920" height="268" rx="18"/><text x="40" y="44" class="sq-ring-label">Firmware throttling: always on, whatever software does</text></g><g class="sd-node sd-ringnode" data-id="l-timer" data-rel="*" tabindex="0" role="button" aria-label="Root-owned timer: always hands control back to Automatic" data-detail="Root-owned timer: armed whenever a speed is held. It hands control back to Automatic even if the web service has died."><rect class="sq-ring" x="60" y="62" width="840" height="206" rx="18"/><text x="80" y="90" class="sq-ring-label">Root-owned timer: always hands control back to Automatic</text></g><g class="sd-node sd-ringnode" data-id="l-helper" data-rel="*" tabindex="0" role="button" aria-label="Helper: re-checks the limits itself before writing a speed" data-detail="Helper: the only program that writes the fan speed. It re-checks the limits against the real temperature before it writes."><rect class="sq-ring" x="100" y="108" width="760" height="144" rx="18"/><text x="120" y="136" class="sq-ring-label">Helper: re-checks the limits itself before writing a speed</text></g><g class="sd-node sd-ringnode" data-id="l-server" data-rel="*" tabindex="0" role="button" aria-label="Server: limits by temperature, a one-second watchdog, resets on restart" data-detail="Server: clamps the request by temperature, runs a one-second watchdog, and resets to Automatic on every restart."><rect class="sq-ring" x="140" y="154" width="680" height="82" rx="18"/><text x="160" y="182" class="sq-ring-label">Server: limits by temperature, a one-second watchdog, resets on restart</text></g><text x="480" y="216" class="dg-strong" pointer-events="none">a Max or Manual request</text></svg></div><figcaption class="sd-detail">Four independent safeguards, so no single failure can leave the fan forced. Hover or focus a layer.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>Holding a speed pauses the kernel&rsquo;s own thermal control</strong>, so the app API and the helper both enforce the limits, and the timer that undoes it is owned by root.</li>
+									<li><strong>A dropped phone or a crashed service can&rsquo;t strand the fan.</strong> The timer and a one-second watchdog on the Pi act on their own.</li>
+									<li><strong>Max ends early</strong> once the Pi has stayed cool for a while, and the Pi&rsquo;s firmware throttling stays on as a last line of defence.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Staying installed -->
+						<div class="sd-panel" role="tabpanel" id="sd-install" aria-labelledby="sd-tab-install" hidden>
+							<h3 class="sd-panel__title">Staying installed</h3>
+							<p class="sd-summary">A free Apple ID only signs an app for seven days. A small agent on my Mac keeps it alive without me doing anything.</p>
+							<ol class="sd-steps">
+								<li class="sd-step"><span class="sd-step__n">1</span><strong>Plug in</strong><span>The agent notices the phone on USB.</span></li>
+								<li class="sd-step"><span class="sd-step__n">2</span><strong>Decide</strong><span>Install if under a day is left, or a newer build exists.</span></li>
+								<li class="sd-step"><span class="sd-step__n">3</span><strong>Build &amp; install</strong><span>From the latest published code.</span></li>
+								<li class="sd-step"><span class="sd-step__n">4</span><strong>Record</strong><span>Save the new expiry and show a notification.</span></li>
+							</ol>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 350" role="group" aria-label="Staying installed: plugging in the phone triggers a check for under a day of signing left or a newer build; the Reinstall now button skips the check; both then update the code copy, build and install, and record the new expiry."><defs><marker id="d-ins" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker></defs><g class="dg-line"><path class="sd-line" data-ends="i1 id" d="M210 72 L296 72" marker-end="url(#d-ins)"/><path class="sd-line" data-ends="id in" d="M360 136 L360 190" marker-end="url(#d-ins)"/><path class="sd-line" data-ends="id iu" d="M424 72 L500 72" marker-end="url(#d-ins)"/><path class="sd-line sd-line--ret" data-ends="i2 iu" d="M210 292 L595 292 L595 106" marker-end="url(#d-ins)"/><path class="sd-line" data-ends="iu ib" d="M690 72 L760 72" marker-end="url(#d-ins)"/><path class="sd-line" data-ends="ib ir" d="M850 104 L850 172" marker-end="url(#d-ins)"/></g><text x="374" y="168" class="dg-sub" text-anchor="start">no</text><text x="462" y="62" class="dg-sub" text-anchor="middle">yes</text><text x="400" y="284" class="dg-sub" text-anchor="middle">the button skips the check</text><g class="sd-node" data-id="i1" data-rel="id" tabindex="0" role="button" aria-label="Phone plugged in" data-detail="Phone plugged in: a small agent on the Mac watches USB and notices the phone within seconds."><rect x="20" y="40" width="190" height="64" rx="14"/><text x="115" y="70" class="dg-strong">Phone plugged in</text><text x="115" y="90" class="dg-sub">agent sees it on USB</text></g><g class="sd-node" data-id="id" data-rel="i1 in iu" tabindex="0" role="button" aria-label="Decision" data-detail="The agent only installs when it needs to: when under a day of signing is left, or when a newer published build exists."><path d="M360 8 L424 72 L360 136 L296 72 Z"/><text x="360" y="68" class="sq-dtext">Under a day left,</text><text x="360" y="86" class="sq-dtext">or newer build?</text></g><g class="sd-node" data-id="in" data-rel="id" tabindex="0" role="button" aria-label="Do nothing" data-detail="Otherwise it does nothing, so plugging in a freshly installed phone is harmless."><rect x="290" y="190" width="140" height="52" rx="14"/><text x="360" y="222" class="dg-strong">Do nothing</text></g><g class="sd-node" data-id="i2" data-rel="iu" tabindex="0" role="button" aria-label="Reinstall now" data-detail="The Reinstall now button in the app asks the Mac, over the private network, to run the same install. One fixed action, token required, and it skips the check."><rect x="20" y="260" width="190" height="64" rx="14"/><text x="115" y="290" class="dg-strong">“Reinstall now”</text><text x="115" y="310" class="dg-sub">button in the app</text></g><g class="sd-node" data-id="iu" data-rel="id i2 ib" tabindex="0" role="button" aria-label="Update the code copy" data-detail="The agent builds from its own copy of the published code, kept in step automatically, because macOS keeps background agents out of the Documents folder."><rect x="500" y="40" width="190" height="64" rx="14"/><text x="595" y="70" class="dg-strong">Update the code</text><text x="595" y="90" class="dg-sub">latest published code</text></g><g class="sd-node" data-id="ib" data-rel="iu ir" tabindex="0" role="button" aria-label="Build and install" data-detail="Build, sign and install over USB. A lock allows one install at a time, so the plug-in trigger and the button can't collide."><rect x="760" y="40" width="180" height="64" rx="14"/><text x="850" y="70" class="dg-strong">Build + install</text><text x="850" y="90" class="dg-sub">sign, install over USB</text></g><g class="sd-node" data-id="ir" data-rel="ib" tabindex="0" role="button" aria-label="Record and notify" data-detail="Saves the new expiry (seven days out) and shows a notification. The app's About screen reads the countdown."><rect x="760" y="172" width="180" height="64" rx="14"/><text x="850" y="202" class="dg-strong">Record + notify</text><text x="850" y="222" class="dg-sub">new expiry saved</text></g><g class="sq-note" pointer-events="none"><rect x="790" y="8" width="120" height="22" rx="8"/><text x="850" y="23">one at a time</text></g></svg></div><figcaption class="sd-detail">Two ways in. Plugging in is conditional; the button always installs. Hover or focus a step.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>There is also a button in the app.</strong> &ldquo;Reinstall now&rdquo; asks the Mac to do the same thing over the private network, one fixed action, token required.</li>
+									<li><strong>It builds from its own copy of the code</strong>, kept in step with the published version, because macOS keeps background agents out of the Documents folder.</li>
+									<li><strong>One install at a time.</strong> A lock stops the plug-in trigger and the button from colliding.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Health -->
+						<div class="sd-panel" role="tabpanel" id="sd-health" aria-labelledby="sd-tab-health" hidden>
+							<h3 class="sd-panel__title">Health</h3>
+							<p class="sd-summary">&ldquo;Online&rdquo; is a claim, so the dashboard checks how old the claim is.</p>
+							<ol class="sd-steps">
+								<li class="sd-step"><span class="sd-step__n">1</span><strong>Collect</strong><span>Every 15 minutes the Pi samples temperature, load, memory and disk.</span></li>
+								<li class="sd-step"><span class="sd-step__n">2</span><strong>Publish</strong><span>The report is pushed with a timestamp.</span></li>
+								<li class="sd-step"><span class="sd-step__n">3</span><strong>Judge</strong><span>The dashboard compares that timestamp with the clock.</span></li>
+								<li class="sd-step"><span class="sd-step__n">4</span><strong>Show</strong><span>Older than 35 minutes reads as stale, with when it was last seen.</span></li>
+							</ol>
+														<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 96 960 210" role="group" aria-label="Health timeline: the Pi reports every 15 minutes with a timestamp; the dashboard shows Online while the latest report is under 35 minutes old and shows Stale (not reporting) after that."><path class="sq-axis" d="M60 190 L910 190"/><path class="sq-axis" d="M60 184 L60 196"/><text x="60" y="216" class="dg-sub" text-anchor="middle">0 min</text><path class="sq-axis" d="M240 184 L240 196"/><text x="240" y="216" class="dg-sub" text-anchor="middle">15 min</text><path class="sq-axis" d="M420 184 L420 196"/><text x="420" y="216" class="dg-sub" text-anchor="middle">30 min</text><path class="sq-axis" d="M600 184 L600 196"/><text x="600" y="216" class="dg-sub" text-anchor="middle">45 min</text><path class="sq-axis" d="M780 184 L780 196"/><text x="780" y="216" class="dg-sub" text-anchor="middle">60 min</text><g class="sd-node sd-dotnode" data-id="h-r0" data-rel="*" tabindex="0" role="button" aria-label="Report at 0 minutes" data-detail="A report: every 15 minutes the Pi samples CPU temperature, load, memory and disk, and pushes them with a timestamp."><circle class="sd-hit" cx="60" cy="190" r="18"/><circle class="sq-dot" cx="60" cy="190" r="8"/></g><g class="sd-node sd-dotnode" data-id="h-r1" data-rel="*" tabindex="0" role="button" aria-label="Report at 15 minutes" data-detail="A report: every 15 minutes the Pi samples CPU temperature, load, memory and disk, and pushes them with a timestamp."><circle class="sd-hit" cx="240" cy="190" r="18"/><circle class="sq-dot" cx="240" cy="190" r="8"/></g><g class="sd-node sd-dotnode" data-id="h-r2" data-rel="*" tabindex="0" role="button" aria-label="Report at 30 minutes" data-detail="A report: every 15 minutes the Pi samples CPU temperature, load, memory and disk, and pushes them with a timestamp."><circle class="sd-hit" cx="420" cy="190" r="18"/><circle class="sq-dot" cx="420" cy="190" r="8"/></g><g class="sd-node sd-dotnode" data-id="h-m0" data-rel="*" tabindex="0" role="button" aria-label="Missed report at 45 minutes" data-detail="A missed report: if pushes stop (a crash, a network drop, a broken repository) nothing new arrives, and the dashboard notices."><circle class="sd-hit" cx="600" cy="190" r="18"/><circle class="sq-dot sq-dot--miss" cx="600" cy="190" r="8"/></g><g class="sd-node sd-dotnode" data-id="h-m1" data-rel="*" tabindex="0" role="button" aria-label="Missed report at 60 minutes" data-detail="A missed report: if pushes stop (a crash, a network drop, a broken repository) nothing new arrives, and the dashboard notices."><circle class="sd-hit" cx="780" cy="190" r="18"/><circle class="sq-dot sq-dot--miss" cx="780" cy="190" r="8"/></g><text x="240" y="166" class="dg-sub" text-anchor="middle">report + timestamp</text><text x="690.0" y="166" class="dg-sub" text-anchor="middle">missed</text><g class="sd-node" data-id="h-on" data-rel="*" tabindex="0" role="button" aria-label="Online while fresh" data-detail="The dashboard judges freshness itself: while the latest report is under 35 minutes old it shows Online."><rect class="sq-good" x="420" y="120" width="420" height="30" rx="8"/><text x="630" y="140" class="sq-label">dashboard shows Online while the report is under 35 min old</text></g><g class="sd-node" data-id="h-off" data-rel="*" tabindex="0" role="button" aria-label="Stale when not reporting" data-detail="Past 35 minutes with no new report, the dashboard shows Stale, not reporting, with the time it was last seen, instead of repeating an old claim."><rect class="sq-bad" x="840" y="120" width="70" height="30" rx="8"/><text x="875" y="140" class="sq-label">Stale</text></g><path class="sq-axis sq-axis--dash" d="M840 150 L840 184"/><text x="840" y="244" class="dg-sub" text-anchor="middle">last report + 35 min</text><g class="sd-node sd-notenode" data-id="h-app" data-rel="*" tabindex="0" role="button" aria-label="The app" data-detail="The app asks the Pi directly, so its Status tab is live. If it can't reach the Pi, it shows the last public report and labels it cached."><rect x="60" y="260" width="850" height="30" rx="8"/><text x="485" y="280" class="sq-note-text">The app asks the Pi directly, so it is live. If it can’t, it shows the last public report and says “cached”.</text></g></svg></div><figcaption class="sd-detail">Freshness is judged by the dashboard from the timestamp, not trusted from the report. Hover or focus a marker.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>The app reads live.</strong> Its Status tab asks the Pi directly and says &ldquo;cached&rdquo; when it can only show the last public report.</li>
+									<li><strong>A flower tracker rides along.</strong> A timer grabs a webcam frame every five minutes and hides itself when the camera is unplugged.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Components -->
+						<div class="sd-panel" role="tabpanel" id="sd-parts" aria-labelledby="sd-tab-parts" hidden>
+							<h3 class="sd-panel__title">Components</h3>
+							<p class="sd-summary">Six small parts, each doing one job.</p>
+							<div class="sd-cards">
+								<article class="sd-card"><h4>iPhone app</h4><p>Status, lights, the Frames editor and an About screen with the signing countdown.</p><ul class="cluster" role="list"><li class="tag">SwiftUI</li><li class="tag">iOS 26</li><li class="tag">SwiftPM</li></ul></article>
+								<article class="sd-card"><h4>App API</h4><p>Status, the Frames inbox, previews, uploads, clip previews and fan control.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">Flask</li><li class="tag">systemd</li></ul></article>
+								<article class="sd-card"><h4>Lights API</h4><p>Two floor lamps through Govee&rsquo;s cloud: state, colour and a sleep timer.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">Flask</li></ul></article>
+								<article class="sd-card"><h4>Fan helper</h4><p>The only code that touches the fan, with its own limits and a revert timer.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">sudo rule</li><li class="tag">systemd timer</li></ul></article>
+								<article class="sd-card"><h4>Frames pipeline</h4><p>Originals to web sizes, metadata stripped, story pages built, media uploaded.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">ffmpeg</li><li class="tag">rclone</li></ul></article>
+								<article class="sd-card"><h4>Mac agents</h4><p>Reinstall the app when the phone is plugged in, and serve the Reinstall button.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">launchd</li></ul></article>
+							</div>
+						</div>
+
+						<!-- Why this way -->
+						<div class="sd-panel" role="tabpanel" id="sd-why" aria-labelledby="sd-tab-why" hidden>
+							<h3 class="sd-panel__title">Why this way</h3>
+							<p class="sd-summary">The choices that shaped it, and the trust model underneath.</p>
+							<div class="sd-trust">
+								<p class="eyebrow">Trust model</p>
+								<p>None of Polaris&rsquo;s controls are reachable from the public internet. Every request needs a token that is checked on the receiving machine, the app keeps its token in the iOS Keychain, and no secret ever lives in a repository.</p>
+							</div>
+							<div class="sd-cards">
+								<article class="sd-card"><h4>Blocks, not one text box</h4><p>A story is already blocks of text and media, so the editor works in blocks. Converting to blocks and back is lossless, and it was checked against the real renderer.</p></article>
+								<article class="sd-card"><h4>The Pi builds the preview</h4><p>The only way to be sure a preview matches the live page is to run the same template and styles that publish it.</p></article>
+								<article class="sd-card"><h4>Hardware gets a way back</h4><p>Anything that moves or heats something has a limit and a timer that undoes it on its own.</p></article>
+								<article class="sd-card"><h4>The Pi cleans up after itself</h4><p>Previews and uploads share a 2&nbsp;GB cache that evicts the oldest first, so the server never fills up.</p></article>
+								<article class="sd-card"><h4>A free Apple ID, kept alive</h4><p>Rather than paying for a developer account, a small agent absorbs the seven-day limit.</p></article>
+								<article class="sd-card"><h4>Status is judged, not trusted</h4><p>Every report carries a timestamp, so a silent failure shows up as offline within minutes.</p></article>
+							</div>
+						</div>
+					</div>
 				</section>
 			</article>
 		</div>

@@ -537,3 +537,349 @@
 	justify-self: center;
 	margin-top: var(--sp-2);
 }
+
+/* The phone app section */
+.app-shots {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--sp-4);
+	margin: var(--sp-6) 0 var(--sp-2);
+}
+.app-shots figure { margin: 0; }
+.app-shots img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: calc(var(--radius) * 1.5);
+	border: 1px solid var(--border);
+}
+.app-shots figcaption {
+	margin-top: var(--sp-2);
+	text-align: center;
+	font-size: var(--fs-sm);
+	color: var(--muted);
+}
+.app-note { font-size: var(--fs-sm); color: var(--muted); margin-bottom: var(--sp-5); }
+@media (max-width: 560px) {
+	.app-shots { gap: var(--sp-2); }
+	.app-shots figcaption { font-size: var(--fs-xs); }
+}
+
+/* System design: tabs, diagram highlighting, flow steps, cards */
+.sd__lede { max-width: 62ch; }
+
+.sd-tabs { display: none; }
+.js .sd-tabs {
+	display: flex;
+	gap: var(--sp-1);
+	margin: var(--sp-4) 0 0;
+	padding: 4px;
+	overflow-x: auto;
+	scrollbar-width: none;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface-2);
+	-webkit-overflow-scrolling: touch;
+}
+.sd-tabs::-webkit-scrollbar { display: none; }
+.sd-tab {
+	flex: 0 0 auto;
+	padding: 9px 15px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--muted);
+	font-family: var(--font-sans);
+	font-size: var(--fs-sm);
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.sd-tab:hover { color: var(--text); }
+.sd-tab[aria-selected="true"] {
+	background: var(--surface);
+	color: var(--text);
+	box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px color-mix(in srgb, var(--text) 10%, transparent);
+}
+.sd-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sd-panel { margin-top: var(--sp-5); }
+.sd-panel:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: var(--radius); }
+.js .sd-panel[hidden] { display: none; }
+.sd-panel__title { margin-top: 0; }
+.js .sd-panel__title {
+	position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+	overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.sd-summary { max-width: 64ch; margin: 0 0 var(--sp-4); color: var(--muted); }
+
+/* Architecture diagram */
+.sd-diagram { padding: var(--sp-4); }
+.sd-svgwrap svg { width: 100%; height: auto; display: block; }
+.sd-zone {
+	fill: color-mix(in srgb, var(--accent) 4%, transparent);
+	stroke: var(--accent);
+	stroke-width: 1.25;
+	stroke-dasharray: 3 7;
+	opacity: .75;
+}
+.diagram .sd-zone-label {
+	text-anchor: start;
+	fill: var(--accent);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: .12em;
+}
+.sd-node { cursor: pointer; outline: none; transition: opacity var(--dur) var(--ease); }
+.sd-node rect {
+	fill: var(--surface-2);
+	stroke: var(--border-strong);
+	stroke-width: 1.5;
+	transition: stroke var(--dur-fast) var(--ease), fill var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
+}
+.sd-node--core rect { fill: color-mix(in srgb, var(--accent) 9%, var(--surface)); stroke: var(--accent); }
+.sd-chip rect { fill: var(--surface); stroke: var(--border-strong); }
+.diagram .sd-chip__t { font-size: 14px; font-weight: 650; }
+.diagram .sd-chip__s { font-size: 10px; }
+.sd-node:hover rect, .sd-node:focus-visible rect, .sd-node.is-on rect {
+	stroke: var(--accent);
+	fill: var(--accent-glow);
+}
+.sd-node:focus-visible rect { stroke-width: 2.5; }
+.sd-line { transition: opacity var(--dur) var(--ease), stroke-width var(--dur-fast) var(--ease); }
+.sd-line.is-on { stroke-width: 2.5; }
+.sd-diagram.is-focus .is-dim { opacity: .28; }
+.sd-detail {
+	min-height: 3.2em;
+	margin-top: var(--sp-3);
+	padding-top: var(--sp-3);
+	border-top: 1px solid var(--border);
+	font-size: var(--fs-md);
+	color: var(--text);
+}
+
+/* Phone layout of the architecture */
+.sd-stack { display: none; }
+.sd-group {
+	padding: var(--sp-3);
+	border: 1px dashed color-mix(in srgb, var(--accent) 55%, var(--border));
+	border-radius: var(--radius);
+	background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+.sd-group > .eyebrow { margin: 0 0 var(--sp-2); }
+.sd-mini {
+	display: grid;
+	gap: 4px;
+	padding: var(--sp-3);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--surface);
+}
+.sd-mini + .sd-mini { margin-top: var(--sp-2); }
+.sd-mini strong { font-size: var(--fs-md); }
+.sd-mini span { color: var(--muted); font-size: var(--fs-sm); }
+.sd-mini--core { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--surface)); }
+.sd-arrow { margin: var(--sp-2) 0; text-align: center; color: var(--muted); font-family: var(--font-mono); font-size: var(--fs-xs); }
+
+@media (max-width: 639.98px) {
+	.sd-diagram .sd-svgwrap, .sd-diagram .sd-detail { display: none; }
+	.sd-stack { display: block; }
+	.sd-diagram { padding: var(--sp-3); }
+}
+
+/* Flow steps */
+.sd-steps {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--sp-3);
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+.sd-step {
+	position: relative;
+	display: grid;
+	align-content: start;
+	gap: var(--sp-1);
+	padding: var(--sp-3);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface);
+	transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.sd-step:hover { border-color: var(--accent); transform: translateY(-2px); }
+.sd-step strong { font-size: var(--fs-md); }
+.sd-step > span:last-child { color: var(--muted); font-size: var(--fs-sm); line-height: var(--lh-snug); }
+.sd-step__n {
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	margin-bottom: var(--sp-1);
+	border-radius: 50%;
+	background: var(--accent);
+	color: var(--accent-contrast);
+	font-family: var(--font-mono);
+	font-size: var(--fs-xs);
+	font-weight: 700;
+}
+.sd-rules { margin-top: var(--sp-4); }
+.sd-rules .tag { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); color: var(--text); }
+
+/* Expander */
+.sd-more { margin-top: var(--sp-4); }
+.sd-more summary {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--sp-2);
+	padding: 8px 14px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface-2);
+	font-size: var(--fs-sm);
+	font-weight: 600;
+	cursor: pointer;
+	list-style: none;
+}
+.sd-more summary::-webkit-details-marker { display: none; }
+.sd-more summary::after { content: "+"; font-family: var(--font-mono); color: var(--accent); }
+.sd-more[open] summary::after { content: "\2212"; }
+.sd-more summary:hover { border-color: var(--accent); }
+.sd-more summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sd-more ul { margin: var(--sp-3) 0 0; }
+
+/* Cards */
+.sd-cards {
+	display: grid;
+	gap: var(--sp-3);
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	margin-top: var(--sp-4);
+}
+.sd-card {
+	display: grid;
+	align-content: start;
+	gap: var(--sp-2);
+	padding: var(--sp-4);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface);
+	transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.sd-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.sd-card h4 { margin: 0; font-size: var(--fs-md); }
+.sd-card p { margin: 0; color: var(--muted); font-size: var(--fs-sm); line-height: var(--lh-snug); }
+.sd-trust {
+	padding: var(--sp-4);
+	border: 1px solid var(--accent);
+	border-radius: var(--radius);
+	background: var(--accent-glow);
+}
+.sd-trust .eyebrow { margin: 0 0 var(--sp-1); }
+.sd-trust p:last-child { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+	.sd-step, .sd-card, .sd-node, .sd-line { transition: none; }
+	.sd-step:hover, .sd-card:hover { transform: none; }
+}
+
+/* System design: flow diagrams (sequence, state, nested layers, timeline) */
+.sd-flow { margin: var(--sp-4) 0 0; padding: var(--sp-3); }
+.sd-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sd-flow svg { width: 100%; height: auto; display: block; min-width: 760px; }
+.sd-flow figcaption { margin-top: var(--sp-2); }
+
+.sq-head { fill: var(--accent); }
+.sq-lane rect, .sq-node rect, .sq-node path {
+	fill: var(--surface-2);
+	stroke: var(--border-strong);
+	stroke-width: 1.5;
+}
+.diagram .sq-title { font-size: 15px; }
+.sq-life { stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 3 6; fill: none; }
+.sq-msg { fill: none; stroke: var(--accent); stroke-width: 1.8; }
+.sq-msg--ret { stroke-dasharray: 5 5; opacity: .9; }
+.diagram .sq-label {
+	font-size: 12.5px;
+	fill: var(--text);
+	paint-order: stroke;
+	stroke: var(--surface);
+	stroke-width: 5px;
+	stroke-linejoin: round;
+}
+.sq-phase { fill: color-mix(in srgb, var(--accent) 5%, transparent); stroke: none; }
+.diagram .sq-phase-label {
+	text-anchor: start;
+	fill: var(--accent);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: .12em;
+}
+.sq-note rect { fill: var(--accent-glow); stroke: var(--accent); stroke-width: 1.25; }
+.diagram .sq-note text { font-size: 12.5px; font-weight: 600; }
+.sq-node--good rect { fill: color-mix(in srgb, var(--ok) 14%, var(--surface)); stroke: var(--ok); }
+.sq-node--warn rect { fill: color-mix(in srgb, var(--warn) 10%, var(--surface)); stroke: var(--warn); }
+.diagram .sq-li { text-anchor: start; font-size: 12.5px; }
+.diagram .sq-dtext { font-size: 12.5px; font-weight: 600; }
+.sq-ring { fill: color-mix(in srgb, var(--accent) 3%, var(--surface)); stroke: var(--border-strong); stroke-width: 1.5; }
+.diagram .sq-ring-label { text-anchor: start; font-size: 13px; font-weight: 600; }
+.sq-axis { stroke: var(--border-strong); stroke-width: 2; fill: none; }
+.sq-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 3; }
+.sq-dot--miss { fill: var(--surface); stroke: var(--muted); stroke-dasharray: 3 3; stroke-width: 2; }
+.sq-good { fill: color-mix(in srgb, var(--ok) 16%, transparent); stroke: var(--ok); stroke-width: 1.25; }
+.sq-bad { fill: color-mix(in srgb, var(--warn) 16%, transparent); stroke: var(--warn); stroke-width: 1.25; }
+.sd-figgroup { display: grid; gap: var(--sp-3); }
+
+/* System design: interactive diagrams, second pass. All diagrams share the architecture diagram's language. */
+.sd-flow { margin: var(--sp-4) 0 0; padding: var(--sp-3); }
+.sd-flow .sd-node rect,
+.sd-flow .sd-node > path { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.5; }
+.sd-flow .sd-node--good rect { fill: color-mix(in srgb, var(--ok) 14%, var(--surface)); stroke: var(--ok); }
+.sd-flow .sd-node--warn rect { fill: color-mix(in srgb, var(--warn) 10%, var(--surface)); stroke: var(--warn); }
+.sd-flow .sd-node:hover rect, .sd-flow .sd-node:focus-visible rect, .sd-flow .sd-node.is-on rect, .sd-flow .sd-node.is-active rect,
+.sd-flow .sd-node:hover > path, .sd-flow .sd-node:focus-visible > path, .sd-flow .sd-node.is-on > path, .sd-flow .sd-node.is-active > path {
+	stroke: var(--accent);
+	fill: var(--accent-glow);
+}
+.sd-flow .sd-node--good:hover rect, .sd-flow .sd-node--good.is-active rect,
+.sd-flow .sd-node--warn:hover rect, .sd-flow .sd-node--warn.is-active rect { stroke: var(--accent); }
+.sd-flow .sd-ringnode rect { fill: color-mix(in srgb, var(--accent) 3%, var(--surface)); stroke: var(--border-strong); }
+.sd-flow .sd-ringnode:hover rect, .sd-flow .sd-ringnode:focus-visible rect, .sd-flow .sd-ringnode.is-active rect {
+	stroke: var(--accent); stroke-width: 2.5; fill: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.sd-flow .sd-dotnode circle.sq-dot { transition: r var(--dur-fast) var(--ease), stroke var(--dur-fast) var(--ease); }
+.sd-flow .sd-dotnode:hover circle.sq-dot, .sd-flow .sd-dotnode:focus-visible circle.sq-dot, .sd-flow .sd-dotnode.is-active circle.sq-dot {
+	r: 11; stroke: var(--accent);
+}
+.sd-flow .sd-hit { fill: transparent; stroke: none; pointer-events: all; }
+.sd-flow .sd-notenode rect { fill: var(--accent-glow); stroke: var(--accent); stroke-width: 1.25; }
+.sd-flow .sd-notenode.is-active rect { stroke-width: 2.25; }
+.diagram .sq-note-text { font-size: 12.5px; font-weight: 600; }
+.diagram .sq-dtext { font-size: 12.5px; font-weight: 600; }
+.diagram .sq-li { text-anchor: start; font-size: 12.5px; }
+.sd-flow .sd-node { cursor: pointer; }
+.sd-line--ret { opacity: .75; }
+.sd-flow.is-focus .sd-node.is-dim,
+.sd-flow.is-focus .sd-line.is-dim { opacity: .28; }
+.sd-flow .sd-node:focus-visible { outline: none; }
+.sd-flow .sd-node:focus-visible rect, .sd-flow .sd-node:focus-visible > path { stroke-width: 2.5; }
+.sd-flow svg text { pointer-events: none; }
+.sq-axis--dash { stroke-dasharray: 4 5; stroke: var(--accent); stroke-width: 1.5; }
+@media (prefers-reduced-motion: reduce) { .sd-flow .sd-dotnode circle.sq-dot { transition: none; } }
+
+/* review fixes */
+html:not(.js) .sd-panel[hidden] { display: block; }
+.sd-flow .sd-node rect.sq-good { fill: color-mix(in srgb, var(--ok) 16%, transparent); stroke: var(--ok); }
+.sd-flow .sd-node rect.sq-bad { fill: color-mix(in srgb, var(--warn) 16%, transparent); stroke: var(--warn); }
+.diagram text[text-anchor="start"] { text-anchor: start; }
+.diagram .sd-node .dg-sub { stroke: none; }
+@media (max-width: 639.98px) {
+	.sd-tabs { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+	.sd-flow svg { min-width: 640px; }
+}
+@media (prefers-reduced-motion: reduce) { .sd-tab { transition: none; } }
+.diagram .sd-node text { stroke: none; }
+
+.sd-fit svg { min-width: 0 !important; }
+.sd-fit .dg-line path { fill: none; }
