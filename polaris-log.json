@@ -768,5 +768,15 @@
       "frames.json",
       "frames.html"
     ]
+  },
+  {
+    "date": "2026-10-14",
+    "time": "23:01",
+    "summary": "Published Frames from iPhone: changed photo cremewaffle",
+    "details": "Published from the DevRobotics iPhone app: changed photo cremewaffle.",
+    "files": [
+      "frames.json",
+      "frames.html"
+    ]
   }
 ]

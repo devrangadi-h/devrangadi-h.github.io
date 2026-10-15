@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"mediaBase": "https://frames.devrobotics.dev",
-	"generated": "2026-10-14T19:30:22-07:00",
+	"generated": "2026-10-14T23:01:24-07:00",
 	"counts": {
 		"photos": 8,
 		"stories": 1,
@@ -18,13 +18,13 @@
 			"date": "2026-09-30T19:03:31-07:00",
 			"year": 2026,
 			"place": "Carmel-by-the-Sea, California",
-			"note": "The best Creme Brulee Waffle I've ever had",
+			"note": "The best Creme Brulee Waffle I've ever had!",
 			"alt": "A waffle with cream on a café table",
 			"width": 3024,
 			"height": 4032,
 			"src": {
-				"sq480": "cremewaffle/sq480-e3b4363aa6.webp",
-				"sq960": "cremewaffle/sq960-510fadb33b.webp",
+				"sq480": "cremewaffle/sq480-a6cc30f824.webp",
+				"sq960": "cremewaffle/sq960-e1c6f50c36.webp",
 				"w1280": "cremewaffle/w1280-961488b8b1.webp",
 				"w2560": "cremewaffle/w2560-c5e8fbe112.webp",
 				"full": "cremewaffle/full-b5ba826d14.jpg"
