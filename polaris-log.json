@@ -758,5 +758,15 @@
       "assets/css/components.css",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-14",
+    "time": "19:30",
+    "summary": "Published Frames from iPhone: changed story pumpkintime",
+    "details": "Published from the DevRobotics iPhone app: changed story pumpkintime.",
+    "files": [
+      "frames.json",
+      "frames.html"
+    ]
   }
 ]
