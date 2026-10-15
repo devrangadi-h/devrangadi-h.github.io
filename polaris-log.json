@@ -788,5 +788,15 @@
       "frames.json",
       "frames.html"
     ]
+  },
+  {
+    "date": "2026-10-15",
+    "time": "01:35",
+    "summary": "Published Frames from iPhone: new photo niagara-falls",
+    "details": "Published from the DevRobotics iPhone app: new photo niagara-falls.",
+    "files": [
+      "frames.json",
+      "frames.html"
+    ]
   }
 ]
