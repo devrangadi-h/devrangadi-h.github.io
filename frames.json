@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"mediaBase": "https://frames.devrobotics.dev",
-	"generated": "2026-10-14T23:01:24-07:00",
+	"generated": "2026-10-15T00:50:34-07:00",
 	"counts": {
 		"photos": 8,
 		"stories": 1,
@@ -252,8 +252,8 @@
 			"width": 4032,
 			"height": 3024,
 			"src": {
-				"sq480": "strangerskies/sq480-5113c617e3.webp",
-				"sq960": "strangerskies/sq960-69e18ed4a6.webp",
+				"sq480": "strangerskies/sq480-0a8672865d.webp",
+				"sq960": "strangerskies/sq960-8a0693dc9a.webp",
 				"w1280": "strangerskies/w1280-45ff66645d.webp",
 				"w2560": "strangerskies/w2560-d15c0d2276.webp",
 				"full": "strangerskies/full-cf975415d4.jpg"
