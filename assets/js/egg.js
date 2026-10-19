@@ -1,7 +1,7 @@
 // Egg, loaded on demand by site.js. Edge glow -> scan sweep warming blue to rose ->
 // point cloud lifts over the dimmed page and forms a heart -> two beats and a note -> dissolve.
 // Any click, wheel, touch scroll or Escape cancels. Resolves once everything is gone.
-import { birthday, noteText, mountScene } from './egg-birthday.js';
+import { birthday, noteText, mountScene } from './egg-birthday.js?v=1';
 const here = import.meta.url;
 const NOTE = '4pymIEV2ZXJ5IHJvYm90IG5lZWRzIGEgTm9ydGggU3Rhci4gTWluZSBpcyBTaGl2YW5pLg==';
 const decode = (b) => new TextDecoder().decode(Uint8Array.from(atob(b), (c) => c.charCodeAt(0)));
