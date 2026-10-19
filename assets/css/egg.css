@@ -274,3 +274,52 @@ html.egg-active .pc-stage,
 		transform: translate(-50%, 0);
 	}
 }
+
+/* Birthday scene (egg-birthday.js): cake, waving robot, confetti. Sits between the dim layer and the note. */
+.egg-bd {
+	position: fixed;
+	z-index: 203;
+	left: 50%;
+	top: 46%;
+	width: min(88vw, 520px);
+	transform: translate(-50%, -50%) scale(0.92);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 900ms var(--ease), transform 1100ms var(--ease);
+}
+
+.egg-bd.is-on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.egg-bd svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.bd-stroke { stroke: var(--egg-rose); stroke-width: 2.5; stroke-linecap: round; fill: none; }
+.bd-dot { fill: var(--egg-rose); }
+.bd-body { fill: color-mix(in srgb, var(--surface) 92%, transparent); stroke: var(--egg-line); stroke-width: 2; }
+.bd-panel { fill: color-mix(in srgb, var(--egg-line) 18%, transparent); stroke: var(--egg-line); stroke-width: 1.5; }
+.bd-eye { fill: var(--egg-line); }
+.bd-smile { fill: none; stroke: var(--egg-line); stroke-width: 2.5; stroke-linecap: round; }
+.bd-hat { fill: color-mix(in srgb, var(--egg-rose) 30%, transparent); stroke: var(--egg-rose); stroke-width: 2; stroke-linejoin: round; }
+.bd-tier { fill: color-mix(in srgb, var(--egg-rose) 16%, var(--surface)); stroke: var(--egg-rose); stroke-width: 2; }
+.bd-icing { fill: none; stroke: var(--egg-rose); stroke-width: 2.5; stroke-linecap: round; }
+.bd-age { fill: var(--egg-rose); font: 700 34px / 1 var(--font-sans); text-anchor: middle; }
+.bd-wax { fill: color-mix(in srgb, var(--points) 35%, var(--surface)); stroke: var(--egg-line); stroke-width: 1.5; }
+.bd-flame { fill: #f59e0b; stroke: #d97706; stroke-width: 1; transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; }
+
+.egg-bd.is-on .bd-flame { animation: bd-light 500ms ease-out forwards, bd-flicker 900ms ease-in-out 1s infinite; animation-delay: calc(1.2s + var(--i) * 0.55s), calc(2.3s + var(--i) * 0.55s); }
+.egg-bd.is-on .bd-wave { animation: bd-wave 800ms ease-in-out 1.5s 4 alternate; transform-box: fill-box; transform-origin: 0 50%; }
+
+.bd-confetti { position: fixed; inset: 0; overflow: hidden; z-index: -1; }
+.bd-confetti i { position: absolute; top: -4vh; left: var(--x); width: 8px; height: 14px; background: var(--c); border-radius: 2px; opacity: 0; }
+.egg-bd.is-on .bd-confetti i { animation: bd-fall var(--d) linear var(--w) 1 forwards; }
+
+@keyframes bd-light { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+@keyframes bd-flicker { 0%, 100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.12, 0.94) rotate(2deg); } }
+@keyframes bd-wave { from { transform: rotate(-8deg); } to { transform: rotate(-38deg); } }
+@keyframes bd-fall { 0% { opacity: 1; transform: translateY(0) rotate(0); } 100% { opacity: 1; transform: translateY(112vh) rotate(var(--r)); } }
+
+.egg-cancel .egg-bd { opacity: 0 !important; transition: opacity 300ms ease-out !important; }
+
+@media (prefers-reduced-motion: reduce) {
+	.egg-bd, .egg-bd.is-on { transform: translate(-50%, -50%); }
+	.egg-bd .bd-flame { opacity: 1; animation: none !important; }
+}
+.egg-bd.is-still .bd-flame { opacity: 1; animation: none !important; }

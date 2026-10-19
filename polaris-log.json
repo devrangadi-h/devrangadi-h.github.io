@@ -829,5 +829,16 @@
       "images/app-lights-800.webp",
       "images/app-frames-800.webp"
     ]
+  },
+  {
+    "date": "2026-10-18",
+    "time": "20:19",
+    "summary": "Add a birthday version of the easter egg",
+    "details": "On 20 October, in the visitor's own time zone, the easter egg adds a birthday cake and a waving robot after the heart. Every other day it plays as before.",
+    "files": [
+      "assets/js/egg.js",
+      "assets/js/egg-birthday.js",
+      "assets/css/egg.css"
+    ]
   }
 ]

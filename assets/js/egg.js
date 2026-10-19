@@ -1,6 +1,7 @@
 // Egg, loaded on demand by site.js. Edge glow -> scan sweep warming blue to rose ->
 // point cloud lifts over the dimmed page and forms a heart -> two beats and a note -> dissolve.
 // Any click, wheel, touch scroll or Escape cancels. Resolves once everything is gone.
+import { birthday, noteText, mountScene } from './egg-birthday.js';
 const here = import.meta.url;
 const NOTE = '4pymIEV2ZXJ5IHJvYm90IG5lZWRzIGEgTm9ydGggU3Rhci4gTWluZSBpcyBTaGl2YW5pLg==';
 const decode = (b) => new TextDecoder().decode(Uint8Array.from(atob(b), (c) => c.charCodeAt(0)));
@@ -40,6 +41,7 @@ export default async function run() {
 	await loadCss();
 	const root = document.documentElement, site = window.site || {};
 	const reduced = site.reducedMotion ? site.reducedMotion() : matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const bd = birthday();
 	const made = [];
 	const el = (cls, html) => {
 		const e = document.createElement('div');
@@ -109,13 +111,19 @@ export default async function run() {
 		heart.classList.add('is-on');
 	}
 	function fillNote() {
-		const text = decode(NOTE), mark = text.slice(0, 1), rest = text.slice(1).trim();
-		const cut = rest.lastIndexOf(' ') + 1, name = rest.slice(cut).replace(/\.$/, '');
+		const text = bd ? noteText(bd.age) : decode(NOTE), mark = text.slice(0, 1), rest = text.slice(1).trim();
 		const m = document.createElement('span'), b = document.createElement('b');
 		m.className = 'egg-note__mark';
 		m.textContent = mark;
-		b.textContent = name;
-		note.append(m, rest.slice(0, cut), b, '.');
+		if (bd) {
+			const i = rest.indexOf('Shivani');
+			b.textContent = 'Shivani';
+			note.append(m, rest.slice(0, i), b, rest.slice(i + 7));
+		} else {
+			const cut = rest.lastIndexOf(' ') + 1, name = rest.slice(cut).replace(/\.$/, '');
+			b.textContent = name;
+			note.append(m, rest.slice(0, cut), b, '.');
+		}
 		note.classList.add('is-in');
 	}
 
@@ -139,12 +147,14 @@ export default async function run() {
 		at(5000, () => {
 			released = true;
 			if (pc) pc.egg.release(1600); else heart.classList.add('is-out');
-			dim.classList.remove('is-on');
+			if (!bd) dim.classList.remove('is-on');
 			fx.classList.add('is-out');
 		});
 		at(6800, () => root.classList.remove('egg-active'));
-		at(10000, () => note.classList.remove('is-in'));
-		at(10600, () => { over = true; cleanup(); });
+		if (bd) at(12400, () => dim.classList.remove('is-on'));
+		if (bd) at(5400, () => { const sc = el('egg-bd'); mountScene(sc, bd.age, reduced); void sc.offsetWidth; sc.classList.add('is-on'); });
+		at(bd ? 13000 : 10000, () => note.classList.remove('is-in'));
+		at(bd ? 13600 : 10600, () => { over = true; cleanup(); });
 	});
 	return finished;
 }
