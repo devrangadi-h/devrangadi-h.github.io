@@ -843,7 +843,7 @@
   },
   {
     "date": "2026-10-25",
-    "time": "TBD",
+    "time": "12:38",
     "summary": "Add the tVOS project page",
     "details": "New project page for the custom TV home screen: overview, how it was built, the Lights app, the screensaver, an interactive system-design section with eight views, and credits. Also adds a homepage tile, five projects in the counter and breadcrumbs, the previous and next links, the sitemap and the README.",
     "files": [
