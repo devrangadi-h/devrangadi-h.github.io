@@ -491,7 +491,3 @@ html:not(.js) .pc-fallback {
 
 /* Wide project tile (tVOS): 16:9 thumbnail */
 .project--wide .project__thumb { aspect-ratio: 16 / 9; }
-@media (min-width: 768px) {
-	.project--wide { display: grid; grid-template-columns: 1.3fr 1fr; column-gap: var(--sp-5); align-items: center; }
-	.project--wide .project__thumb { grid-row: 1 / span 3; }
-}
