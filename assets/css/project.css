@@ -899,3 +899,5 @@ html:not(.js) .sd-panel[hidden] { display: block; }
 .sd-stack-all .sd-mini + .sd-mini { margin-top: 0; }
 @media (max-width: 640px) { .sd-fit svg { min-width: 720px !important; } }
 .proj-credits { margin-top: var(--sp-4); font-size: 0.875rem; }
+/* tVOS page: eight tabs wrap instead of scrolling sideways */
+.js .sd--wrap .sd-tabs { flex-wrap: wrap; overflow: visible; border-radius: 22px; }
