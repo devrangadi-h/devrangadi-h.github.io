@@ -891,7 +891,7 @@
     "date": "2026-10-25",
     "time": "12:43",
     "summary": "Move optical flow and object detection to mini projects",
-    "details": "The two projects leave the featured grid and join the mini projects list; their pages stay. Featured projects now read 4 and mini projects 8, and the breadcrumbs and previous and next links follow the new grouping.",
+    "details": "The two projects leave the featured grid and join the mini projects list; their pages stay. Featured projects now read 4 and mini projects 8, and the breadcrumbs and previous and next links follow the new grouping. The featured order is Polaris, the iPhone app, tVOS, then Eclipse.",
     "files": [
       "index.html",
       "eclipse.html",
