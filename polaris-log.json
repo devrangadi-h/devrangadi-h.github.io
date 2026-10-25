@@ -872,5 +872,35 @@
       "tvos.html",
       "polaris-log.json"
     ]
+  },
+  {
+    "date": "2026-10-25",
+    "time": "12:40",
+    "summary": "Show the Polaris iPhone app as a project tile",
+    "details": "The iPhone app now has its own tile in the projects grid instead of a text link, next to the tVOS tile, and the featured projects counter reads 6.",
+    "files": [
+      "index.html",
+      "assets/css/home.css",
+      "images/iphone-app-400.webp",
+      "images/iphone-app-800.webp",
+      "images/iphone-app-1600.webp",
+      "polaris-log.json"
+    ]
+  },
+  {
+    "date": "2026-10-25",
+    "time": "12:43",
+    "summary": "Move optical flow and object detection to mini projects",
+    "details": "The two projects leave the featured grid and join the mini projects list; their pages stay. Featured projects now read 4 and mini projects 8, and the breadcrumbs and previous and next links follow the new grouping. The featured order is Polaris, the iPhone app, tVOS, then Eclipse. Each mini project now has a small thumbnail.",
+    "files": [
+      "assets/css/home.css",
+      "eclipse.html",
+      "index.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-log.json",
+      "polaris-project.html",
+      "tvos.html"
+    ]
   }
 ]
