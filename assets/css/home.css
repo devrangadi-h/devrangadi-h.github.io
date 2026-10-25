@@ -402,9 +402,11 @@ html:not(.js) .pc-fallback {
 }
 
 .glance__list li {
-	display: flex;
-	flex-direction: column;
-	gap: 2px;
+	display: grid;
+	grid-template-columns: 48px minmax(0, 1fr);
+	column-gap: var(--sp-3);
+	align-items: start;
+	gap: 2px var(--sp-3);
 	min-width: 0;
 }
 
@@ -491,3 +493,20 @@ html:not(.js) .pc-fallback {
 
 /* Wide project tile (tVOS): 16:9 thumbnail */
 .project--wide .project__thumb { aspect-ratio: 16 / 9; }
+
+/* Mini project thumbnails */
+.glance__thumb {
+	grid-row: 1 / span 2;
+	width: 48px;
+	height: 48px;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	background: var(--surface-2);
+	object-fit: cover;
+	display: grid;
+	place-items: center;
+	color: var(--accent);
+}
+span.glance__thumb svg { display: block; }
+.glance__list li > a, .glance__list li > .muted { grid-column: 2; }
+.glance__list a[href$=".html"]::after { content: " →"; }
