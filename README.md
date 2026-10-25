@@ -30,7 +30,7 @@ This repository backs **https://www.devrobotics.dev** and its subdomain **https:
 ## Structure Overview
 
 - `index.html` — portfolio homepage: point-cloud hero plus a bento grid (about, Polaris live, research, projects, at a glance, skills, contact)
-- `eclipse.html`, `objectdetection.html`, `opticalflow.html`, `polaris-project.html` — project pages on one shared template
+- `eclipse.html`, `objectdetection.html`, `opticalflow.html`, `polaris-project.html`, `tvos.html` — project pages on one shared template
 - `404.html` — not-found page (absolute asset paths so it works at any depth)
 - `polaris.html` — **public Polaris dashboard**
   - Shows the activity log of changes made by Polaris via `polaris-log.json`

@@ -840,5 +840,37 @@
       "assets/js/egg-birthday.js",
       "assets/css/egg.css"
     ]
+  },
+  {
+    "date": "2026-10-25",
+    "time": "TBD",
+    "summary": "Add the tVOS project page",
+    "details": "New project page for the custom TV home screen: overview, how it was built, the Lights app, the screensaver, an interactive system-design section with eight views, and credits. Also adds a homepage tile, five projects in the counter and breadcrumbs, the previous and next links, the sitemap and the README.",
+    "files": [
+      "README.md",
+      "assets/css/home.css",
+      "assets/css/project.css",
+      "eclipse.html",
+      "images/tvos-home-1600.jpg",
+      "images/tvos-home-1600.webp",
+      "images/tvos-home-400.webp",
+      "images/tvos-home-800.webp",
+      "images/tvos-lights-1600.webp",
+      "images/tvos-lights-400.webp",
+      "images/tvos-lights-800.webp",
+      "images/tvos-saver-1600.webp",
+      "images/tvos-saver-400.webp",
+      "images/tvos-saver-800.webp",
+      "images/tvos-states-1600.webp",
+      "images/tvos-states-400.webp",
+      "images/tvos-states-800.webp",
+      "index.html",
+      "objectdetection.html",
+      "opticalflow.html",
+      "polaris-project.html",
+      "sitemap.xml",
+      "tvos.html",
+      "polaris-log.json"
+    ]
   }
 ]
