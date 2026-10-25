@@ -883,3 +883,20 @@ html:not(.js) .sd-panel[hidden] { display: block; }
 
 .sd-fit svg { min-width: 0 !important; }
 .sd-fit .dg-line path { fill: none; }
+
+/* tVOS page: 16:9 TV screenshots */
+.proj-hero__media--wide img { aspect-ratio: 16 / 9; }
+.proj-figure { margin: var(--sp-4) 0 0; }
+.proj-figure img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: calc(var(--radius) - var(--sp-2));
+	border: 1px solid var(--border);
+}
+.proj-figure figcaption { margin-top: var(--sp-2); font-size: 0.875rem; }
+.sd-stack-all { display: grid; gap: var(--sp-2); grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.sd-stack-all .sd-mini + .sd-mini { margin-top: 0; }
+.proj-credits { margin-top: var(--sp-4); font-size: 0.875rem; }
+/* tVOS page: eight tabs wrap instead of scrolling sideways */
+.js .sd--wrap .sd-tabs { flex-wrap: wrap; overflow: visible; border-radius: 22px; }
