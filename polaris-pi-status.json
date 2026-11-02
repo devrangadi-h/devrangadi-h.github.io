@@ -1,20 +1,15 @@
 {
   "piOnline": true,
   "hostname": "polaris",
-  "lastUpdated": "2026-11-02T11:45:01-08:00",
-  "cpuTempC": 44.1,
+  "lastUpdated": "2026-11-02T12:00:01-08:00",
+  "cpuTempC": 43.0,
   "load1": 0.0,
   "load5": 0.04,
-  "load15": 0.01,
+  "load15": 0.0,
   "cpuPercent": 0.1,
   "diskRoot": "17G/115G (16%)",
   "memory": "1.1Gi/15Gi",
   "history": [
-    {
-      "t": "2026-11-01T12:00:01-08:00",
-      "cpuTempC": 43.0,
-      "load1": 0.01
-    },
     {
       "t": "2026-11-01T12:15:01-08:00",
       "cpuTempC": 42.5,
@@ -488,6 +483,11 @@
     {
       "t": "2026-11-02T11:45:01-08:00",
       "cpuTempC": 44.1,
+      "load1": 0.0
+    },
+    {
+      "t": "2026-11-02T12:00:01-08:00",
+      "cpuTempC": 43.0,
       "load1": 0.0
     }
   ]
