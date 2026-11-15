@@ -902,5 +902,19 @@
       "polaris-project.html",
       "tvos.html"
     ]
+  },
+  {
+    "date": "2026-11-14",
+    "time": "21:37",
+    "summary": "Add the iPhone app's Expenses tab: app descriptions, screenshot and an architecture view",
+    "details": "The iPhone app gained an Expenses tab that scans receipts and reads them on the phone with Apple Intelligence, falling back to a rule-based parser, with monthly and category charts. The home page card and the Polaris project page now mention it. The project page has a new section on how Apple Intelligence is used, a screenshot of the tab with demo data, and an Expenses view in the system design with a diagram of the flow. The screenshot row is now four wide, or two by two on a phone. The expense data stays on the phone and is not published anywhere on this site.",
+    "files": [
+      "assets/css/project.css",
+      "images/app-expenses-400.webp",
+      "images/app-expenses-800.webp",
+      "index.html",
+      "polaris-log.json",
+      "polaris-project.html"
+    ]
   }
 ]

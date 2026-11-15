@@ -129,19 +129,24 @@
 				<section class="proj-section" aria-labelledby="s-app" data-reveal>
 					<p class="eyebrow">04 &middot; The phone app</p>
 					<h2 id="s-app">There&rsquo;s an app for it</h2>
-					<p>Polaris has an iPhone app, <strong>DevRobotics</strong>, so I can run it from my pocket. It&rsquo;s written in SwiftUI for iOS 26 and talks to the Pi over the same private Tailscale network, with its token kept in the iOS Keychain. None of Polaris&rsquo;s controls are reachable from the public internet.</p>
+					<p>Polaris has an iPhone app, <strong>DevRobotics</strong>, so I can run it from my pocket. It&rsquo;s written in SwiftUI for iOS 26 and talks to the Pi over the same private Tailscale network, with its token kept in the iOS Keychain. An Expenses tab scans receipts and reads them on the phone, with charts by month and category; that data stays on the phone and never reaches the Pi or this site. None of Polaris&rsquo;s controls are reachable from the public internet.</p>
 					<div class="app-shots">
 						<figure><img src="images/app-status-400.webp" srcset="images/app-status-400.webp 400w, images/app-status-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The Status tab of the DevRobotics app: CPU temperature, load, memory and disk tiles, and the fan control card" /><figcaption>Status and fan control</figcaption></figure>
 						<figure><img src="images/app-lights-400.webp" srcset="images/app-lights-400.webp 400w, images/app-lights-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The Lights tab of the app: a status card, a power toggle, a brightness slider and warm and cool presets" /><figcaption>Lights</figcaption></figure>
 						<figure><img src="images/app-frames-400.webp" srcset="images/app-frames-400.webp 400w, images/app-frames-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The story editor in the app, with a cover, text blocks and photo blocks" /><figcaption>Frames editor</figcaption></figure>
+						<figure><img src="images/app-expenses-400.webp" srcset="images/app-expenses-400.webp 400w, images/app-expenses-800.webp 800w" sizes="(min-width: 900px) 220px, 30vw" width="400" height="870" loading="lazy" alt="The Expenses tab of the app: a monthly total, a bar chart of the last six months and a category breakdown, using demo data" /><figcaption>Expenses</figcaption></figure>
 					</div>
 					<p class="app-note">Screenshots use demo data.</p>
 					<ul>
 						<li><strong>Status.</strong> CPU temperature history, load, memory, disk and services, plus <strong>fan control</strong>: automatic, a manual speed, or Max. Every override expires on its own, and a timer owned by root on the Pi returns the fan to automatic even if the phone disconnects.</li>
 						<li><strong>Lights.</strong> The real state of both lamps, a power toggle, brightness, colour temperature and colour, a sleep timer.</li>
 						<li><strong>Frames.</strong> The photography section of this site. I write photos and stories offline, preview the exact page before it exists, review every change, listed, and publish. The Pi builds the media and pushes the site.</li>
+						<li><strong>Expenses.</strong> I scan a receipt and the phone reads it: merchant, date, total, tax and line items, which I can correct before saving. Charts show spending by month and by category. Everything stays on the phone.</li>
 						<li><strong>Staying installed.</strong> A free Apple ID expires an app after seven days, so a small agent on my Mac reinstalls it whenever I plug the phone in.</li>
 					</ul>
+					<h3>Expenses, read by Apple Intelligence</h3>
+					<p>The Expenses tab turns a photo of a receipt into a saved expense without the receipt ever leaving the phone. Apple&rsquo;s document scanner captures it, the phone reads the text, and then <strong>Apple Intelligence</strong> does the part that used to need a cloud service: Apple&rsquo;s on-device language model reads that text and fills in the merchant, date, total, tax, line items and a suggested category. It runs entirely on the iPhone, so there is no API key, no per-use cost and nothing to send to a server.</p>
+					<p>A model can be wrong, so it never saves on its own. I get a review screen with the receipt beside the parsed fields, anything uncertain is highlighted, and I can fix a price or add a line it missed. If Apple Intelligence isn&rsquo;t available, or its answer fails a sanity check, a plain rule-based parser takes over. The data stays on the phone, and the charts by month and by category are computed there too. The <em>Expenses</em> view in the system design below shows how the pieces connect.</p>
 					<h3>Design choices</h3>
 					<ul>
 						<li><strong>The preview is the real page.</strong> The Pi renders an unsent draft with the same template and styles as the live site, so what I review is what ships.</li>
@@ -158,6 +163,7 @@
 					<div class="sd-tabs" role="tablist" aria-label="System design views">
 						<button class="sd-tab" role="tab" id="sd-tab-arch" aria-controls="sd-arch" aria-selected="true" type="button">Architecture</button>
 						<button class="sd-tab" role="tab" id="sd-tab-publish" aria-controls="sd-publish" aria-selected="false" tabindex="-1" type="button">Publishing</button>
+						<button class="sd-tab" role="tab" id="sd-tab-expenses" aria-controls="sd-expenses" aria-selected="false" tabindex="-1" type="button">Expenses</button>
 						<button class="sd-tab" role="tab" id="sd-tab-fan" aria-controls="sd-fan" aria-selected="false" tabindex="-1" type="button">Fan safety</button>
 						<button class="sd-tab" role="tab" id="sd-tab-install" aria-controls="sd-install" aria-selected="false" tabindex="-1" type="button">Staying installed</button>
 						<button class="sd-tab" role="tab" id="sd-tab-health" aria-controls="sd-health" aria-selected="false" tabindex="-1" type="button">Health</button>
@@ -188,7 +194,7 @@
 										<text x="684" y="212" class="dg-sub" text-anchor="middle">media</text>
 										<text x="684" y="342" class="dg-sub" text-anchor="middle">commands</text>
 
-										<g class="sd-node" data-id="phone" data-rel="pi mac" tabindex="0" role="button" aria-label="iPhone app" data-detail="The iPhone app: status and fan control, lights, and an offline-first editor for the Frames photography section. Its access token is kept in the iOS Keychain.">
+										<g class="sd-node" data-id="phone" data-rel="pi mac" tabindex="0" role="button" aria-label="iPhone app" data-detail="The iPhone app: status and fan control, lights, an offline-first editor for the Frames photography section, and an expense tracker that reads receipts on the phone. Its access token is kept in the iOS Keychain.">
 											<rect x="48" y="84" width="210" height="96" rx="14"/>
 											<text x="153" y="126" class="dg-strong">iPhone app</text>
 											<text x="153" y="150" class="dg-sub">SwiftUI &middot; iOS 26</text>
@@ -248,7 +254,7 @@
 								<div class="sd-stack">
 									<div class="sd-group">
 										<p class="eyebrow">Private network</p>
-										<div class="sd-mini"><strong>iPhone app</strong><span>SwiftUI &middot; iOS 26. Status, lights, Frames editor.</span></div>
+										<div class="sd-mini"><strong>iPhone app</strong><span>SwiftUI &middot; iOS 26. Status, lights, Frames editor, expenses.</span></div>
 										<p class="sd-arrow" aria-hidden="true">&darr; app API, token required</p>
 										<div class="sd-mini sd-mini--core"><strong>Polaris</strong><span>Raspberry Pi 5, small services</span>
 											<ul class="cluster" role="list"><li class="tag">App API</li><li class="tag">Lights API</li><li class="tag">Frames pipeline</li><li class="tag">Fan helper</li></ul>
@@ -297,6 +303,31 @@
 									<li><strong>Problems are caught early.</strong> A missing date or a missing file is flagged in plain English on the block it belongs to, with a one-tap fix.</li>
 									<li><strong>Publishing covers the whole inbox</strong>, because the site grid is rebuilt from the whole inbox. That is why the review step lists every change first.</li>
 									<li><strong>Media goes up before the commit</strong>, so a page never points at a file that isn&rsquo;t there. If anything fails, the working copy is restored.</li>
+								</ul>
+							</details>
+						</div>
+
+						<!-- Expenses -->
+						<div class="sd-panel" role="tabpanel" id="sd-expenses" aria-labelledby="sd-tab-expenses" hidden>
+							<h3 class="sd-panel__title">Expenses</h3>
+							<p class="sd-summary">A photo of a receipt becomes a saved, charted expense. Apple Intelligence reads it, and all of it happens on the phone.</p>
+							<ol class="sd-steps">
+								<li class="sd-step"><span class="sd-step__n">1</span><strong>Scan</strong><span>Apple&rsquo;s document scanner, or a photo from the library.</span></li>
+								<li class="sd-step"><span class="sd-step__n">2</span><strong>Read text</strong><span>The phone recognises the text on every page.</span></li>
+								<li class="sd-step"><span class="sd-step__n">3</span><strong>Understand</strong><span>Apple Intelligence fills in the merchant, date, total, tax and items.</span></li>
+								<li class="sd-step"><span class="sd-step__n">4</span><strong>Review</strong><span>I check the highlighted fields and fix anything it got wrong.</span></li>
+								<li class="sd-step"><span class="sd-step__n">5</span><strong>Save</strong><span>JSON files on the phone, then charts by month and category.</span></li>
+							</ol>
+							<figure class="diagram sd-flow"><div class="sd-scroll"><svg viewBox="0 0 960 404" role="group" aria-label="Expenses flow, all on the iPhone: scan the receipt, read its text, understand it with Apple Intelligence or a rule-based fallback, review and correct it, save it locally, then chart it."><defs><marker id="d-exp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sq-head"/></marker></defs><rect class="sd-zone" x="16" y="16" width="928" height="372" rx="20"/><text class="sd-zone-label" x="40" y="46">ON THE IPHONE &middot; NOTHING LEAVES THE PHONE</text><g class="dg-line"><path class="sd-line" data-ends="x1 x2" d="M180 126 L220 126" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x2 x3" d="M360 126 L400 126" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x3 x4" d="M540 126 L580 126" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x4 x5" d="M720 126 L760 126" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x5 x7" d="M830 162 L830 256" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x2 x6" d="M290 162 L290 292 L400 292" marker-end="url(#d-exp)"/><path class="sd-line" data-ends="x6 x4" d="M540 292 L650 292 L650 162" marker-end="url(#d-exp)"/></g><text x="470" y="352" class="dg-sub" text-anchor="middle">only if Apple Intelligence is unavailable</text><g class="sd-node" data-id="x1" data-rel="x2" tabindex="0" role="button" aria-label="1. Scan" data-detail="Scan: Apple&#39;s document scanner finds the receipt&#39;s edges, flattens it and can capture a long receipt as several pages. A photo from the library goes through the same steps."><rect x="40" y="90" width="140" height="72" rx="14"/><text x="110" y="124" class="dg-strong">1  Scan</text><text x="110" y="144" class="dg-sub">document camera</text></g><g class="sd-node" data-id="x2" data-rel="x1 x3 x6" tabindex="0" role="button" aria-label="2. Read text" data-detail="Read text: the Vision framework recognises the text on every page, on the phone. The pages are joined into one block of text."><rect x="220" y="90" width="140" height="72" rx="14"/><text x="290" y="124" class="dg-strong">2  Read text</text><text x="290" y="144" class="dg-sub">Vision OCR</text></g><g class="sd-node" data-id="x3" data-rel="x2 x4" tabindex="0" role="button" aria-label="3. Understand with Apple Intelligence" data-detail="Understand: Apple&#39;s on-device language model, the Foundation Models framework behind Apple Intelligence, turns the text into a typed result: merchant, date, total, tax, line items and a suggested category. It runs on the phone, so the receipt never goes to a server, and there is no API key or per-use cost."><rect x="400" y="90" width="140" height="72" rx="14"/><text x="470" y="124" class="dg-strong">3  Understand</text><text x="470" y="144" class="dg-sub">Apple Intelligence</text></g><g class="sd-node" data-id="x4" data-rel="x3 x5 x6" tabindex="0" role="button" aria-label="4. Review" data-detail="Review: the receipt image sits beside the parsed fields. Anything the parser wasn&#39;t sure about is highlighted. I can fix a field, edit a price or add a line it missed, and a possible duplicate is flagged before saving."><rect x="580" y="90" width="140" height="72" rx="14"/><text x="650" y="124" class="dg-strong">4  Review</text><text x="650" y="144" class="dg-sub">I check it</text></g><g class="sd-node" data-id="x5" data-rel="x4 x7" tabindex="0" role="button" aria-label="5. Save" data-detail="Save: expenses are stored as JSON files in the app&#39;s own folder on the phone, with a compressed copy of the receipt image if I keep images. Nothing is sent to the Pi or to this site. A one-tap backup writes a single zip file."><rect x="760" y="90" width="140" height="72" rx="14"/><text x="830" y="124" class="dg-strong">5  Save</text><text x="830" y="144" class="dg-sub">local JSON files</text></g><g class="sd-node" data-id="x6" data-rel="x2 x4" tabindex="0" role="button" aria-label="Fallback parser" data-detail="Fallback: if Apple Intelligence isn&#39;t available, or its answer fails a basic check such as a zero total or a date years away, a plain rule-based parser finds the total, date and merchant. Anything it guessed is highlighted for review. Very long receipts keep only the receipt-level fields."><rect x="400" y="256" width="140" height="72" rx="14"/><text x="470" y="290" class="dg-strong">Fallback</text><text x="470" y="310" class="dg-sub">rule-based parser</text></g><g class="sd-node" data-id="x7" data-rel="x5" tabindex="0" role="button" aria-label="Charts" data-detail="Charts: monthly totals, a category breakdown, a trend by category and the top merchants, all computed on the phone from the saved expenses."><rect x="760" y="256" width="140" height="72" rx="14"/><text x="830" y="290" class="dg-strong">Charts</text><text x="830" y="310" class="dg-sub">month and category</text></g></svg></div><figcaption class="sd-detail">Everything here runs on the iPhone. Hover or focus a step to see what happens there.</figcaption></figure>
+							<details class="sd-more" open>
+								<summary>How it works</summary>
+								<ul>
+									<li><strong>The model runs on the phone.</strong> Apple Intelligence&rsquo;s on-device model reads the text, so a receipt is never sent to a server and there is no API key or per-use cost. It needs an iPhone that supports Apple Intelligence.</li>
+									<li><strong>The answer is a typed result, not free text.</strong> The model fills in a fixed set of fields, so the app never has to guess at a sentence. The total is checked, and a zero total or a date years away counts as a failure.</li>
+									<li><strong>There is always a fallback.</strong> If the model isn&rsquo;t available or fails a check, a plain rule-based parser finds the total, date and merchant. Fields either parser guessed are highlighted on the review screen.</li>
+									<li><strong>Nothing saves on its own.</strong> I confirm every receipt, and I can edit prices and add lines the scan missed. A possible duplicate is flagged first.</li>
+									<li><strong>Money is exact.</strong> Amounts are stored as decimals, not floating point, and a receipt counts toward the month of its own date.</li>
+									<li><strong>The data stays here.</strong> Expenses live in the app&rsquo;s own folder, never on the Pi or this site. A one-tap backup writes a single zip I can keep in Files.</li>
 								</ul>
 							</details>
 						</div>
@@ -372,7 +403,7 @@
 							<h3 class="sd-panel__title">Components</h3>
 							<p class="sd-summary">Six small parts, each doing one job.</p>
 							<div class="sd-cards">
-								<article class="sd-card"><h4>iPhone app</h4><p>Status, lights, the Frames editor and an About screen with the signing countdown.</p><ul class="cluster" role="list"><li class="tag">SwiftUI</li><li class="tag">iOS 26</li><li class="tag">SwiftPM</li></ul></article>
+								<article class="sd-card"><h4>iPhone app</h4><p>Status, lights, the Frames editor, a receipt-scanning expense tracker and an About screen with the signing countdown.</p><ul class="cluster" role="list"><li class="tag">SwiftUI</li><li class="tag">iOS 26</li><li class="tag">SwiftPM</li></ul></article>
 								<article class="sd-card"><h4>App API</h4><p>Status, the Frames inbox, previews, uploads, clip previews and fan control.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">Flask</li><li class="tag">systemd</li></ul></article>
 								<article class="sd-card"><h4>Lights API</h4><p>Two floor lamps through Govee&rsquo;s cloud: state, colour and a sleep timer.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">Flask</li></ul></article>
 								<article class="sd-card"><h4>Fan helper</h4><p>The only code that touches the fan, with its own limits and a revert timer.</p><ul class="cluster" role="list"><li class="tag">Python</li><li class="tag">sudo rule</li><li class="tag">systemd timer</li></ul></article>
